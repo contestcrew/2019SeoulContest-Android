@@ -1,2 +1,2 @@
 # 2019SeoulContest-Android
-this project is first citizen app for android
+This project is first citizen app for android
