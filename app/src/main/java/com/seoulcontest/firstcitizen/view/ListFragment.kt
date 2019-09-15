@@ -11,7 +11,6 @@ import com.seoulcontest.firstcitizen.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -20,7 +19,6 @@ class ListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val binding : FragmentListBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_list,container,false)
-
         return binding.root
     }
 
