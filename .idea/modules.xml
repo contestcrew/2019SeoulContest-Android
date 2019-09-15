@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/2019SeoulContest-Android-FirstCitizen.iml" filepath="$PROJECT_DIR$/2019SeoulContest-Android-FirstCitizen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/2019SeoulContest-Android-app.iml" filepath="$PROJECT_DIR$/app/2019SeoulContest-Android-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/2019SeoulContest-FirstCitizen.iml" filepath="$PROJECT_DIR$/2019SeoulContest-FirstCitizen.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/2019SeoulContest-app.iml" filepath="$PROJECT_DIR$/app/2019SeoulContest-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/FirstCitizen.iml" filepath="$PROJECT_DIR$/FirstCitizen.iml" />
