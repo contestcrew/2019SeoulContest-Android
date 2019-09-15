@@ -11,7 +11,6 @@ import com.seoulcontest.firstcitizen.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
