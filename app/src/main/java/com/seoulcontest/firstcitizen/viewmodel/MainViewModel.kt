@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.ViewModel
+package com.seoulcontest.firstcitizen.viewmodel
 
 import androidx.lifecycle.ViewModel
 
