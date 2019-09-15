@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.view
+package com.seoulcontest.firstcitizen.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.seoulcontest.firstcitizen.R
-import com.seoulcontest.firstcitizen.databinding.FragmentListBinding
+import com.seoulcontest.firstcitizen.databinding.FragmentInformationBinding
 
-class ListFragment : Fragment() {
+class InfoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +18,8 @@ class ListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding : FragmentListBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_list,container,false)
+        val binding : FragmentInformationBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_information,container,false)
+
         return binding.root
     }
 
