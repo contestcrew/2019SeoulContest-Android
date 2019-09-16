@@ -18,15 +18,11 @@ class CategoryDialog(private val mContext: Context) : DialogFragment() {
     lateinit var category: DialogCategoryBinding
     private val categoryArray: Array<String> = arrayOf("긴급 똥 휴지", "분실", "접촉 사고", "뺑소니")
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
 
-        // 2019.09.15 카테고리 다이얼로그 관련 로직 추가 by Hudson
-        category = DataBindingUtil.inflate(inflater, R.layout.dialog_category, container, false)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
+        // 2019.09.16 다이얼로그 바깥쪽 클릭 무시 by Hudson
         dialog.setCanceledOnTouchOutside(false)
 
         // 2019.09.15 adapter 세팅 by Hudson
@@ -45,8 +41,17 @@ class CategoryDialog(private val mContext: Context) : DialogFragment() {
         category.btnCancelrequest.setOnClickListener {
             dismiss()
         }
+    }
 
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        // 2019.09.15 카테고리 다이얼로그 관련 로직 추가 by Hudson
+        category = DataBindingUtil.inflate(inflater, R.layout.dialog_category, container, false)
         return category.root
     }
 
