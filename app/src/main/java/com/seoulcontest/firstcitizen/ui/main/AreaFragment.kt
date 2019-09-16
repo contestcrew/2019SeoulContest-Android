@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.view
+package com.seoulcontest.firstcitizen.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentMapBinding
 
-class MapFragment : Fragment() {
+class AreaFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
