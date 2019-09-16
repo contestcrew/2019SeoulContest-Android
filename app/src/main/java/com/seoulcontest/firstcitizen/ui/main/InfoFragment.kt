@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.seoulcontest.firstcitizen.R
-import com.seoulcontest.firstcitizen.databinding.FragmentInformationBinding
+import com.seoulcontest.firstcitizen.databinding.FragmentInfoBinding
 
 class InfoFragment : Fragment() {
 
@@ -18,7 +18,7 @@ class InfoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding : FragmentInformationBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_information,container,false)
+        val binding : FragmentInfoBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_info,container,false)
 
         return binding.root
     }

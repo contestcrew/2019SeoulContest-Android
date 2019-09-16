@@ -11,11 +11,11 @@ import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.util.FusedLocationSource
 import com.seoulcontest.firstcitizen.R
-import com.seoulcontest.firstcitizen.databinding.FragmentMapBinding
+import com.seoulcontest.firstcitizen.databinding.FragmentAreaBinding
 
 class AreaFragment : Fragment() {
 
-    private lateinit var binding: FragmentMapBinding
+    private lateinit var binding: FragmentAreaBinding
     private lateinit var fusedLocationSource: FusedLocationSource
 
     override fun onCreateView(
@@ -24,7 +24,7 @@ class AreaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_area, container, false)
 
         return binding.root
     }
