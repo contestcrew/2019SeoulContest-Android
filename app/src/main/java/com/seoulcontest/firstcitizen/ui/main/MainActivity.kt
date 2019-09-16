@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         // 2019.09.12 Main View 및 DataBinding by Hudson
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        initNaverMap()
+        initNaverMapSetting()
         initView()
         initEvent()
 
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         currFragment = newFragment
     }
 
-    private fun initNaverMap() {
+    private fun initNaverMapSetting() {
         NaverMapSdk.getInstance(this).client =
             NaverMapSdk.NaverCloudPlatformClient("9usgnvn86f")
     }
