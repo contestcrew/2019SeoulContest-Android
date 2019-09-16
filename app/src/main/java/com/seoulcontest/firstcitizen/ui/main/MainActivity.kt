@@ -1,72 +1,106 @@
 package com.seoulcontest.firstcitizen.ui.main
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.naver.maps.map.NaverMapSdk
 import com.seoulcontest.firstcitizen.R
-import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 import com.seoulcontest.firstcitizen.databinding.ActivityMainBinding
+import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
 
-    lateinit var fragment: Fragment
-    lateinit var mainBinding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
+    private var isMap = true
+    private var isMapOrListVisible = true
+
+    private val pointFragment = PointFragment()
+    private val areaFragment = AreaFragment()
+    private val listFragment = ListFragment()
+    private val infoFragment = InfoFragment()
+    private lateinit var currFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // setContentView(R.layout.activity_main)
+
         // 2019.09.12 Main View 및 DataBinding by Hudson
-        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        // view 초기화
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        initNaverMapSetting()
         initView()
-        
+        initEvent()
+
         val mainModel = MainViewModel("Test Text")
-        mainBinding.main = mainModel
+        binding.main = mainModel
+    }
+
+    private fun initView() {
+        initFragment()
 
     }
 
+    private fun initFragment() {
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.container, pointFragment)
+            .add(R.id.container, areaFragment)
+            .add(R.id.container, listFragment)
+            .add(R.id.container, infoFragment)
+            .hide(pointFragment)
+            .hide(listFragment)
+            .hide(infoFragment)
+            .show(areaFragment)
+            .commit()
 
-    override fun onClick(v: View?) {
+        currFragment = areaFragment
+    }
 
-        var mainCounter: Int = 0
+    private fun initEvent() {
+        with(binding) {
+            fabPoint.setOnClickListener {
+                replaceFragment(pointFragment)
+                isMapOrListVisible = false
+            }
 
-        when (v!!.id) {
+            fabMain.setOnClickListener {
+                if (isMapOrListVisible) {
+                    if (isMap)
+                        replaceFragment(listFragment)
+                    else
+                        replaceFragment(areaFragment)
 
-            mainBinding.fabPoint.id -> Toast.makeText(
-                this,
-                "Point Clicked",
-                Toast.LENGTH_SHORT
-            ).show()
+                    isMap = !isMap
+                } else {
+                    if (isMap)
+                        replaceFragment(areaFragment)
+                    else
+                        replaceFragment(listFragment)
 
-            mainBinding.fabInformation.id -> Toast.makeText(
-                this,
-                "Information Clicked",
-                Toast.LENGTH_SHORT
-            ).show()
+                    isMapOrListVisible = true
+                }
+            }
 
-            mainBinding.fabMain.id -> Toast.makeText(
-                this,
-                "Main Clicked",
-                Toast.LENGTH_SHORT
-            ).show()
-
+            fabInformation.setOnClickListener {
+                replaceFragment(infoFragment)
+                isMapOrListVisible = false
+            }
         }
-
-
     }
 
+    private fun replaceFragment(newFragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .hide(currFragment)
+            .show(newFragment)
+            .addToBackStack(null)
+            .commit()
 
-    fun initView(): Unit {
-
-        mainBinding.fabPoint.setOnClickListener(this)
-        mainBinding.fabInformation.setOnClickListener(this)
-        mainBinding.fabMain.setOnClickListener(this)
-
+        currFragment = newFragment
     }
 
-
+    private fun initNaverMapSetting() {
+        NaverMapSdk.getInstance(this).client =
+            NaverMapSdk.NaverCloudPlatformClient("9usgnvn86f")
+    }
 }
