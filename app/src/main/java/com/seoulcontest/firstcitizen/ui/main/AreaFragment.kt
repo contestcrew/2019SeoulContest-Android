@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
+import com.naver.maps.map.util.FusedLocationSource
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentMapBinding
 
 class AreaFragment : Fragment() {
 
-    lateinit var binding: FragmentMapBinding
+    private lateinit var binding: FragmentMapBinding
+    private lateinit var fusedLocationSource: FusedLocationSource
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +32,25 @@ class AreaFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        initView()
         initMap()
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (fusedLocationSource.onRequestPermissionsResult(requestCode, permissions, grantResults))
+            return
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun initView() {
+        initMap()
+        fusedLocationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
     }
 
     private fun initMap() {
@@ -46,6 +66,7 @@ class AreaFragment : Fragment() {
                 mapType = NaverMap.MapType.Basic
                 isIndoorEnabled = true
                 locationTrackingMode = LocationTrackingMode.Face
+                locationSource = fusedLocationSource
 
                 with(uiSettings) {
                     isZoomControlEnabled = false
@@ -56,6 +77,10 @@ class AreaFragment : Fragment() {
                 binding.btLocation.map = it
             }
         }
+    }
+
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
     }
 
 }
