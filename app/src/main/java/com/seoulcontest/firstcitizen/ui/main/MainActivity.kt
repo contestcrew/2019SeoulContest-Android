@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.view
+package com.seoulcontest.firstcitizen.ui.main
 
 import android.os.Bundle
 import android.view.View
@@ -23,11 +23,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         // view 초기화
         initView()
-
-
+        
         val mainModel = MainViewModel("Test Text")
         mainBinding.main = mainModel
-
 
     }
 
