@@ -1,6 +1,7 @@
 package com.seoulcontest.firstcitizen.ui.main
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.DialogCategoryBinding
+import com.seoulcontest.firstcitizen.ui.upload.UploadActivity
 
 class CategoryDialog(private val mContext: Context) : DialogFragment() {
 
@@ -30,11 +32,12 @@ class CategoryDialog(private val mContext: Context) : DialogFragment() {
         category.lvCategory.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, postion, id ->
 
-                Toast.makeText(
-                    mContext,
-                    "${categoryArray.get(postion)} 을/를 클릭하셨습니다.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                // 2019.09.16 Category 선택 후 UploadActivity로 이동 by Hudosn
+                val uploadIntent = Intent(mContext,UploadActivity::class.java)
+
+                uploadIntent.putExtra("category",categoryArray.get(postion))
+                startActivity(uploadIntent)
+                dismiss()
             }
 
         // 2019.09.15 취소 버튼 클릭 시 CategoryDialog 종료 by Hudson
