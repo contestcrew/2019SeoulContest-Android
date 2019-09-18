@@ -6,4 +6,13 @@
     <color name="floatingBackground">#ffffff</color>
     <color name="boldTextColor">#000000</color>
     <color name="dividerColor">#000000</color>
+    <color name="mapTextColor">#000000</color>
+    <color name="requestColor">#0d47a1</color>
+    <color name="cardViewBoarder">#bdbdbd</color>
+    <color name="switchPublicOnColor">#76ff03</color>
+    <color name="switchPublicOffColor">#ffffff</color>
+    <color name="switchPublicTrackColor">#bdbdbd</color>
+    <color name="logoutColor">#b71c1c</color>
+    <color name="pointColor">#b71c1c</color>
+    <color name="reliabilityColor">#0d47a1</color>
 </resources>

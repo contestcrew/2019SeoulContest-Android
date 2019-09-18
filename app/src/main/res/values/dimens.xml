@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="info_layout_margin_top">24sp</dimen>
+    <dimen name="info_layout_margin_bottom">24sp</dimen>
+    <dimen name="info_content_size">16sp</dimen>
+    <dimen name="info_content_margin_top">6sp</dimen>
+    <dimen name="item_margin">6sp</dimen>
+    <dimen name="activity_upload_title_size">16sp</dimen>
+    <dimen name="activity_upload_category_size">24sp</dimen>
+    <dimen name="activity_side_margin">16sp</dimen>
+    <dimen name="activity_content_size">16sp</dimen>
+    <dimen name="upload_layout_margin_top">10sp</dimen>
+    <dimen name="card_view_border_radius">16sp</dimen>
+    <dimen name="card_view_padding">6sp</dimen>
+    <dimen name="switch_border_radius">15sp</dimen>
+    <dimen name="switch_width">20sp</dimen>
+    <dimen name="switch_height">15sp</dimen>
+</resources>
