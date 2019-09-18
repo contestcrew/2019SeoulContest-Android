@@ -28,6 +28,8 @@ class InfoRequestAdapter(
         val inflater: LayoutInflater = LayoutInflater.from(context)
         binding = ItemRequestBinding.inflate(inflater, parent, false)
         return RequestHolder(binding)
+
+        
     }
 
     override fun getItemCount(): Int = requestList.size
