@@ -14,9 +14,9 @@ import com.seoulcontest.firstcitizen.databinding.FragmentInfoBinding
 
 class InfoFragment : Fragment() {
 
-    private lateinit var mContext : Context
-    private lateinit var binding : FragmentInfoBinding
-    private var categoryArray : ArrayList<Category> = ArrayList()
+    private lateinit var mContext: Context
+    private lateinit var binding: FragmentInfoBinding
+    private var categoryArray: ArrayList<Category> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +30,11 @@ class InfoFragment : Fragment() {
         // View Binding
         val rv_request = binding.rvRequest
 
+        // 2019.09.19 버튼 뷰 타입 적용 by Hudson
+        categoryArray.add(Category(""))
+
+        // todo : for문으로 전환할 것
         // 가 데이터 적용
-        categoryArray.add(Category("crash"))
         categoryArray.add(Category("crash"))
         categoryArray.add(Category("missing"))
         categoryArray.add(Category("restroom"))
@@ -39,10 +42,10 @@ class InfoFragment : Fragment() {
 
 
         // 2019.09.18 rv_request 어댑터 적용 by Hudson
-        rv_request.adapter = InfoRequestAdapter(mContext,categoryArray)
+        rv_request.adapter = InfoRequestAdapter(mContext, categoryArray)
 
         // horizontal layout 적용
-        val layoutManager = LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false)
+        val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         rv_request.layoutManager = layoutManager
 
         rv_request.setHasFixedSize(true)
@@ -51,9 +54,12 @@ class InfoFragment : Fragment() {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_info,container,false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false)
         return binding.root
     }
-
 }
