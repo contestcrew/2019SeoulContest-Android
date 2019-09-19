@@ -21,4 +21,5 @@ class PointFragment : Fragment() {
 
         return binding.root
     }
+
 }

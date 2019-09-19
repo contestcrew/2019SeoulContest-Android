@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="main"
             type="com.seoulcontest.firstcitizen.viewmodel.MainViewModel" />
@@ -12,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.MainActivity"
-        android:background="#fff">
+        android:background="@drawable/transparent_gradation"
+        tools:context=".ui.main.MainActivity">
 
 
         <FrameLayout
@@ -21,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/fab_main"
+            app:layout_constraintBottom_toTopOf="@+id/civ_main"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,45 +31,34 @@
 
         </FrameLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_point"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="64dp"
-            android:backgroundTint="@color/floatingBackground"
-            android:src="@drawable/ic_point_on_gray_48dp"
-            app:borderWidth="0dp"
-            app:fabSize="mini"
-            app:layout_constraintBottom_toBottomOf="@+id/fab_main"
+            android:src="@drawable/tab_bar_point"
+            app:layout_constraintBottom_toBottomOf="@+id/civ_main"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/fab_main" />
+            app:layout_constraintTop_toTopOf="@+id/civ_main" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_main"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/floatingBackground"
-            android:src="@drawable/ic_list_gray_72dp"
-            app:borderWidth="0dp"
+            android:foreground="@drawable/ic_main_selector"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/fab_information"
-            app:layout_constraintStart_toEndOf="@+id/fab_point" />
+            app:layout_constraintEnd_toStartOf="@+id/civ_info"
+            app:layout_constraintStart_toEndOf="@+id/civ_point" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_information"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_info"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="64dp"
-            android:backgroundTint="@color/floatingBackground"
-            android:src="@drawable/ic_point_on_gray_48dp"
-            app:borderWidth="0dp"
-            app:fabSize="mini"
-            app:layout_constraintBottom_toBottomOf="@+id/fab_main"
+            android:src="@drawable/tab_bar_setting"
+            app:layout_constraintBottom_toBottomOf="@+id/civ_main"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/fab_main" />
+            app:layout_constraintTop_toTopOf="@+id/civ_main" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
