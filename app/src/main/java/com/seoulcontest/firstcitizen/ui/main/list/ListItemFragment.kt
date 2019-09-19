@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.ui.dialog
+package com.seoulcontest.firstcitizen.ui.main.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentCategoryBinding
 
-class CategoryFragment : Fragment() {
+class ListItemFragment : Fragment() {
 
     private var key = "KEY_CATEGORY"
     private lateinit var binding: FragmentCategoryBinding
@@ -33,7 +33,7 @@ class CategoryFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(category: String) = CategoryFragment().apply {
+        fun newInstance(category: String) = ListItemFragment().apply {
             arguments = Bundle().apply { putString(key, category) }
         }
     }

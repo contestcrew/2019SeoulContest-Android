@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    private var isCurrList = false
+    private var isCurrListFragment = false
     private var isMapOrListVisible = true
 
     private val pointFragment = PointFragment()
@@ -72,15 +72,15 @@ class MainActivity : AppCompatActivity() {
 
             civMain.setOnClickListener {
                 if (isMapOrListVisible) {
-                    if (isCurrList)
+                    if (isCurrListFragment)
                         replaceFragment(AREA_FRAGMENT_TAG)
                     else
                         replaceFragment(LIST_FRAGMENT_TAG)
 
-                    isCurrList = !isCurrList
-                    binding.civMain.isSelected = isCurrList
+                    isCurrListFragment = !isCurrListFragment
+                    binding.civMain.isSelected = isCurrListFragment
                 } else {
-                    if (isCurrList)
+                    if (isCurrListFragment)
                         replaceFragment(LIST_FRAGMENT_TAG)
                     else
                         replaceFragment(AREA_FRAGMENT_TAG)
