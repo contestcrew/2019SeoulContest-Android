@@ -1,6 +1,5 @@
 package com.seoulcontest.firstcitizen.ui.main
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -8,6 +7,10 @@ import androidx.fragment.app.Fragment
 import com.naver.maps.map.NaverMapSdk
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ActivityMainBinding
+import com.seoulcontest.firstcitizen.ui.main.area.AreaFragment
+import com.seoulcontest.firstcitizen.ui.main.info.InfoFragment
+import com.seoulcontest.firstcitizen.ui.main.list.ListFragment
+import com.seoulcontest.firstcitizen.ui.main.point.PointFragment
 import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -98,10 +101,14 @@ class MainActivity : AppCompatActivity() {
 
         if (newFragment == null) {
             when (newFragmentTag) {
-                POINT_FRAGMENT_TAG -> newFragment = PointFragment()
-                AREA_FRAGMENT_TAG -> newFragment = AreaFragment()
-                LIST_FRAGMENT_TAG -> newFragment = ListFragment()
-                INFO_FRAGMENT_TAG -> newFragment = InfoFragment()
+                POINT_FRAGMENT_TAG -> newFragment =
+                    PointFragment()
+                AREA_FRAGMENT_TAG -> newFragment =
+                    AreaFragment()
+                LIST_FRAGMENT_TAG -> newFragment =
+                    ListFragment()
+                INFO_FRAGMENT_TAG -> newFragment =
+                    InfoFragment()
             }
         }
 

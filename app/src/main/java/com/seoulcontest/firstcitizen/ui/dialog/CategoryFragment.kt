@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.ui.main
+package com.seoulcontest.firstcitizen.ui.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

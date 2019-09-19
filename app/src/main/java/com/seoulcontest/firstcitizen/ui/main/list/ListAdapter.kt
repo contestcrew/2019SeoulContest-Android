@@ -1,8 +1,9 @@
-package com.seoulcontest.firstcitizen.ui.main
+package com.seoulcontest.firstcitizen.ui.main.list
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.seoulcontest.firstcitizen.ui.dialog.CategoryFragment
 
 class ListAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 

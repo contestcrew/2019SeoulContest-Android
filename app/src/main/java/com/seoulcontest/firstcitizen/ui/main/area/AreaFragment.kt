@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.ui.main
+package com.seoulcontest.firstcitizen.ui.main.area
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +13,7 @@ import com.naver.maps.map.util.FusedLocationSource
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentAreaBinding
 import com.seoulcontest.firstcitizen.ui.detail.DetailActivity
+import com.seoulcontest.firstcitizen.ui.dialog.CategoryDialog
 import kotlin.String
 
 class AreaFragment : Fragment() {
@@ -55,7 +56,9 @@ class AreaFragment : Fragment() {
 
     private fun initView() {
         initMap()
-        fusedLocationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+        fusedLocationSource = FusedLocationSource(this,
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
     }
 
     private fun initEvent() {
@@ -72,7 +75,8 @@ class AreaFragment : Fragment() {
         }
 
         binding.btRequest.setOnClickListener {
-            val dialog = CategoryDialog(activity!!.applicationContext)
+            val dialog =
+                CategoryDialog(activity!!.applicationContext)
 
             dialog.show(activity!!.supportFragmentManager.beginTransaction(), "")
         }

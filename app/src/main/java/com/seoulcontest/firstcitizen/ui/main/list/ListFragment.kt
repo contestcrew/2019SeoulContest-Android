@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.ui.main
+package com.seoulcontest.firstcitizen.ui.main.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -34,7 +34,8 @@ class ListFragment : Fragment() {
 
     private fun initView(){
         //init viewPager
-        vpAdapter = ListAdapter(activity!!.supportFragmentManager)
+        vpAdapter =
+            ListAdapter(activity!!.supportFragmentManager)
 
         binding.viewPagerLists.adapter = vpAdapter
         binding.tabLayoutCatergory.setupWithViewPager(binding.viewPagerLists)
