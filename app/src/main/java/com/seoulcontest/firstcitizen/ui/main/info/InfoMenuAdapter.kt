@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.ui.main
+package com.seoulcontest.firstcitizen.ui.main.info
 
 import android.content.Context
 import android.content.Intent
@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.seoulcontest.firstcitizen.databinding.ItemInfoMenuBinding
-import com.seoulcontest.firstcitizen.ui.service.NoticeActivity
-import com.seoulcontest.firstcitizen.ui.service.ServiceTermsActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.InfoListActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.MyInfoActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.NoticeActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.ServiceTermsActivity
 
 class InfoMenuAdapter(
     private val mContext: Context,

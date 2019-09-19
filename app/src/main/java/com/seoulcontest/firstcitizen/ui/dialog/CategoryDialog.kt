@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.ui.main
+package com.seoulcontest.firstcitizen.ui.dialog
 
 import android.content.Context
 import android.content.Intent
@@ -27,7 +27,8 @@ class CategoryDialog(private val mContext: Context) : DialogFragment() {
         dialog.setCanceledOnTouchOutside(false)
 
         // 2019.09.15 adapter 세팅 by Hudson
-        category.lvCategory.adapter = CategoryAdapter(mContext, stringArray)
+        category.lvCategory.adapter =
+            CategoryAdapter(mContext, stringArray)
         category.lvCategory.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, postion, id ->
 

@@ -11,13 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.InfoListActivity"></activity>
-        <activity android:name=".ui.main.MyInfoActivity" />
+        <activity android:name=".ui.infomenu.InfoListActivity"></activity>
+        <activity android:name=".ui.infomenu.MyInfoActivity" />
         <activity
-            android:name=".ui.service.ServiceTermsActivity"
+            android:name=".ui.infomenu.ServiceTermsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.service.NoticeActivity"
+            android:name=".ui.infomenu.NoticeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.upload.UploadActivity"
@@ -30,6 +30,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.string.LAUNCHER" />
             </intent-filter>
         </activity>
