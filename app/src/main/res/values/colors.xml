@@ -15,4 +15,5 @@
     <color name="logoutColor">#b71c1c</color>
     <color name="pointColor">#b71c1c</color>
     <color name="reliabilityColor">#0d47a1</color>
+    <color name="activeCountColor">#ffffff</color>
 </resources>

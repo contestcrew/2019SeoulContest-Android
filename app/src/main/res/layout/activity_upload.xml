@@ -77,16 +77,13 @@
                 android:id="@+id/switch_public"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:checked="true"
                 android:switchMinWidth="@dimen/switch_width"
                 android:thumb="@drawable/switch_public_thumb"
                 android:track="@drawable/switch_public_track" />
 
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
@@ -111,7 +108,7 @@
                 android:layout_marginLeft="@dimen/activity_side_margin"
                 android:layout_marginTop="@dimen/upload_layout_margin_top"
                 android:layout_marginRight="@dimen/activity_side_margin"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:elevation="10dp"
                 android:foreground="@drawable/card_view_box"
                 app:cardCornerRadius="@dimen/card_view_border_radius">
@@ -149,7 +146,7 @@
                 android:layout_marginLeft="@dimen/activity_side_margin"
                 android:layout_marginTop="@dimen/upload_layout_margin_top"
                 android:layout_marginRight="@dimen/activity_side_margin"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:foreground="@drawable/card_view_box"
                 app:cardCornerRadius="@dimen/card_view_border_radius">
 
@@ -183,6 +180,7 @@
 
             <TextView
                 android:id="@+id/tv_address"
+                android:layout_marginTop="@dimen/activity_margin_top"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
