@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.ui.main
+package com.seoulcontest.firstcitizen.ui.infomenu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

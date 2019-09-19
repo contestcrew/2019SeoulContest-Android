@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <fragment
-            android:id="@+id/map"
-            android:name="com.naver.maps.map.MapFragment"
+        <FrameLayout
+            android:id="@+id/frame_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="4dp"
@@ -18,58 +16,96 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
-        </fragment>
+            <fragment
+                android:id="@+id/map_view"
+                android:name="com.naver.maps.map.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-        <com.naver.maps.map.widget.LocationButtonView
-            android:id="@+id/bt_location"
+            <ImageView
+                android:id="@+id/iv_transparent"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:scaleType="fitXY"
+
+                app:srcCompat="@drawable/transparent" />
+
+        </FrameLayout>
+
+        <com.naver.maps.map.widget.LogoView
+            android:id="@+id/view_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        </com.naver.maps.map.widget.LocationButtonView>
+        </com.naver.maps.map.widget.LogoView>
 
-        <ImageButton
-            android:id="@+id/ib_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/bt_location"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_map_current"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_location"
-            app:srcCompat="@mipmap/ic_launcher_round" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/bt_refresh"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_map_reset"
+            app:layout_constraintEnd_toEndOf="@+id/frame_layout"
+            app:layout_constraintTop_toBottomOf="@+id/bt_location" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/bt_request"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/ic_map_add"
+            app:layout_constraintBottom_toBottomOf="@+id/frame_layout"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview"
             android:layout_width="0dp"
-            android:layout_height="130dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:elevation="4dp"
-            app:cardCornerRadius="16dp"
             app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frame_layout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="18dp"
                     android:layout_marginEnd="8dp"
-                    android:text="title..."
-                    android:textSize="24sp"
+                    android:text="굳어가고 있어요 헬프미..."
+                    android:textColor="@color/boldTextColor"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/imageView"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,14 +115,14 @@
                     android:id="@+id/imageView"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_title"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_title"
+                    app:srcCompat="@drawable/restroom" />
 
                 <View
-                    android:id="@+id/view"
+                    android:id="@+id/divider01"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_gravity="center"
@@ -100,25 +136,26 @@
                     android:id="@+id/tv_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="date..."
+                    android:text="2019-8-14 목요일"
+                    android:textColor="#000"
                     app:layout_constraintEnd_toStartOf="@+id/tv_point"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_title"
+                    app:layout_constraintTop_toBottomOf="@+id/divider01" />
 
                 <TextView
                     android:id="@+id/tv_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
-                    android:text="content..."
+                    android:layout_marginBottom="18dp"
+                    android:text="굳어가고 있어요... 헬프미..."
+                    android:textColor="#000"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_status"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_date"
                     app:layout_constraintTop_toBottomOf="@+id/tv_date"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -126,26 +163,38 @@
                     android:id="@+id/tv_point"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="point..."
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view" />
+                    android:layout_marginEnd="4dp"
+                    android:text="Point"
+                    android:textColor="#00f"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_point_val"
+                    app:layout_constraintTop_toTopOf="@+id/tv_date" />
+
+                <TextView
+                    android:id="@+id/tv_point_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="150"
+                    android:textColor="#000"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_point"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@+id/tv_point" />
 
                 <TextView
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="status..."
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_point"
-                    app:layout_constraintVertical_bias="0.0" />
+                    android:text="도움요청중"
+                    android:textColor="#0f0"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_content"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@+id/tv_content" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

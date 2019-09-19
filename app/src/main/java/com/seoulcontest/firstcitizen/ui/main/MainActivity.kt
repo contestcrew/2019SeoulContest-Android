@@ -1,6 +1,5 @@
 package com.seoulcontest.firstcitizen.ui.main
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -8,13 +7,17 @@ import androidx.fragment.app.Fragment
 import com.naver.maps.map.NaverMapSdk
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ActivityMainBinding
+import com.seoulcontest.firstcitizen.ui.main.area.AreaFragment
+import com.seoulcontest.firstcitizen.ui.main.info.InfoFragment
+import com.seoulcontest.firstcitizen.ui.main.list.ListFragment
+import com.seoulcontest.firstcitizen.ui.main.point.PointFragment
 import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    private var isMap = true
+    private var isCurrListFragment = false
     private var isMapOrListVisible = true
 
     private val pointFragment = PointFragment()
@@ -47,10 +50,10 @@ class MainActivity : AppCompatActivity() {
     private fun initFragment() {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.container, pointFragment)
-            .add(R.id.container, areaFragment)
-            .add(R.id.container, listFragment)
-            .add(R.id.container, infoFragment)
+            .add(R.id.container, pointFragment, POINT_FRAGMENT_TAG)
+            .add(R.id.container, areaFragment, AREA_FRAGMENT_TAG)
+            .add(R.id.container, listFragment, LIST_FRAGMENT_TAG)
+            .add(R.id.container, infoFragment, INFO_FRAGMENT_TAG)
             .hide(pointFragment)
             .hide(listFragment)
             .hide(infoFragment)
@@ -62,37 +65,59 @@ class MainActivity : AppCompatActivity() {
 
     private fun initEvent() {
         with(binding) {
-            fabPoint.setOnClickListener {
-                replaceFragment(pointFragment)
+            civPoint.setOnClickListener {
+                replaceFragment(POINT_FRAGMENT_TAG)
                 isMapOrListVisible = false
             }
 
-            fabMain.setOnClickListener {
+            civMain.setOnClickListener {
                 if (isMapOrListVisible) {
-                    if (isMap)
-                        replaceFragment(listFragment)
+                    if (isCurrListFragment)
+                        replaceFragment(AREA_FRAGMENT_TAG)
                     else
-                        replaceFragment(areaFragment)
+                        replaceFragment(LIST_FRAGMENT_TAG)
 
-                    isMap = !isMap
+                    isCurrListFragment = !isCurrListFragment
+                    binding.civMain.isSelected = isCurrListFragment
                 } else {
-                    if (isMap)
-                        replaceFragment(areaFragment)
+                    if (isCurrListFragment)
+                        replaceFragment(LIST_FRAGMENT_TAG)
                     else
-                        replaceFragment(listFragment)
+                        replaceFragment(AREA_FRAGMENT_TAG)
 
                     isMapOrListVisible = true
                 }
             }
 
-            fabInformation.setOnClickListener {
-                replaceFragment(infoFragment)
+            civInfo.setOnClickListener {
+                replaceFragment(INFO_FRAGMENT_TAG)
                 isMapOrListVisible = false
             }
         }
     }
 
-    private fun replaceFragment(newFragment: Fragment) {
+    private fun findOrCreateViewFragment(newFragmentTag: String): Fragment {
+        var newFragment = supportFragmentManager.findFragmentByTag(newFragmentTag)
+
+        if (newFragment == null) {
+            when (newFragmentTag) {
+                POINT_FRAGMENT_TAG -> newFragment =
+                    PointFragment()
+                AREA_FRAGMENT_TAG -> newFragment =
+                    AreaFragment()
+                LIST_FRAGMENT_TAG -> newFragment =
+                    ListFragment()
+                INFO_FRAGMENT_TAG -> newFragment =
+                    InfoFragment()
+            }
+        }
+
+        return newFragment!!
+    }
+
+    private fun replaceFragment(newFragmentTag: String) {
+        val newFragment = findOrCreateViewFragment(newFragmentTag)
+
         supportFragmentManager.beginTransaction()
             .hide(currFragment)
             .show(newFragment)
@@ -105,5 +130,12 @@ class MainActivity : AppCompatActivity() {
     private fun initNaverMapSetting() {
         NaverMapSdk.getInstance(this).client =
             NaverMapSdk.NaverCloudPlatformClient("9usgnvn86f")
+    }
+
+    companion object {
+        const val POINT_FRAGMENT_TAG = "point"
+        const val AREA_FRAGMENT_TAG = "area"
+        const val LIST_FRAGMENT_TAG = "list"
+        const val INFO_FRAGMENT_TAG = "info"
     }
 }

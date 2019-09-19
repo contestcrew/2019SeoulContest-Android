@@ -1,37 +1,20 @@
 package com.seoulcontest.firstcitizen.ui.detail
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ActivityDetailBinding
-import com.seoulcontest.firstcitizen.ui.main.CategoryDialog
 
-class DetailActivity : AppCompatActivity(), View.OnClickListener {
+class DetailActivity : AppCompatActivity() {
 
-
-    lateinit var detail: ActivityDetailBinding
+    lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        detail = DataBindingUtil.setContentView(this, R.layout.activity_detail)
-
-        detail.btnRequestdialog.setOnClickListener(this)
-    }
-
-
-    override fun onClick(view: View?) {
-
-        // 2019.09.15 버튼 클릭 시 다이얼로그 띄우는 로직 추가 by Hudson
-        if (view!!.id == detail.btnRequestdialog.id) {
-
-            val dialog = CategoryDialog(applicationContext)
-
-            dialog.show(supportFragmentManager.beginTransaction(), "")
-
-        }
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
 
     }
+
 }
