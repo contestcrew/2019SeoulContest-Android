@@ -1,5 +1,6 @@
 package com.seoulcontest.firstcitizen.ui.main
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity() {
 
         // 2019.09.12 Main View 및 DataBinding by Hudson
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+
 
         initNaverMapSetting()
         initView()

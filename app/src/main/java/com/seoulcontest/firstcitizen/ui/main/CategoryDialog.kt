@@ -7,18 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.DialogCategoryBinding
 import com.seoulcontest.firstcitizen.ui.upload.UploadActivity
+import kotlin.String
 
 class CategoryDialog(private val mContext: Context) : DialogFragment() {
 
-
     lateinit var category: DialogCategoryBinding
-    private val categoryArray: Array<String> = arrayOf("긴급 똥 휴지", "분실", "접촉 사고", "뺑소니")
+    private val stringArray: Array<String> = arrayOf("긴급 똥 휴지", "분실", "접촉 사고", "뺑소니")
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -28,14 +27,14 @@ class CategoryDialog(private val mContext: Context) : DialogFragment() {
         dialog.setCanceledOnTouchOutside(false)
 
         // 2019.09.15 adapter 세팅 by Hudson
-        category.lvCategory.adapter = CategoryAdapter(mContext, categoryArray)
+        category.lvCategory.adapter = CategoryAdapter(mContext, stringArray)
         category.lvCategory.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, postion, id ->
 
-                // 2019.09.16 Category 선택 후 UploadActivity로 이동 by Hudosn
+                // 2019.09.16 String 선택 후 UploadActivity로 이동 by Hudosn
                 val uploadIntent = Intent(mContext,UploadActivity::class.java)
 
-                uploadIntent.putExtra("category",categoryArray.get(postion))
+                uploadIntent.putExtra("category",stringArray.get(postion))
                 startActivity(uploadIntent)
                 dismiss()
             }
