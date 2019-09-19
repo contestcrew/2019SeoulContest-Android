@@ -13,6 +13,7 @@ import com.naver.maps.map.util.FusedLocationSource
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentAreaBinding
 import com.seoulcontest.firstcitizen.ui.detail.DetailActivity
+import kotlin.String
 
 class AreaFragment : Fragment() {
 

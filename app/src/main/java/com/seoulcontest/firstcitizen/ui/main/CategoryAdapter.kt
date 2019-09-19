@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import androidx.databinding.DataBindingUtil
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ItemCategoryBinding
+import kotlin.String
 
 class CategoryAdapter(val mContext : Context, val arrayList : Array<String>)  : BaseAdapter() {
 
