@@ -24,7 +24,7 @@ class UploadActivity : AppCompatActivity(), View.OnClickListener {
 
    private fun initView(){
 
-       val category = intent.getStringExtra("category")
+       val category = intent.getStringExtra("binding")
         upload.tvCategory.text = category
        upload.btnRequest.setOnClickListener(this)
        upload.switchPublic.setOnClickListener(this)

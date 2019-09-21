@@ -11,8 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.infomenu.InfoListActivity"></activity>
-        <activity android:name=".ui.infomenu.MyInfoActivity" />
+        <activity android:name=".ui.help.HelpUploadActivity"></activity>
+        <activity
+            android:name=".ui.infomenu.InfoListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.infomenu.MyInfoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.infomenu.ServiceTermsActivity"
             android:screenOrientation="portrait" />
@@ -31,6 +36,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.string.LAUNCHER" />
             </intent-filter>
         </activity>

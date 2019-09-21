@@ -21,6 +21,7 @@ class InfoFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentInfoBinding
 
     private var infoMenuArray = arrayOf("의뢰", "제보", "공지사항", "이용약관", "내정보")
+    // 로그인/아웃 상태
     private var isLog: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {

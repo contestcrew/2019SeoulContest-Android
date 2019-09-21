@@ -16,7 +16,7 @@ import kotlin.String
 
 class CategoryDialog(private val mContext: Context) : DialogFragment() {
 
-    lateinit var category: DialogCategoryBinding
+    lateinit var binding: DialogCategoryBinding
     private val stringArray: Array<String> = arrayOf("긴급 똥 휴지", "분실", "접촉 사고", "뺑소니")
 
 
@@ -27,21 +27,20 @@ class CategoryDialog(private val mContext: Context) : DialogFragment() {
         dialog.setCanceledOnTouchOutside(false)
 
         // 2019.09.15 adapter 세팅 by Hudson
-        category.lvCategory.adapter =
-            CategoryAdapter(mContext, stringArray)
-        category.lvCategory.onItemClickListener =
+        binding.lvCategory.adapter = CategoryAdapter(mContext, stringArray)
+        binding.lvCategory.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, postion, id ->
 
                 // 2019.09.16 String 선택 후 UploadActivity로 이동 by Hudosn
                 val uploadIntent = Intent(mContext,UploadActivity::class.java)
 
-                uploadIntent.putExtra("category",stringArray.get(postion))
+                uploadIntent.putExtra("binding",stringArray.get(postion))
                 startActivity(uploadIntent)
                 dismiss()
             }
 
         // 2019.09.15 취소 버튼 클릭 시 CategoryDialog 종료 by Hudson
-        category.btnCancelrequest.setOnClickListener {
+        binding.btnCancelrequest.setOnClickListener {
             dismiss()
         }
     }
@@ -54,8 +53,8 @@ class CategoryDialog(private val mContext: Context) : DialogFragment() {
     ): View? {
 
         // 2019.09.15 카테고리 다이얼로그 관련 로직 추가 by Hudson
-        category = DataBindingUtil.inflate(inflater, R.layout.dialog_category, container, false)
-        return category.root
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_category, container, false)
+        return binding.root
     }
 
 }
