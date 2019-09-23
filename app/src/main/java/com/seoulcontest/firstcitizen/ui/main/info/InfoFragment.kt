@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentInfoBinding
-import com.seoulcontest.firstcitizen.data.Request
 
 class InfoFragment : Fragment(), View.OnClickListener {
 
@@ -35,13 +34,11 @@ class InfoFragment : Fragment(), View.OnClickListener {
         // 2019.09.19 View Binding by Hudson
         initView()
 
-        val totalCount = Request(10).totalCount
-
         // 2019.09.18 rv_request 어댑터 적용 by Hudson
         binding.rvRequest.adapter = InfoMenuAdapter(
             mContext,
             infoMenuArray,
-            totalCount
+            10
         )
 
         // horizontal layout 적용
