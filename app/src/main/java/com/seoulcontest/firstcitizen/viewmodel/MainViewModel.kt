@@ -32,9 +32,9 @@ class MainViewModel {
         //미구현
         val data = listOf(
             BriefRequest("똥휴지", 1, arrayOf(coordiX, coordiY), ""),
-            BriefRequest("뺑소니", 2, arrayOf(coordiX+0.001f, coordiY), ""),
-            BriefRequest("분실", 3, arrayOf(coordiX+0.002f, coordiY), ""),
-            BriefRequest("접촉사고", 4, arrayOf(coordiX+0.003f, coordiY), "")
+            BriefRequest("뺑소니", 2, arrayOf(coordiX + 0.001f, coordiY), ""),
+            BriefRequest("분실", 3, arrayOf(coordiX + 0.002f, coordiY), ""),
+            BriefRequest("접촉사고", 4, arrayOf(coordiX + 0.003f, coordiY), "")
         )
 
         requestList.set(data)

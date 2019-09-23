@@ -16,4 +16,9 @@
     <color name="pointColor">#b71c1c</color>
     <color name="reliabilityColor">#0d47a1</color>
     <color name="activeCountColor">#ffffff</color>
+    <color name="buttonTextColor">#ffffff</color>
+    <color name="textOptionalColor">#b71c1c</color>
+    <color name="textRequiredColor">#2e7d32</color>
+    <color name="plusButtonBackground">#64dd17</color>
+    <color name="plusButtonColor">#ffffff</color>
 </resources>

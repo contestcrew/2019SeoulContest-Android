@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentInfoBinding
+import com.seoulcontest.firstcitizen.data.User
 
 class InfoFragment : Fragment(), View.OnClickListener {
 
@@ -20,6 +21,7 @@ class InfoFragment : Fragment(), View.OnClickListener {
     private lateinit var binding: FragmentInfoBinding
 
     private var infoMenuArray = arrayOf("의뢰", "제보", "공지사항", "이용약관", "내정보")
+    // 로그인/아웃 상태
     private var isLog: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,11 +36,13 @@ class InfoFragment : Fragment(), View.OnClickListener {
         // 2019.09.19 View Binding by Hudson
         initView()
 
+        val totalCount = User(10).totalCount
+
         // 2019.09.18 rv_request 어댑터 적용 by Hudson
         binding.rvRequest.adapter = InfoMenuAdapter(
             mContext,
             infoMenuArray,
-            10
+            totalCount
         )
 
         // horizontal layout 적용

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <stroke
-        android:width="2sp"
-        android:color="@color/cardViewBoarder" />
-    <corners android:radius="@dimen/card_view_border_radius" />
-    <solid android:color="@android:color/transparent" />
-</shape>
+<layer-list>
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <stroke
+                android:width="2sp"
+                android:color="@color/cardViewBoarder" />
+            <corners android:radius="@dimen/card_view_border_radius" />
+            <shape>
+                <solid android:color="@android:color/transparent" />
+            </shape>
+        </shape>
+    </item>
+</layer-list>

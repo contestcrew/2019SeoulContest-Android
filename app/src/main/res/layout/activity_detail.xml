@@ -100,7 +100,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_title"
-                app:srcCompat="@drawable/restroom" />
+                app:srcCompat="@drawable/ic_restroom" />
 
             <View
                 android:id="@+id/divider01"
