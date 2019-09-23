@@ -1,6 +1,5 @@
 package com.seoulcontest.firstcitizen.ui.dialog
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -47,14 +46,7 @@ class HelpDialog : DialogFragment(), View.OnClickListener {
             binding.btnCancelHelp.id -> {
                 dismiss()
             }
-
-
         }
-
-    }
-
-    fun show() {
-
     }
 
     private fun initView() {
@@ -67,6 +59,4 @@ class HelpDialog : DialogFragment(), View.OnClickListener {
         binding.btnCancelHelp.setOnClickListener(this)
 
     }
-
-
 }
