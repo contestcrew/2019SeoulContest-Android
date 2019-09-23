@@ -10,9 +10,9 @@ import androidx.fragment.app.DialogFragment
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.DialogPostFilesBinding
 
-class PostFilesDialog(private val mContext : Context) : DialogFragment(), View.OnClickListener {
+class PostFilesDialog(private val mContext: Context) : DialogFragment(), View.OnClickListener {
 
-    lateinit var binding : DialogPostFilesBinding
+    lateinit var binding: DialogPostFilesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +29,7 @@ class PostFilesDialog(private val mContext : Context) : DialogFragment(), View.O
         initView()
     }
 
-    private fun initView(){
+    private fun initView() {
 
         binding.btnAddImages.setOnClickListener(this)
         binding.btnAddVideos.setOnClickListener(this)
@@ -41,7 +41,7 @@ class PostFilesDialog(private val mContext : Context) : DialogFragment(), View.O
 
     override fun onClick(view: View?) {
 
-        when(view!!.id){
+        when (view!!.id) {
 
             binding.btnAddImages.id -> {
 
@@ -64,7 +64,7 @@ class PostFilesDialog(private val mContext : Context) : DialogFragment(), View.O
     }
 
 
-    private fun setFileSelectListener(){
+    private fun setFileSelectListener() {
 
     }
 }

@@ -39,7 +39,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
             // 도와주기 버튼 클릭 시 다이얼로그 띄어주기
             binding.btHelp.id -> {
                 val helpDialog = HelpDialog()
-                helpDialog.show(supportFragmentManager.beginTransaction(),"")
+                helpDialog.show(supportFragmentManager.beginTransaction(), "")
             }
         }
     }

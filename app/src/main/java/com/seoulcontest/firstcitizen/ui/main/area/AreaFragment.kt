@@ -9,14 +9,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
+import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentAreaBinding
 import com.seoulcontest.firstcitizen.ui.detail.DetailActivity
 import com.seoulcontest.firstcitizen.ui.dialog.CategoryDialog
-import kotlin.String
+import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
 class AreaFragment : Fragment() {
+
+    private val viewModel = MainViewModel.getInstance()
 
     private lateinit var binding: FragmentAreaBinding
     private lateinit var fusedLocationSource: FusedLocationSource
@@ -38,27 +41,19 @@ class AreaFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        initViewModel()
         initView()
         initEvent()
-        initMap()
+
+        viewModel.loadData(0.toFloat(), 0.toFloat())
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (fusedLocationSource.onRequestPermissionsResult(requestCode, permissions, grantResults))
-            return
-
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    private fun initViewModel() {
+        binding.viewModel = viewModel
     }
 
     private fun initView() {
-        initMap()
-        fusedLocationSource = FusedLocationSource(this,
-            LOCATION_PERMISSION_REQUEST_CODE
-        )
+        initNaverMap()
     }
 
     private fun initEvent() {
@@ -82,7 +77,9 @@ class AreaFragment : Fragment() {
         }
     }
 
-    private fun initMap() {
+    private fun initNaverMap() {
+        fusedLocationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+
         val fm = childFragmentManager
         val mapFragment = fm.findFragmentById(R.id.map_view) as MapFragment?
             ?: MapFragment.newInstance().also {
@@ -93,17 +90,35 @@ class AreaFragment : Fragment() {
         mapFragment.getMapAsync {
             naverMap = it
 
+            loadMarker()
+
             with(it) {
                 mapType = NaverMap.MapType.Basic
                 isIndoorEnabled = true
                 locationSource = fusedLocationSource
                 locationTrackingMode = LocationTrackingMode.Face
 
+                //현재 사용자 위치 이벤트 콜백
                 addOnLocationChangeListener { location ->
                     currPosition =
                         CameraPosition(LatLng(location.latitude, location.longitude), 14.0)
                 }
 
+                //현재 카메라 위치 이벤트 콜백
+//                addOnCameraChangeListener { reason, animated ->
+//                    val cameraPosition = naverMap.cameraPosition
+//
+//                    //사용자가 직접 카메라를 움직였을 때만
+//                    //현재 카메라 위치에서 데이터 불러오기
+//                    if (reason == REASON_GESTURE) {
+//                        viewModel.loadData(
+//                            cameraPosition.target.latitude.toFloat(),
+//                            cameraPosition.target.longitude.toFloat()
+//                        )
+//
+//                        Log.d("test" , "moved")
+//                    }
+//                }
 
                 with(uiSettings) {
                     isCompassEnabled = false
@@ -112,9 +127,33 @@ class AreaFragment : Fragment() {
                     isScaleBarEnabled = false
                     isLocationButtonEnabled = false
                 }
-
             }
         }
+    }
+
+    private fun loadMarker() {
+        val requestList = viewModel.requestList.get()
+
+        if (requestList != null) {
+            for (request in requestList) {
+                Marker().apply {
+                    position =
+                        LatLng(request.coordinate[0].toDouble(), request.coordinate[1].toDouble())
+                    map = naverMap
+                }
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (fusedLocationSource.onRequestPermissionsResult(requestCode, permissions, grantResults))
+            return
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     companion object {

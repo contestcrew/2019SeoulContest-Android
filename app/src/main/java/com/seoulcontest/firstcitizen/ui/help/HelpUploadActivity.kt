@@ -34,12 +34,12 @@ class HelpUploadActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
 
-        when(view!!.id){
+        when (view!!.id) {
 
             binding.btnSelectFile.id -> {
 
                 val dialog = PostFilesDialog(applicationContext)
-                dialog.show(supportFragmentManager.beginTransaction(),"")
+                dialog.show(supportFragmentManager.beginTransaction(), "")
 
             }
 

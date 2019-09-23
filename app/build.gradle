@@ -54,4 +54,7 @@ dependencies {
 
     // CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    // ViewModel and LiveData
+    implementation 'android.arch.lifecycle:extensions:2.1.0'
 }

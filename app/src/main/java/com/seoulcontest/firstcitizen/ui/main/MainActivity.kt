@@ -20,10 +20,11 @@ class MainActivity : AppCompatActivity() {
     private var isCurrListFragment = false
     private var isMapOrListVisible = true
 
-    private val pointFragment = PointFragment()
-    private val areaFragment = AreaFragment()
-    private val listFragment = ListFragment()
-    private val infoFragment = InfoFragment()
+    private lateinit var pointFragment: Fragment
+    private lateinit var areaFragment: Fragment
+    private lateinit var listFragment: Fragment
+    private lateinit var infoFragment: Fragment
+
     private lateinit var currFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,13 +33,11 @@ class MainActivity : AppCompatActivity() {
         // 2019.09.12 Main View 및 DataBinding by Hudson
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-
-
         initNaverMapSetting()
         initView()
         initEvent()
 
-        val mainModel = MainViewModel("Test Text")
+        val mainModel = MainViewModel()
         binding.main = mainModel
     }
 
@@ -48,19 +47,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.container, pointFragment, POINT_FRAGMENT_TAG)
-            .add(R.id.container, areaFragment, AREA_FRAGMENT_TAG)
-            .add(R.id.container, listFragment, LIST_FRAGMENT_TAG)
-            .add(R.id.container, infoFragment, INFO_FRAGMENT_TAG)
-            .hide(pointFragment)
-            .hide(listFragment)
-            .hide(infoFragment)
-            .show(areaFragment)
-            .commit()
+        pointFragment = findOrCreateViewFragment(POINT_FRAGMENT_TAG)
+        areaFragment = findOrCreateViewFragment(AREA_FRAGMENT_TAG)
+        listFragment = findOrCreateViewFragment(LIST_FRAGMENT_TAG)
+        infoFragment = findOrCreateViewFragment(INFO_FRAGMENT_TAG)
 
-        currFragment = areaFragment
+        if (!pointFragment.isAdded) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.container, pointFragment, POINT_FRAGMENT_TAG)
+                .add(R.id.container, areaFragment, AREA_FRAGMENT_TAG)
+                .add(R.id.container, listFragment, LIST_FRAGMENT_TAG)
+                .add(R.id.container, infoFragment, INFO_FRAGMENT_TAG)
+                .hide(pointFragment)
+                .hide(listFragment)
+                .hide(infoFragment)
+                .show(areaFragment)
+                .commit()
+
+            currFragment = areaFragment
+        } else {
+            currFragment = getCurrentFragment()
+        }
     }
 
     private fun initEvent() {
@@ -113,6 +121,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         return newFragment!!
+    }
+
+    private fun getCurrentFragment(): Fragment {
+
+        for (fragment in supportFragmentManager.fragments) {
+            if (fragment.isVisible) {
+                return fragment
+            }
+        }
+
+        return findOrCreateViewFragment(AREA_FRAGMENT_TAG)
     }
 
     private fun replaceFragment(newFragmentTag: String) {

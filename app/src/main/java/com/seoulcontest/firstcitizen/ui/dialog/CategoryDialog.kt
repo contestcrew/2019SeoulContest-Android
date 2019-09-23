@@ -34,7 +34,7 @@ class CategoryDialog(private val mContext: Context) : DialogFragment() {
                 // 2019.09.16 String 선택 후 UploadActivity로 이동 by Hudosn
                 val uploadIntent = Intent(mContext,UploadActivity::class.java)
 
-                uploadIntent.putExtra("binding",stringArray.get(postion))
+                uploadIntent.putExtra("binding", stringArray.get(postion))
                 startActivity(uploadIntent)
                 dismiss()
             }

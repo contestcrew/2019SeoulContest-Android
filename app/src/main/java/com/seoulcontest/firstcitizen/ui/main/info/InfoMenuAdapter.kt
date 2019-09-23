@@ -15,7 +15,8 @@ import com.seoulcontest.firstcitizen.ui.infomenu.ServiceTermsActivity
 class InfoMenuAdapter(
     private val mContext: Context,
     private val mInfoMenuArray: Array<String>,
-    private var totalCount: Int) : RecyclerView.Adapter<InfoMenuAdapter.InfoMenuViewHolder>() {
+    private var totalCount: Int
+) : RecyclerView.Adapter<InfoMenuAdapter.InfoMenuViewHolder>() {
 
     override fun onBindViewHolder(viewHolder: InfoMenuViewHolder, position: Int) {
 

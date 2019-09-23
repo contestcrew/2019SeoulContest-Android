@@ -33,7 +33,7 @@ class HelpDialog : DialogFragment(), View.OnClickListener {
 
     override fun onClick(view: View?) {
 
-        when(view!!.id){
+        when (view!!.id) {
             // 확인 버튼 클릭 시
             binding.btnConfirmHelp.id -> {
 

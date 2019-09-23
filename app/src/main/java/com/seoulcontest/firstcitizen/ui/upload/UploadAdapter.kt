@@ -11,9 +11,10 @@ import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ItemUploadPicBinding
 import com.seoulcontest.firstcitizen.util.ItemResizer
 
-class UploadAdapter(val mContext : Context,var uploadImageArray: Array<Int>) : RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
+class UploadAdapter(val mContext: Context, var uploadImageArray: Array<Int>) :
+    RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
 
-    lateinit var binding : ItemUploadPicBinding
+    lateinit var binding: ItemUploadPicBinding
 
     override fun onBindViewHolder(holder: UploadViewHolder, position: Int) {
         holder.bind(uploadImageArray[position])
@@ -26,23 +27,26 @@ class UploadAdapter(val mContext : Context,var uploadImageArray: Array<Int>) : R
 
         val inflater = LayoutInflater.from(mContext)
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.item_upload_pic,parent,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.item_upload_pic, parent, false)
 
         return UploadViewHolder(binding)
     }
 
     override fun getItemCount(): Int = uploadImageArray.size
 
-    inner class UploadViewHolder(var binding: ItemUploadPicBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class UploadViewHolder(var binding: ItemUploadPicBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(uploadImage: Int){
+        fun bind(uploadImage: Int) {
 
             val resizer = ItemResizer(mContext)
 
             binding.imgUpload.maxWidth = resizer.getDisplayWidth()
             binding.imgUpload.maxHeight = resizer.getDisplayHeight()
 
-            Glide.with(mContext).load(uploadImage).override(resizer.getDisplayWidth(),resizer.getDisplayHeight()).into(binding.imgUpload)
+            Glide.with(mContext).load(uploadImage)
+                .override(resizer.getDisplayWidth(), resizer.getDisplayHeight())
+                .into(binding.imgUpload)
 
         }
 
