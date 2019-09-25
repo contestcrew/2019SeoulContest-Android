@@ -13,7 +13,6 @@ import com.seoulcontest.firstcitizen.ui.infomenu.NoticeActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.ServiceTermsActivity
 
 class InfoMenuAdapter(
-    private val mContext: Context,
     private val mInfoMenuArray: Array<String>,
     private var totalCount: Int,
     private var isLog : Boolean
@@ -32,7 +31,7 @@ class InfoMenuAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InfoMenuViewHolder {
 
-        val inflater: LayoutInflater = LayoutInflater.from(mContext)
+        val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         // 2019.09.19 ViewHolder 리턴 by Hudson
         return InfoMenuViewHolder(ItemInfoMenuBinding.inflate(inflater, parent, false))
     }
@@ -66,30 +65,26 @@ class InfoMenuAdapter(
                 when (menu) {
 
                     "공지사항" -> {
-                        intent = Intent(mContext, NoticeActivity::class.java)
-
+                        intent = Intent(it.context, NoticeActivity::class.java)
                     }
 
                     "이용약관" -> {
-                        intent = Intent(mContext, ServiceTermsActivity::class.java)
-
+                        intent = Intent(it.context, ServiceTermsActivity::class.java)
                     }
 
                     "내정보" -> {
-                        intent = Intent(mContext, MyInfoActivity::class.java)
+                        intent = Intent(it.context, MyInfoActivity::class.java)
                     }
 
                     "제보" -> {
-                        intent = Intent(mContext, InfoListActivity::class.java)
+                        intent = Intent(it.context, InfoListActivity::class.java)
                     }
 
                     "의뢰" -> {
-
-                        intent = Intent(mContext, InfoListActivity::class.java)
+                        intent = Intent(it.context, InfoListActivity::class.java)
                     }
                 }
-
-                mContext.startActivity(intent)
+                it.context.startActivity(intent)
             }
         }
     }

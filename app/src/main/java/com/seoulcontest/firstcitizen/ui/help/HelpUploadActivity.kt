@@ -55,23 +55,17 @@ class HelpUploadActivity : AppCompatActivity() {
             val message = binding.edtHelpUploadMessage.text.trim()
 
             // 타이틀과 메세지가 비어있지 않다면
-            if (!(title.equals("") && message.equals(""))) {
-
-
+            if (!(title == "" && message == "")) {
                 // todo : 데이터 전달
 
             } else {
-
-                Toast.makeText(applicationContext,"타이틀과 메세지를 입력해주세요.",Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(this, "타이틀과 메세지를 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
 
         // 경찰 정보 제공 동의 문구 클릭 시 공지사항으로 이동
         binding.btnInfoAct.setOnClickListener {
-
             startActivity(Intent(this, NoticeActivity::class.java))
-
         }
     }
 
@@ -81,5 +75,4 @@ class HelpUploadActivity : AppCompatActivity() {
 
 
     }
-
 }
