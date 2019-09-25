@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
@@ -56,6 +58,7 @@ class AreaFragment : Fragment() {
         initViewModel()
         initView()
         initEvent()
+        checkPermission()
     }
 
     private fun initViewModel() {
@@ -217,6 +220,29 @@ class AreaFragment : Fragment() {
         var c = 2 * atan2(sqrt(a), sqrt(1 - a))
         var d = R * c
         return d * 1000 // meters
+    }
+
+    // Naver 맵 이외의 위험 권한 체크하는 함수
+    private fun checkPermission() {
+
+        val permissionListener = object : PermissionListener {
+
+            override fun onPermissionGranted() {
+
+            }
+
+            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+
+            }
+        }
+
+        TedPermission.with(context)
+            .setPermissionListener(permissionListener)
+            .setDeniedMessage(getString(R.string.permission_denied_message))
+            .setPermissions(
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ).check()
     }
 
     override fun onRequestPermissionsResult(

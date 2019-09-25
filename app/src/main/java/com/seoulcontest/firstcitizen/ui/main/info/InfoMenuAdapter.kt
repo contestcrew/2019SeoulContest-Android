@@ -7,21 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.seoulcontest.firstcitizen.databinding.ItemInfoMenuBinding
-import com.seoulcontest.firstcitizen.ui.infomenu.InfoListActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.history.InfoListActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.MyInfoActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.NoticeActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.ServiceTermsActivity
 
 class InfoMenuAdapter(
-    private val mContext: Context,
     private val mInfoMenuArray: Array<String>,
-    private var totalCount: Int
+    private var totalCount: Int,
+    private var isLog : Boolean
 ) : RecyclerView.Adapter<InfoMenuAdapter.InfoMenuViewHolder>() {
 
     override fun onBindViewHolder(viewHolder: InfoMenuViewHolder, position: Int) {
 
         // 뷰 홀더 타입별로 서로 다른 뷰 바인딩
-        if (position == 0) {
+        if (position == 0 && isLog) {
             viewHolder.bind(mInfoMenuArray[position], totalCount)
         } else {
             viewHolder.bind(mInfoMenuArray[position], -1)
@@ -31,19 +31,12 @@ class InfoMenuAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InfoMenuViewHolder {
 
-        val inflater: LayoutInflater = LayoutInflater.from(mContext)
-
+        val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         // 2019.09.19 ViewHolder 리턴 by Hudson
-        return InfoMenuViewHolder(
-            ItemInfoMenuBinding.inflate(
-                inflater,
-                parent,
-                false
-            )
-        )
+        return InfoMenuViewHolder(ItemInfoMenuBinding.inflate(inflater, parent, false))
     }
 
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = mInfoMenuArray.size
 
     inner class InfoMenuViewHolder(private val binding: ItemInfoMenuBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -72,34 +65,27 @@ class InfoMenuAdapter(
                 when (menu) {
 
                     "공지사항" -> {
-                        intent = Intent(mContext, NoticeActivity::class.java)
-
+                        intent = Intent(it.context, NoticeActivity::class.java)
                     }
 
                     "이용약관" -> {
-                        intent = Intent(mContext, ServiceTermsActivity::class.java)
-
+                        intent = Intent(it.context, ServiceTermsActivity::class.java)
                     }
 
                     "내정보" -> {
-                        intent = Intent(mContext, MyInfoActivity::class.java)
+                        intent = Intent(it.context, MyInfoActivity::class.java)
                     }
 
                     "제보" -> {
-                        intent = Intent(mContext, InfoListActivity::class.java)
+                        intent = Intent(it.context, InfoListActivity::class.java)
                     }
 
                     "의뢰" -> {
-
-                        intent = Intent(mContext, InfoListActivity::class.java)
+                        intent = Intent(it.context, InfoListActivity::class.java)
                     }
                 }
-
-                mContext.startActivity(intent)
+                it.context.startActivity(intent)
             }
         }
     }
 }
-
-
-

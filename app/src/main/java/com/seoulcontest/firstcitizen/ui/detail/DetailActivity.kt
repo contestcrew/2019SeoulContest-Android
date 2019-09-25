@@ -12,7 +12,7 @@ import com.seoulcontest.firstcitizen.ui.dialog.HelpDialog
 class DetailActivity : AppCompatActivity() {
 
     // todo : enum class 만드는 거 어떻게 생각하시는지???
-    // todo : Request 객체 아래 properties로 구분하자는 의견(서버 )
+    // todo : Request 객체 아래 properties로 구분하자는 의견(서버)
 
     // 뷰 바인딩
     private lateinit var binding: ActivityDetailBinding

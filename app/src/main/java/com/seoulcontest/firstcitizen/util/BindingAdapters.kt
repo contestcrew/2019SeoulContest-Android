@@ -1,5 +1,6 @@
 package com.seoulcontest.firstcitizen.util
 
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.viewpager.widget.ViewPager
 import com.seoulcontest.firstcitizen.data.vo.Category

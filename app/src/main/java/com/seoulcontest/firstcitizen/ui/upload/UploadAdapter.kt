@@ -1,7 +1,7 @@
 package com.seoulcontest.firstcitizen.ui.upload
 
 import android.content.Context
-import android.util.Log
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,7 +11,7 @@ import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ItemUploadPicBinding
 import com.seoulcontest.firstcitizen.util.ItemResizer
 
-class UploadAdapter(val mContext: Context, var uploadImageArray: Array<Int>) :
+class UploadAdapter(val mContext: Context, var uploadImageArray: List<Uri>) :
     RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
 
     lateinit var binding: ItemUploadPicBinding
@@ -37,7 +37,7 @@ class UploadAdapter(val mContext: Context, var uploadImageArray: Array<Int>) :
     inner class UploadViewHolder(var binding: ItemUploadPicBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(uploadImage: Int) {
+        fun bind(uploadImage: Uri) {
 
             val resizer = ItemResizer(mContext)
 

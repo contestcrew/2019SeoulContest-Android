@@ -61,48 +61,36 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="@dimen/activity_side_margin"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="@dimen/activity_side_margin"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/btn_info_act"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="경찰 정보 제공"
-                    android:textColor="@color/boldTextColor"
-                    android:textSize="@dimen/activity_upload_title_size"
-                    android:textStyle="bold" />
-
-                <Switch
-                    android:id="@+id/switch_public"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:switchMinWidth="@dimen/switch_width"
-                    android:thumb="@drawable/switch_public_thumb"
-                    android:track="@drawable/switch_public_track" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="0sp"
                 android:layout_marginLeft="@dimen/activity_side_margin"
                 android:layout_marginRight="@dimen/activity_side_margin"
-                android:layout_weight="1">
+                android:layout_weight="3"
+                android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btn_occured_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:id="@+id/btn_add_police"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/activity_margin_top"
+                    android:layout_weight="1"
+                    android:background="@drawable/card_view_box"
+                    android:padding="@dimen/card_view_padding"
+                    android:text="관할 경찰서 추가" />
+
+                <Button
+                    android:id="@+id/btn_occurred_time"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/activity_margin_top"
+                    android:layout_weight="1"
+                    android:background="@drawable/card_view_box"
+                    android:padding="@dimen/card_view_padding"
+                    android:text="발생 시간 입력"
+                    android:textColor="@color/logoutColor" />
 
             </LinearLayout>
 
@@ -110,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/activity_side_margin"
-                android:layout_marginTop="24sp"
+                android:layout_marginTop="32sp"
                 android:layout_marginRight="@dimen/activity_side_margin"
                 android:layout_weight="3"
                 android:orientation="vertical">
@@ -122,94 +110,63 @@
                     android:textSize="@dimen/activity_upload_title_size"
                     android:textStyle="bold" />
 
-                <androidx.cardview.widget.CardView
+
+                <LinearLayout
+                    android:id="@+id/btn_find_by_area"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:padding="12sp"
                     android:layout_marginLeft="@dimen/activity_side_margin"
                     android:layout_marginTop="@dimen/upload_layout_margin_top"
                     android:layout_marginRight="@dimen/activity_side_margin"
-                    android:layout_weight="2"
-                    android:elevation="10dp"
-                    android:foreground="@drawable/card_view_box"
-                    app:cardCornerRadius="@dimen/card_view_border_radius">
+                    android:layout_weight="1"
+                    android:background="@drawable/card_view_box"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/btn_find_by_area"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="지도로 찾기"
+                        android:textColor="@color/boldTextColor" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="8"
-                            android:gravity="center"
-                            android:text="지도로 찾기"
-                            android:textColor="@color/boldTextColor" />
-
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:paddingTop="6sp"
-                            android:paddingBottom="6sp"
-                            android:src="@mipmap/ic_launcher" />
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
 
-                <androidx.cardview.widget.CardView
+                <LinearLayout
+                    android:id="@+id/btn_find_by_address"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="0sp"
+                    android:padding="12sp"
                     android:layout_marginLeft="@dimen/activity_side_margin"
                     android:layout_marginTop="@dimen/upload_layout_margin_top"
                     android:layout_marginRight="@dimen/activity_side_margin"
-                    android:layout_weight="2"
-                    android:foreground="@drawable/card_view_box"
-                    app:cardCornerRadius="@dimen/card_view_border_radius">
+                    android:layout_weight="1"
+                    android:background="@drawable/card_view_box"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/btn_find_by_address"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="주소로 찾기"
+                        android:textColor="@color/boldTextColor" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="8"
-                            android:gravity="center"
-                            android:text="주소로 찾기"
-                            android:textColor="@color/boldTextColor" />
-
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:paddingTop="6sp"
-                            android:paddingBottom="6sp"
-                            android:src="@mipmap/ic_launcher" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/activity_margin_top"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="@color/boldTextColor"
                     android:textSize="@dimen/activity_content_size"
                     android:textStyle="bold"
-                    tools:text="@string/app_name" />
+                    android:text="address" />
 
             </LinearLayout>
 
@@ -284,6 +241,7 @@
 
                     <EditText
                         android:id="@+id/edt_message"
+                        android:hint="도와주세요."
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
@@ -317,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="파일 첨부"
+                        android:text="첨부 파일"
                         android:textSize="@dimen/activity_upload_title_size"
                         android:textStyle="bold" />
 
