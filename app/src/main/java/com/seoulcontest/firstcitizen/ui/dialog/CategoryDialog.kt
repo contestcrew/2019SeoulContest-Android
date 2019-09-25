@@ -17,14 +17,14 @@ import kotlin.String
 class CategoryDialog(private val mContext: Context) : DialogFragment() {
 
     lateinit var binding: DialogCategoryBinding
-    private val stringArray: Array<String> = arrayOf("긴급 똥 휴지", "분실", "접촉 사고", "뺑소니")
+    private val stringArray: Array<String> = arrayOf("긴급 똥 휴지", "실종","분실","접촉 사고")
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         // 2019.09.16 다이얼로그 바깥쪽 클릭 무시 by Hudson
-        dialog.setCanceledOnTouchOutside(false)
+        dialog!!.setCanceledOnTouchOutside(false)
 
         // 2019.09.15 adapter 세팅 by Hudson
         binding.lvCategory.adapter = CategoryAdapter(mContext, stringArray)

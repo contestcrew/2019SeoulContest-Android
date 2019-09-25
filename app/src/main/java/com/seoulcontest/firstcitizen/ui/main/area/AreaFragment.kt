@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
@@ -16,6 +19,7 @@ import com.seoulcontest.firstcitizen.databinding.FragmentAreaBinding
 import com.seoulcontest.firstcitizen.ui.detail.DetailActivity
 import com.seoulcontest.firstcitizen.ui.dialog.CategoryDialog
 import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
+import java.util.ArrayList
 
 class AreaFragment : Fragment() {
 
@@ -44,7 +48,7 @@ class AreaFragment : Fragment() {
         initViewModel()
         initView()
         initEvent()
-
+        checkPermission()
         viewModel.loadData(0.toFloat(), 0.toFloat())
     }
 
@@ -154,6 +158,29 @@ class AreaFragment : Fragment() {
             return
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    // Naver 맵 이외의 위험 권한 체크하는 함수
+    private fun checkPermission() {
+
+        val permissionListener = object : PermissionListener {
+
+            override fun onPermissionGranted() {
+
+            }
+
+            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+
+            }
+        }
+
+        TedPermission.with(context)
+            .setPermissionListener(permissionListener)
+            .setDeniedMessage(getString(R.string.permission_denied_message))
+            .setPermissions(
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ).check()
     }
 
     companion object {
