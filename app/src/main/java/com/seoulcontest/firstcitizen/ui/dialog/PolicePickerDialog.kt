@@ -14,35 +14,31 @@ class PolicePickerDialog(private val mContext: Context, private val policeArr: A
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val numberPicker = NumberPicker(mContext)
-        numberPicker.minValue = 0
-        numberPicker.maxValue = policeArr.size - 1
-        numberPicker.displayedValues = policeArr
-        numberPicker.wrapSelectorWheel = true
+        val numberPicker = NumberPicker(mContext).apply {
+            minValue = 0
+            maxValue = policeArr.size - 1
+            displayedValues = policeArr
+            wrapSelectorWheel = true
+        }
 
-        val dialogBuilder = AlertDialog.Builder(mContext)
-        dialogBuilder.setTitle("관할 경찰서 선택")
+        val dialogBuilder = AlertDialog.Builder(mContext).apply {
 
+            setTitle("관할 경찰서 선택")
+            setPositiveButton("확인") { dialogInterface, i ->
 
-        dialogBuilder.setPositiveButton("확인", DialogInterface.OnClickListener { dialogInterface, i ->
+                valueChangedListener.onValueChange(numberPicker, numberPicker.value, numberPicker.value)
+                dialogInterface.dismiss()
+            }
+            setNegativeButton("취소")  { dialogInterface, i ->
+                valueChangedListener.onValueChange(numberPicker, 0, 0)
+                dialogInterface.dismiss()
+            }
 
-            valueChangedListener.onValueChange(numberPicker, numberPicker.value, numberPicker.value)
-            dialogInterface.dismiss()
-        })
-
-        dialogBuilder.setNegativeButton("취소", DialogInterface.OnClickListener { dialogInterface, i ->
-            valueChangedListener.onValueChange(numberPicker,0,0)
-            dialogInterface.dismiss()
-        })
-
-        dialogBuilder.setView(numberPicker)
+            setView(numberPicker)
+        }
 
         return dialogBuilder.create()
 
-    }
-
-    private fun getValueChangedListener(): NumberPicker.OnValueChangeListener {
-        return valueChangedListener
     }
 
     fun setValueChangedListener(changedListener: NumberPicker.OnValueChangeListener) {

@@ -29,7 +29,6 @@
                 android:id="@+id/iv_profile"
                 android:layout_width="100sp"
                 android:layout_height="100sp"
-                android:visibility="@={info.}"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView

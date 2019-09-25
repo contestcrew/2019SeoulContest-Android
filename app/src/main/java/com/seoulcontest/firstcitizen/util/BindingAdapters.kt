@@ -14,8 +14,3 @@ fun ViewPager.setTitles(titles: List<String>?) {
     }
 
 }
-
-@BindingAdapter("visible")
-fun ImageView.setVisible(){
-
-}
