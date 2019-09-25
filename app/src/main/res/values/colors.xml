@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#3f51b5</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#5c6bc0</color>
     <color name="floatingBackground">#ffffff</color>
     <color name="boldTextColor">#000000</color>
     <color name="dividerColor">#000000</color>
@@ -21,4 +21,5 @@
     <color name="textRequiredColor">#2e7d32</color>
     <color name="plusButtonBackground">#64dd17</color>
     <color name="plusButtonColor">#ffffff</color>
+    <color name="siginUpButtonColor">#1a237e</color>
 </resources>

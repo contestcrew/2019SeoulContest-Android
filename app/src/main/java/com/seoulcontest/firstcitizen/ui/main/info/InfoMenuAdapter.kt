@@ -1,13 +1,12 @@
 package com.seoulcontest.firstcitizen.ui.main.info
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.seoulcontest.firstcitizen.databinding.ItemInfoMenuBinding
-import com.seoulcontest.firstcitizen.ui.infomenu.history.InfoListActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.history.RequestDetailActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.MyInfoActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.NoticeActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.ServiceTermsActivity
@@ -77,11 +76,11 @@ class InfoMenuAdapter(
                     }
 
                     "제보" -> {
-                        intent = Intent(it.context, InfoListActivity::class.java)
+                        intent = Intent(it.context, RequestDetailActivity::class.java)
                     }
 
                     "의뢰" -> {
-                        intent = Intent(it.context, InfoListActivity::class.java)
+                        intent = Intent(it.context, RequestDetailActivity::class.java)
                     }
                 }
                 it.context.startActivity(intent)

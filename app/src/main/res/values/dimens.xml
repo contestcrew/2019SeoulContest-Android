@@ -31,6 +31,9 @@
     <dimen name="switch_width">20sp</dimen>
     <dimen name="switch_height">15sp</dimen>
     <dimen name="button_plus_radius">8sp</dimen>
+    <dimen name="button_sign_up_margin_top">32sp</dimen>
+    <dimen name="button_sign_up_padding">8sp</dimen>
+    <dimen name="button_text_size">24sp</dimen>
     <!--    dialog 관련  -->
     <dimen name="dialog_title_size">24sp</dimen>
     <dimen name="dialog_text_size">18sp</dimen>

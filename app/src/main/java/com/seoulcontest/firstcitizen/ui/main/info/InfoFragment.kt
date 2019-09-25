@@ -7,17 +7,32 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraAnimation
+import com.naver.maps.map.CameraPosition
+import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 import com.seoulcontest.firstcitizen.R
+import com.seoulcontest.firstcitizen.data.vo.BriefRequest
 import com.seoulcontest.firstcitizen.data.vo.User
 import com.seoulcontest.firstcitizen.databinding.FragmentInfoBinding
 import com.seoulcontest.firstcitizen.ui.infomenu.logIn.LogInActivity
+import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
 class InfoFragment : Fragment() {
 
     // 뷰 바인딩
     private lateinit var binding: FragmentInfoBinding
+
+    // 뷰 모델
+    private var viewModel = MainViewModel.getInstance()
 
     private var logInMenuArray = arrayOf("의뢰", "제보", "공지사항", "이용약관", "내정보")
     private var logOutMenuArray = arrayOf("공지사항", "이용약관")

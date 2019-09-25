@@ -14,10 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.infomenu.logIn.LogInActivity"></activity>
+        <activity android:name=".ui.infomenu.history.HelpDetailActivity"></activity>
+        <activity android:name=".ui.infomenu.history.HelpHistoryActivity" />
+        <activity android:name=".ui.infomenu.history.RequestHistoryActivity" />
+        <activity android:name=".ui.infomenu.logIn.SignUpActivity" />
+        <activity android:name=".ui.infomenu.logIn.LogInActivity" />
         <activity android:name=".ui.help.HelpUploadActivity" />
         <activity
-            android:name=".ui.infomenu.history.InfoListActivity"
+            android:name=".ui.infomenu.history.RequestDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.infomenu.MyInfoActivity"

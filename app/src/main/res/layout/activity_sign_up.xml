@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin_top"
+        android:orientation="vertical"
+
+        tools:context=".ui.infomenu.logIn.SignUpActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_marginBottom="@dimen/activity_margin_bottom"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="회원가입"
+                android:textColor="@color/boldTextColor"
+                android:textSize="@dimen/activity_help_title_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_margin="@dimen/activity_margin_top"
+            android:layout_weight="9"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0sp"
+                android:layout_weight="1"
+                android:text="이메일"
+                android:textColor="@color/boldTextColor"
+                android:textSize="@dimen/activity_help_subtitle_size"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_sign_up_email"
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0sp"
+                android:layout_margin="@dimen/activity_margin_top"
+                android:layout_weight="1"
+                android:text="비밀번호"
+                android:textColor="@color/boldTextColor"
+                android:textSize="@dimen/activity_help_subtitle_size"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_input_pass"
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0sp"
+                android:layout_margin="@dimen/activity_margin_top"
+                android:layout_weight="1"
+                android:text="비밀번호 재입력"
+                android:textColor="@color/boldTextColor"
+                android:textSize="@dimen/activity_help_subtitle_size"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_check_pass"
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/button_sign_up_margin_top"
+                android:background="@drawable/btn_sign_up"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/button_sign_up_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="회원가입"
+                    android:textColor="@color/buttonTextColor"
+                    android:textSize="@dimen/button_text_size"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>
