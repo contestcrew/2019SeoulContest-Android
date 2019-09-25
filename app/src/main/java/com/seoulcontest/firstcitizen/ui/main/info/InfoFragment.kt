@@ -14,8 +14,6 @@ import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.data.vo.User
 import com.seoulcontest.firstcitizen.databinding.FragmentInfoBinding
 import com.seoulcontest.firstcitizen.ui.infomenu.logIn.LogInActivity
-import com.seoulcontest.firstcitizen.ui.main.MainActivity
-import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
 class InfoFragment : Fragment() {
 
