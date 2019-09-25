@@ -1,3 +1,43 @@
 <resources>
-    <string name="app_name">FirstCitizen</string>
+    <string name="first_citizen_app_name">FirstCitizen</string>
+    <string name="permission_denied_message">거부한 권한은 [설정] > [애플리케이션 관리자] > [FirstCitizen] > [권한]에서 설정 가능합니다.</string>
+    <string-array name="police_name">
+        <item>없음</item>
+        <item>서울 강남 경찰서</item>
+        <item>서울 강동 경찰서</item>
+        <item>서울 강북 경찰서</item>
+        <item>서울 강서 경찰서</item>
+        <item>서울 관악 경찰서</item>
+        <item>서울 광진 경찰서</item>
+        <item>서울 구로 경찰서</item>
+        <item>서울 금천 경찰서</item>
+        <item>서울 남대문 경찰서</item>
+        <item>서울 노원 경찰서</item>
+        <item>서울 도봉 경찰서</item>
+        <item>서울 동대문 경찰서</item>
+        <item>서울 동작 경찰서</item>
+        <item>서울 마포 경찰서</item>
+        <item>서울 방배 경찰서</item>
+        <item>서울 서대문 경찰서</item>
+        <item>서울 서부 경찰서</item>
+        <item>서울 서초 경찰서</item>
+        <item>서울 성동 경찰서</item>
+        <item>서울 성북 경찰서</item>
+        <item>서울 송파 경찰서</item>
+        <item>서울 수서 경찰서</item>
+        <item>서울 양천 경찰서</item>
+        <item>서울 영등포 경찰서</item>
+        <item>서울 용산 경찰서</item>
+        <item>서울 은평 경찰서</item>
+        <item>서울 종로 경찰서</item>
+        <item>서울 종암 경찰서</item>
+        <item>서울 중량 경찰서</item>
+        <item>서울 중부 경찰서</item>
+        <item>서울 혜화 경찰서</item>
+    </string-array>
+    <string name="nick_logout">별명 : -</string>
+    <string name="reliability_logout">신뢰도 : -</string>
+    <string name="point_logout">Point : -</string>
+    <string name="logIn_text">로그인</string>
+    <string name="logOut_text">로그아웃</string>
 </resources>

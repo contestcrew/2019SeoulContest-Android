@@ -57,4 +57,14 @@ dependencies {
 
     // ViewModel and LiveData
     implementation 'android.arch.lifecycle:extensions:2.1.0'
+
+    // Permission
+    implementation "gun0912.ted:tedpermission:2.1.0"
+
+    // multiple ImagePicker
+    implementation 'gun0912.ted:tedimagepicker:1.0.5'
+
+    // data parser
+    implementation 'com.google.code.gson:gson:2.8.5'
+
 }

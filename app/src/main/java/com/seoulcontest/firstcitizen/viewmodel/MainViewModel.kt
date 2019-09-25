@@ -1,5 +1,6 @@
 package com.seoulcontest.firstcitizen.viewmodel
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.seoulcontest.firstcitizen.data.vo.BriefRequest
 import com.seoulcontest.firstcitizen.data.vo.Category
@@ -9,6 +10,7 @@ class MainViewModel {
     val categoryList = ObservableField<List<Category>>()
     val categoryTitleList = ObservableField<List<String>>()
     val requestList = ObservableField<List<BriefRequest>>()
+    var isLogIn = ObservableBoolean()
 
     fun loadData(x: Float, y: Float) {
         loadCategory()

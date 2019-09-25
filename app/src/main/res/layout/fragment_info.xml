@@ -2,6 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="info"
+            type="com.seoulcontest.firstcitizen.viewmodel.MainViewModel" />
+
+    </data>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,6 +29,7 @@
                 android:id="@+id/iv_profile"
                 android:layout_width="100sp"
                 android:layout_height="100sp"
+                android:visibility="@={info.}"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -73,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/info_layout_margin_top"
                     tools:itemCount="5"
-                    tools:listitem="@layout/item_request" />
+                    tools:listitem="@layout/item_info_menu" />
 
             </LinearLayout>
         </LinearLayout>

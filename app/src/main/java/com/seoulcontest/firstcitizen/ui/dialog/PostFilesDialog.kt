@@ -35,7 +35,7 @@ class PostFilesDialog(private val mContext: Context) : DialogFragment(), View.On
         binding.btnAddVideos.setOnClickListener(this)
         binding.btnCancelAddition.setOnClickListener(this)
 
-        dialog.setCanceledOnTouchOutside(false)
+        dialog!!.setCanceledOnTouchOutside(false)
 
     }
 

@@ -52,7 +52,7 @@ class HelpDialog : DialogFragment(), View.OnClickListener {
     private fun initView() {
 
         // 2019.09.20 다이얼로그 바깥쪽 클릭 무시 by Hudson
-        dialog.setCanceledOnTouchOutside(false)
+        dialog!!.setCanceledOnTouchOutside(false)
 
         // 버튼 리스너 초기화
         binding.btnConfirmHelp.setOnClickListener(this)
