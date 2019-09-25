@@ -140,7 +140,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .hide(currFragment)
             .show(newFragment)
-            .addToBackStack(null)
             .commit()
 
         currFragment = newFragment

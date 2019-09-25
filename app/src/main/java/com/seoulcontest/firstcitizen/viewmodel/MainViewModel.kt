@@ -1,46 +1,86 @@
 package com.seoulcontest.firstcitizen.viewmodel
 
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.seoulcontest.firstcitizen.data.vo.BriefRequest
 import com.seoulcontest.firstcitizen.data.vo.Category
+import com.seoulcontest.firstcitizen.network.RetrofitHelper
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainViewModel {
 
     val categoryList = ObservableField<List<Category>>()
-    val categoryTitleList = ObservableField<List<String>>()
-    val requestList = ObservableField<List<BriefRequest>>()
-    var isLogIn = ObservableBoolean()
+    val briefRequestList = ObservableField<List<BriefRequest>>()
+
+    val currRequest = ObservableField<BriefRequest>()
 
     fun loadData(x: Float, y: Float) {
-        loadCategory()
-        loadBriefRequests(x, y)
+        loadCategoryList()
+        loadBriefRequestList(x, y)
     }
 
-    private fun loadCategory() {
-        //서버랑 통신해서 데이터 가져오기
-        //미구현
-        val categories = listOf(Category("똥휴지"), Category("뺑소니"), Category("분실"), Category("접촉사고"))
-        categoryList.set(categories)
-        categoryTitleList.set(categories.map { it.category })
+    private fun loadCategoryList() {
+        //서버에서 데이터 가져오기
+        RetrofitHelper
+            .getInstance()
+            .apiService
+            .getCategoryList()
+            .enqueue(object : Callback<List<Category>> {
+                override fun onFailure(call: Call<List<Category>>, t: Throwable) {
+                    t.printStackTrace()
+                }
+
+                override fun onResponse(
+                    call: Call<List<Category>>,
+                    response: Response<List<Category>>
+                ) {
+                    val data = response.body()
+
+                    if (data != null) {
+                        val tempCategoryList = mutableListOf(Category(0, "전체", 0, "", ""))
+
+                        for (item in data) {
+                            tempCategoryList.add(item)
+                        }
+
+                        categoryList.set(tempCategoryList)
+                    }
+                }
+            })
     }
 
-    private fun loadBriefRequests(x: Float, y: Float) {
+    fun loadBriefRequestList(x: Float, y: Float) {
+        //서버에서 데이터 가져오기
+        RetrofitHelper
+            .getInstance()
+            .apiService
+            .getRequestsByPosition(x, y)
+            .enqueue(object : Callback<List<BriefRequest>> {
+                override fun onFailure(call: Call<List<BriefRequest>>, t: Throwable) {
+                    t.printStackTrace()
+                }
 
-        val coordiX = 37.5405655f
-        val coordiY = 127.0695086f
+                override fun onResponse(
+                    call: Call<List<BriefRequest>>,
+                    response: Response<List<BriefRequest>>
+                ) {
+                    val data = response.body()
+                    if (data != null) {
+                        briefRequestList.set(data)
+                    }
+                }
+            })
+    }
 
-        //서버랑 통신해서 데이터 가져오기
-        //미구현
-        val data = listOf(
-            BriefRequest("똥휴지", 1, arrayOf(coordiX, coordiY), ""),
-            BriefRequest("뺑소니", 2, arrayOf(coordiX + 0.001f, coordiY), ""),
-            BriefRequest("분실", 3, arrayOf(coordiX + 0.002f, coordiY), ""),
-            BriefRequest("접촉사고", 4, arrayOf(coordiX + 0.003f, coordiY), "")
-        )
-
-        requestList.set(data)
-
+    fun loadBriefRequestsByCategory(categoryId: Int): List<BriefRequest>? {
+        return if (categoryId == 0) {
+            briefRequestList.get()
+        } else {
+            briefRequestList.get()?.filter {
+                it.category == categoryId
+            }
+        }
     }
 
     companion object {

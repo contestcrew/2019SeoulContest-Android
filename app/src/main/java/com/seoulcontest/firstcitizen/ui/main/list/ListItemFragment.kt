@@ -7,19 +7,19 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.seoulcontest.firstcitizen.R
-import com.seoulcontest.firstcitizen.databinding.FragmentCategoryBinding
+import com.seoulcontest.firstcitizen.databinding.FragmentListItemBinding
 
 class ListItemFragment : Fragment() {
 
-    private var key = "KEY_CATEGORY"
-    private lateinit var binding: FragmentCategoryBinding
+    private var keyCategory = "KEY_CATEGORY"
+    private lateinit var binding: FragmentListItemBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list_item, container, false)
 
         return binding.root
     }
@@ -27,14 +27,20 @@ class ListItemFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val currCategory = arguments?.getString(key)
+        val currCategory = arguments?.getInt(keyCategory, 0)
 
-        binding.textView.text = "카테고리별 요쳥 보여줄 예정\n 현재 카테고리 : $currCategory"
+        initRecyclerView(currCategory)
+    }
+
+    private fun initRecyclerView(category: Int?) {
+        binding.rvListItem.adapter = ListItemRvAdapter().apply {
+            loadData(category)
+        }
     }
 
     companion object {
-        fun newInstance(category: String) = ListItemFragment().apply {
-            arguments = Bundle().apply { putString(key, category) }
+        fun newInstance(categoryId: Int) = ListItemFragment().apply {
+            arguments = Bundle().apply { putInt(keyCategory, categoryId) }
         }
     }
 }

@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
+import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import com.seoulcontest.firstcitizen.R
+import com.seoulcontest.firstcitizen.data.vo.Category
 import com.seoulcontest.firstcitizen.databinding.FragmentListBinding
 import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
@@ -22,7 +25,6 @@ class ListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false)
         return binding.root
     }
@@ -32,7 +34,7 @@ class ListFragment : Fragment() {
 
         initViewModel()
         initView()
-
+        initCallback()
     }
 
     private fun initViewModel() {
@@ -44,8 +46,21 @@ class ListFragment : Fragment() {
         listItemAdapter =
             ListItemAdapter(requireActivity().supportFragmentManager)
 
-        binding.viewPagerLists.adapter = listItemAdapter
-        binding.tabLayoutCatergory.setupWithViewPager(binding.viewPagerLists)
+        with(binding) {
+            viewPagerLists.adapter = listItemAdapter
+            tabLayoutCatergory.setupWithViewPager(binding.viewPagerLists)
+        }
     }
 
+    private fun initCallback() {
+        viewModel.categoryList.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                (sender as ObservableField<List<Category>>).get()?.let {
+                    binding.viewPagerLists.offscreenPageLimit =
+                        viewModel.categoryList.get()?.size ?: 0
+                }
+            }
+        })
+    }
 }
