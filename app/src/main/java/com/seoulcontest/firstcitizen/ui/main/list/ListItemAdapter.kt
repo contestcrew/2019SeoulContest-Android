@@ -3,26 +3,26 @@ package com.seoulcontest.firstcitizen.ui.main.list
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.seoulcontest.firstcitizen.data.vo.Category
 
 class ListItemAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    private var fragmentCategoryTitleList = mutableListOf<String>()
+    private var fragmentCategoryList = mutableListOf<Category>()
 
-    fun setCategoryList(list: List<String>?) {
+    fun setCategoryList(list: List<Category>?) {
         if (list != null) {
-            fragmentCategoryTitleList.clear()
-            fragmentCategoryTitleList.addAll(list)
+            fragmentCategoryList.clear()
+            fragmentCategoryList.addAll(list)
         }
     }
 
-    override fun getItem(position: Int): Fragment {
-        return ListItemFragment.newInstance(fragmentCategoryTitleList[position])
-    }
+    override fun getItem(position: Int): Fragment =
+        ListItemFragment.newInstance(fragmentCategoryList[position].id)
 
-    override fun getCount(): Int = fragmentCategoryTitleList.size
+    override fun getCount(): Int = fragmentCategoryList.size
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return fragmentCategoryTitleList[position]
-    }
+    override fun getPageTitle(position: Int): CharSequence? =
+        fragmentCategoryList[position].name
+
 
 }

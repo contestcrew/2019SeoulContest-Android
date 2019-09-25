@@ -4,6 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="request"
+            type="com.seoulcontest.firstcitizen.data.vo.Request" />
+    </data>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="타임라인"
+                android:text="@{request.occurredAt}"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_message"
                 app:layout_constraintTop_toBottomOf="@+id/tv_message_val" />
