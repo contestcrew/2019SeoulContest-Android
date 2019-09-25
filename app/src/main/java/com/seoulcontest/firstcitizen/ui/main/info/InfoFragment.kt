@@ -1,6 +1,5 @@
 package com.seoulcontest.firstcitizen.ui.main.info
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -102,8 +101,6 @@ class InfoFragment : Fragment() {
                 // 로그인을 위해 로그인 페이지로 이동
 
             }
-
-
         }
     }
 }
