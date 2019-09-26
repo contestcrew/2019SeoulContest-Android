@@ -3,24 +3,21 @@ package com.seoulcontest.firstcitizen.viewmodel
 import androidx.databinding.ObservableField
 import com.seoulcontest.firstcitizen.data.vo.BriefRequest
 import com.seoulcontest.firstcitizen.data.vo.Category
+import com.seoulcontest.firstcitizen.data.vo.User
 import com.seoulcontest.firstcitizen.network.RetrofitHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel {
+    val categoryList = ObservableField<List<Category>>() // 카테고리 리스트
+    val briefRequestList = ObservableField<List<BriefRequest>>() // 맵에 보여줄 briefRequest 리스트
+    val currRequest = ObservableField<BriefRequest>() // 현재 클릭된 마커의 request 데이터
+    val isDataLoaded = ObservableField<Boolean>().apply { set(false) } //맵에 뿌릴 데이터가 불려졌는지 체크하는 변수
+    val isLogIn = ObservableField<Boolean>().apply { set(false) } // 현재 로그인상태 체크하는 변수
+    val user = ObservableField<User>() // 현재 유저 정보
 
-    val categoryList = ObservableField<List<Category>>()
-    val briefRequestList = ObservableField<List<BriefRequest>>()
-
-    val currRequest = ObservableField<BriefRequest>()
-
-    fun loadData(x: Float, y: Float) {
-        loadCategoryList()
-        loadBriefRequestList(x, y)
-    }
-
-    private fun loadCategoryList() {
+    fun loadCategoryList() {
         //서버에서 데이터 가져오기
         RetrofitHelper
             .getInstance()
@@ -51,6 +48,8 @@ class MainViewModel {
     }
 
     fun loadBriefRequestList(x: Float, y: Float) {
+        isDataLoaded.set(false)
+
         //서버에서 데이터 가져오기
         RetrofitHelper
             .getInstance()
@@ -66,8 +65,9 @@ class MainViewModel {
                     response: Response<List<BriefRequest>>
                 ) {
                     val data = response.body()
-                    if (data != null) {
+                    if (!data.isNullOrEmpty()) {
                         briefRequestList.set(data)
+                        isDataLoaded.set(true)
                     }
                 }
             })

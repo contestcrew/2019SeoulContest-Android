@@ -10,9 +10,9 @@ import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentListItemBinding
 
 class ListItemFragment : Fragment() {
-
-    private var keyCategory = "KEY_CATEGORY"
     private lateinit var binding: FragmentListItemBinding
+    private lateinit var adapter: ListItemRvAdapter
+    var category = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,20 +27,25 @@ class ListItemFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val currCategory = arguments?.getInt(keyCategory, 0)
-
-        initRecyclerView(currCategory)
+        category = arguments?.getInt(KEY_CATEGORY, 0) ?: 0
+        initRecyclerView()
+        loadFragmentData()
     }
 
-    private fun initRecyclerView(category: Int?) {
-        binding.rvListItem.adapter = ListItemRvAdapter().apply {
-            loadData(category)
-        }
+    private fun initRecyclerView() {
+        adapter = ListItemRvAdapter()
+        binding.rvListItem.adapter = adapter
+    }
+
+    fun loadFragmentData() {
+        adapter.loadData(category)
     }
 
     companion object {
+        const val KEY_CATEGORY = "KEY_CATEGORY"
+
         fun newInstance(categoryId: Int) = ListItemFragment().apply {
-            arguments = Bundle().apply { putInt(keyCategory, categoryId) }
+            arguments = Bundle().apply { putInt(KEY_CATEGORY, categoryId) }
         }
     }
 }

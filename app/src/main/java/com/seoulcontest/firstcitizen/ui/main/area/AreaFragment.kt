@@ -28,18 +28,16 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 class AreaFragment : Fragment() {
-
     private val viewModel = MainViewModel.getInstance()
 
     private lateinit var binding: FragmentAreaBinding
     private lateinit var fusedLocationSource: FusedLocationSource
-    private lateinit var naverMap: NaverMap
+    private lateinit var currPosition: CameraPosition
 
-    //현재 임시로 현재 포지션 삼각지로 해놓음
-    private var currPosition = CameraPosition(LatLng(37.5367238, 126.9736246), 15.0)
-    private var dataCalledPosition = CameraPosition(LatLng(35.0, 120.0), 15.0)
-
+    private var dataCalledPosition = CameraPosition(LatLng(35.0, 120.0), 14.0)
     private val markerList = mutableListOf<Marker>()
+    private var naverMap: NaverMap? = null
+    private var currZoom = 14.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,11 +56,14 @@ class AreaFragment : Fragment() {
         initViewModel()
         initView()
         initEvent()
+        initCallback()
         checkPermission()
     }
 
     private fun initViewModel() {
-        binding.viewModel = viewModel
+        binding.viewModel = viewModel.apply {
+            loadCategoryList()
+        }
     }
 
     private fun initView() {
@@ -71,15 +72,23 @@ class AreaFragment : Fragment() {
 
     private fun initEvent() {
         binding.cardview.setOnClickListener {
-            startActivity(Intent(context, DetailActivity::class.java))
+            startActivity(Intent(context, DetailActivity::class.java).apply {
+                putExtra("id", viewModel.currRequest.get()?.id)
+                putExtra("lat", viewModel.currRequest.get()?.latitude)
+                putExtra("lng", viewModel.currRequest.get()?.longitude)
+                putExtra("category", viewModel.currRequest.get()?.category)
+            })
         }
 
         binding.btLocation.setOnClickListener {
-            naverMap.moveCamera(
-                CameraUpdate
-                    .toCameraPosition(currPosition)
-                    .animate(CameraAnimation.Easing)
-            )
+            //카메라 현재위치로 이동
+            naverMap?.let {
+                it.moveCamera(
+                    CameraUpdate
+                        .toCameraPosition(currPosition)
+                        .animate(CameraAnimation.Easing)
+                )
+            }
         }
 
         binding.btRequest.setOnClickListener {
@@ -88,16 +97,32 @@ class AreaFragment : Fragment() {
             )
         }
 
-        initCallback()
+        binding.btRefresh.setOnClickListener {
+            viewModel.loadBriefRequestList(
+                currPosition.target.latitude.toFloat(),
+                currPosition.target.longitude.toFloat()
+            )
+
+            dataCalledPosition =
+                CameraPosition(LatLng(currPosition.target.latitude, currPosition.target.longitude), currZoom)
+            //카메라 현재위치로 이동
+            naverMap?.let {
+                it.moveCamera(
+                    CameraUpdate
+                        .toCameraPosition(currPosition)
+                        .animate(CameraAnimation.Easing)
+                )
+            }
+        }
     }
 
     private fun initNaverMap() {
         fusedLocationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
         val fm = childFragmentManager
-        val mapFragment = fm.findFragmentById(R.id.map_view) as MapFragment?
+        val mapFragment = fm.findFragmentById(R.id.map_view_detail) as MapFragment?
             ?: MapFragment.newInstance().also {
-                fm.beginTransaction().add(R.id.map_view, it).commit()
+                fm.beginTransaction().add(R.id.map_view_detail, it).commit()
             }
 
         //NaverMap 객체가 준비되면 람다 코드가 실행됨.
@@ -109,12 +134,12 @@ class AreaFragment : Fragment() {
                 isIndoorEnabled = true
                 locationSource = fusedLocationSource
                 locationTrackingMode = LocationTrackingMode.Follow
-                //minZoom = 15.0
+                minZoom = 15.0
 
                 //현재 사용자 위치 이벤트 콜백
                 addOnLocationChangeListener { location ->
                     currPosition =
-                        CameraPosition(LatLng(location.latitude, location.longitude), 15.0)
+                        CameraPosition(LatLng(location.latitude, location.longitude), currZoom)
 
                     val distance = getDistanceOfTwoLatLng(
                         currPosition.target.latitude,
@@ -123,15 +148,20 @@ class AreaFragment : Fragment() {
                         dataCalledPosition.target.longitude
                     )
 
+                    //일정 거리 이상일 때 데이터 불러오기
                     if (distance > 100) {
-                        viewModel.loadData(
+                        viewModel.loadBriefRequestList(
                             currPosition.target.latitude.toFloat(),
                             currPosition.target.longitude.toFloat()
                         )
 
                         dataCalledPosition =
-                            CameraPosition(LatLng(location.latitude, location.longitude), 15.0)
+                            CameraPosition(LatLng(location.latitude, location.longitude), currZoom)
                     }
+                }
+
+                addOnCameraIdleListener {
+                    currZoom = it.cameraPosition.zoom
                 }
 
                 with(uiSettings) {
@@ -140,13 +170,15 @@ class AreaFragment : Fragment() {
                     isZoomControlEnabled = false
                     isScaleBarEnabled = false
                     isLocationButtonEnabled = false
+                    isLogoClickEnabled = false
                 }
+
+                binding.viewLogo.setMap(it)
             }
         }
     }
 
     private fun initCallback() {
-        //viewModel.briefRequestList 가 변경되면 실행되는 코드
         viewModel.briefRequestList.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -156,6 +188,34 @@ class AreaFragment : Fragment() {
                 markerList.clear()
 
                 (sender as ObservableField<List<BriefRequest>>).get()?.let { requestList ->
+                    //초기 마커 설정 (리팩토링 필요)
+                    if (viewModel.currRequest.get() == null) {
+                        val briefRequest = requestList[0]
+                        viewModel.currRequest.set(briefRequest) //현재 request 설정
+
+                        //카테고리별로 이미지뷰 세팅
+                        when (briefRequest.category) {
+                            1 -> binding.ivCategory.setImageResource(R.drawable.ic_restroom)
+                            2 -> binding.ivCategory.setImageResource(R.drawable.ic_loss)
+                            3 -> binding.ivCategory.setImageResource(R.drawable.ic_crash)
+                            4 -> binding.ivCategory.setImageResource(R.drawable.ic_missing)
+                        }
+
+                        //카메라 제어
+                        val cameraUpdate = CameraUpdate
+                            .toCameraPosition(
+                                CameraPosition(
+                                    LatLng(
+                                        briefRequest.latitude.toDouble(),
+                                        briefRequest.longitude.toDouble()
+                                    ), currZoom
+                                )
+                            )
+                            .animate(CameraAnimation.Easing)
+
+                        naverMap?.let { it.moveCamera(cameraUpdate) }
+                    }
+
                     for (briefRequest in requestList) {
                         val marker = Marker().apply {
                             position =
@@ -169,8 +229,8 @@ class AreaFragment : Fragment() {
 
                             when (briefRequest.category) {
                                 1 -> icon = OverlayImage.fromResource(R.drawable.pin_restroom)
-                                2 -> icon = OverlayImage.fromResource(R.drawable.pin_crash)
-                                3 -> icon = OverlayImage.fromResource(R.drawable.pin_loss)
+                                2 -> icon = OverlayImage.fromResource(R.drawable.pin_loss)
+                                3 -> icon = OverlayImage.fromResource(R.drawable.pin_crash)
                                 4 -> icon = OverlayImage.fromResource(R.drawable.pin_missing)
                             }
 
@@ -180,19 +240,27 @@ class AreaFragment : Fragment() {
                             setOnClickListener {
                                 viewModel.currRequest.set(briefRequest)
 
-                                //카메라 제어
+                                //카테고리별로 이미지뷰 세팅
+                                when (briefRequest.category) {
+                                    1 -> binding.ivCategory.setImageResource(R.drawable.ic_restroom)
+                                    2 -> binding.ivCategory.setImageResource(R.drawable.ic_loss)
+                                    3 -> binding.ivCategory.setImageResource(R.drawable.ic_crash)
+                                    4 -> binding.ivCategory.setImageResource(R.drawable.ic_missing)
+                                }
+
+                                //카메라 마커위치로 이동
                                 val cameraUpdate = CameraUpdate
                                     .toCameraPosition(
                                         CameraPosition(
                                             LatLng(
                                                 briefRequest.latitude.toDouble(),
                                                 briefRequest.longitude.toDouble()
-                                            ), 14.0
+                                            ), currZoom
                                         )
                                     )
                                     .animate(CameraAnimation.Easing)
 
-                                naverMap.moveCamera(cameraUpdate)
+                                naverMap?.let { it.moveCamera(cameraUpdate) }
 
                                 true //true 일 경우 위 이벤트 실행
                             }
@@ -224,9 +292,7 @@ class AreaFragment : Fragment() {
 
     // Naver 맵 이외의 위험 권한 체크하는 함수
     private fun checkPermission() {
-
         val permissionListener = object : PermissionListener {
-
             override fun onPermissionGranted() {
 
             }

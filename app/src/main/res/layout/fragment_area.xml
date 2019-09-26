@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="android.view.View"></import>
+
         <variable
             name="viewModel"
             type="com.seoulcontest.firstcitizen.viewmodel.MainViewModel" />
@@ -26,11 +28,10 @@
             app:layout_constraintVertical_bias="1.0">
 
             <fragment
-                android:id="@+id/map_view"
+                android:id="@+id/map_view_detail"
                 android:name="com.naver.maps.map.MapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
 
             <ImageView
                 android:id="@+id/iv_transparent"
@@ -42,6 +43,20 @@
 
         </FrameLayout>
 
+        <TextView
+            android:id="@+id/tv_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="주변에 도움을 찾는 시민이 없습니다"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:visibility="@{viewModel.isDataLoaded ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.85" />
+
         <com.naver.maps.map.widget.LogoView
             android:id="@+id/view_logo"
             android:layout_width="wrap_content"
@@ -49,9 +64,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </com.naver.maps.map.widget.LogoView>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/bt_location"
@@ -86,13 +99,14 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:elevation="4dp"
+            android:visibility="@{viewModel.isDataLoaded ? View.VISIBLE : View.INVISIBLE}"
             app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +114,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -109,23 +123,25 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@{viewModel.currRequest.title}"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:textColor="@color/boldTextColor"
-                    android:textSize="22sp"
+                    android:textSize="@dimen/request_title_size"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_category"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:setTitle="@{viewModel.currRequest.title}" />
 
                 <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:id="@+id/iv_category"
+                    android:layout_width="@dimen/request_iv_icon_size"
+                    android:layout_height="@dimen/request_iv_icon_size"
                     android:layout_marginEnd="16dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_title"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_title"
-                    app:srcCompat="@drawable/ic_restroom" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
                 <View
                     android:id="@+id/divider01"
@@ -134,73 +150,122 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
                     android:background="#000"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_category"
                     app:layout_constraintStart_toStartOf="@+id/tv_title"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
                 <TextView
-                    android:id="@+id/tv_date"
+                    android:id="@+id/tv_created_at"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@{viewModel.currRequest.occurredAt}"
                     android:textColor="#000"
+                    android:textSize="@dimen/request_sub_content_size"
                     app:layout_constraintEnd_toStartOf="@+id/tv_point"
                     app:layout_constraintStart_toStartOf="@+id/tv_title"
-                    app:layout_constraintTop_toBottomOf="@+id/divider01" />
+                    app:layout_constraintTop_toBottomOf="@+id/divider01"
+                    app:setDiffDateText="@{viewModel.currRequest.createdAt}" />
 
                 <TextView
                     android:id="@+id/tv_content"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="28dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="18dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="@{viewModel.currRequest.content}"
                     android:textColor="#000"
+                    android:textSize="@dimen/request_content_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_status"
-                    app:layout_constraintStart_toStartOf="@+id/tv_date"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_date"
+                    app:layout_constraintStart_toStartOf="@+id/tv_created_at"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_created_at"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/tv_point"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginEnd="2dp"
                     android:text="Point"
-                    android:textColor="#00f"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+                    android:textColor="@color/requestPointColor"
+                    android:textSize="@dimen/request_sub_content_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_created_at"
                     app:layout_constraintEnd_toStartOf="@+id/tv_point_val"
-                    app:layout_constraintTop_toTopOf="@+id/tv_date" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_created_at"
+                    app:layout_constraintVertical_bias="0.0" />
+
 
                 <TextView
                     android:id="@+id/tv_point_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:text="@{String.valueOf(viewModel.currRequest.categoryScore)}"
+                    android:textColor="#000"
+                    android:textSize="@dimen/request_sub_content_size"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_point"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_plus"
+                    app:layout_constraintTop_toTopOf="@+id/tv_point"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:text="+"
+                    android:textColor="#000"
+                    android:textSize="@dimen/request_sub_content_size"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_point_val"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_bonus"
+                    app:layout_constraintTop_toTopOf="@+id/tv_point_val"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_bonus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:text="Bonus"
+                    android:textColor="@color/requestBonusColor"
+                    android:textSize="@dimen/request_sub_content_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_point_val"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_bonus_val"
+                    app:layout_constraintTop_toTopOf="@+id/tv_point_val"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_bonus_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@{String.valueOf(viewModel.currRequest.score)}"
                     android:textColor="#000"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_point"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="@+id/tv_point" />
+                    android:textSize="@dimen/request_sub_content_size"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_bonus"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_category"
+                    app:layout_constraintTop_toTopOf="@+id/tv_bonus" />
 
                 <TextView
                     android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.currRequest.status}"
-                    android:textColor="#0f0"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/request_status_size"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_content"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="@+id/tv_content" />
+                    app:layout_constraintEnd_toEndOf="@+id/iv_category"
+                    app:layout_constraintTop_toTopOf="@+id/tv_content"
+                    app:setStatusTextColor="@{viewModel.currRequest.status}" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

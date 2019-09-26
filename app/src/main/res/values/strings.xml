@@ -38,6 +38,6 @@
     <string name="nick_logout">별명 : -</string>
     <string name="reliability_logout">신뢰도 : -</string>
     <string name="point_logout">Point : -</string>
-    <string name="logIn_text">로그인</string>
-    <string name="logOut_text">로그아웃</string>
+    <string name="login">로그인</string>
+    <string name="logout">로그아웃</string>
 </resources>

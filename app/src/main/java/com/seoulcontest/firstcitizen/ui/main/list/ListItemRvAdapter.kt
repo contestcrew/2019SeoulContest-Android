@@ -1,5 +1,6 @@
 package com.seoulcontest.firstcitizen.ui.main.list
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.data.vo.BriefRequest
 import com.seoulcontest.firstcitizen.databinding.ItemListCategoryBinding
+import com.seoulcontest.firstcitizen.ui.detail.DetailActivity
 import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
 class ListItemRvAdapter : RecyclerView.Adapter<ListItemRvAdapter.ListItemViewHolder>() {
@@ -47,13 +49,27 @@ class ListItemRvAdapter : RecyclerView.Adapter<ListItemRvAdapter.ListItemViewHol
 
         fun bind(item: BriefRequest) {
             with(binding) {
-                binding.breifRequest = item
+                binding.currRequest = item
 
+                //카테고리별로 이미지뷰 세팅
                 when (item.category) {
-                    1 -> imageView.setImageResource(R.drawable.ic_restroom)
-                    2 -> imageView.setImageResource(R.drawable.ic_missing)
-                    3 -> imageView.setImageResource(R.drawable.ic_loss)
-                    4 -> imageView.setImageResource(R.drawable.ic_missing)
+                    1 -> ivCategory.setImageResource(R.drawable.ic_restroom)
+                    2 -> ivCategory.setImageResource(R.drawable.ic_loss)
+                    3 -> ivCategory.setImageResource(R.drawable.ic_crash)
+                    4 -> ivCategory.setImageResource(R.drawable.ic_missing)
+                }
+
+                //클릭이벤트 처리
+                root.setOnClickListener {
+                    val intent = Intent().apply {
+                        setClass(it.context, DetailActivity::class.java)
+                        putExtra("id", item.id)
+                        putExtra("lat", item.latitude)
+                        putExtra("lng", item.longitude)
+                        putExtra("category", item.category)
+                    }
+
+                    it.context.startActivity(intent)
                 }
 
                 executePendingBindings()
