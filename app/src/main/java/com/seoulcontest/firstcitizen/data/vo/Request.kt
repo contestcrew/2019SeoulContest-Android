@@ -37,7 +37,7 @@ data class Request(
     @SerializedName("updated_at")
     val updatedAt: String?,
     @SerializedName("images")
-    val images : List<String>
+    val images: List<String>
 ) {
     data class Author(
         @SerializedName("id")

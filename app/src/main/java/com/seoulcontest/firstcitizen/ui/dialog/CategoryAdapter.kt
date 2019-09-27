@@ -10,16 +10,16 @@ import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ItemCategoryBinding
 import kotlin.String
 
-class CategoryAdapter(mContext : Context, private val arrayList : Array<String>)  : BaseAdapter() {
+class CategoryAdapter(mContext: Context, private val arrayList: Array<String>) : BaseAdapter() {
 
-    private val data : Array<String> = arrayList
-    private val inflater : LayoutInflater = LayoutInflater.from(mContext)
+    private val data: Array<String> = arrayList
+    private val inflater: LayoutInflater = LayoutInflater.from(mContext)
     lateinit var item : ItemCategoryBinding
 
 
     override fun getView(position : Int, convertView: View?, parent : ViewGroup?): View {
 
-        return if (convertView == null){
+        return if (convertView == null) {
 
             item = DataBindingUtil.inflate(inflater,R.layout.item_category,parent,false)
             item.btnCategory.text = arrayList[position]
@@ -32,7 +32,7 @@ class CategoryAdapter(mContext : Context, private val arrayList : Array<String>)
         }
     }
 
-    override fun getItem(position: Int): Any ? = data[position]
+    override fun getItem(position: Int): Any? = data[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 

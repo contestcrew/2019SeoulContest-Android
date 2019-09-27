@@ -1,6 +1,5 @@
 package com.seoulcontest.firstcitizen.viewmodel
 
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.seoulcontest.firstcitizen.data.vo.BriefRequest
 import com.seoulcontest.firstcitizen.data.vo.Category
@@ -11,19 +10,16 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel {
+    val categoryList = ObservableField<List<Category>>() // 카테고리 리스트
+    val briefRequestList = ObservableField<List<BriefRequest>>() // 맵에 보여줄 briefRequest 리스트
+    val currRequest = ObservableField<BriefRequest>() // 현재 클릭된 마커의 request 데이터
+    val isDataLoaded = ObservableField<Boolean>().apply { set(false) } //맵에 뿌릴 데이터가 불려졌는지 체크하는 변수
+    val isMarkerClicked = ObservableField<Boolean>().apply { set(false) } //마커가 눌려졌는지 체크하는 변수
+    val isLogIn = ObservableField<Boolean>().apply { set(false) } // 현재 로그인상태 체크하는 변수
+    val user = ObservableField<User>() // 현재 유저 정보
+    val tvBottomStatus = ObservableField<String>().apply { "주변에 곤경에 빠진 시민이 없습니다" } // 맵하단에 보여줄 상태 문자열
 
-    val categoryList = ObservableField<List<Category>>()
-    val briefRequestList = ObservableField<List<BriefRequest>>()
-    val userDataList = ObservableField<List<User>>()
-    val logInStatus = ObservableBoolean(false)
-    val currRequest = ObservableField<BriefRequest>()
-
-    fun loadData(x: Float, y: Float) {
-        loadCategoryList()
-        loadBriefRequestList(x, y)
-    }
-
-    private fun loadCategoryList() {
+    fun loadCategoryList() {
         //서버에서 데이터 가져오기
         RetrofitHelper
             .getInstance()
@@ -41,7 +37,8 @@ class MainViewModel {
                     val data = response.body()
 
                     if (data != null) {
-                        val tempCategoryList = mutableListOf(Category(0, "전체", 0, "", ""))
+                        val tempCategoryList =
+                            mutableListOf(Category(0, "전체", 0, "", ""))
 
                         for (item in data) {
                             tempCategoryList.add(item)
@@ -54,6 +51,8 @@ class MainViewModel {
     }
 
     fun loadBriefRequestList(x: Float, y: Float) {
+        isDataLoaded.set(false)
+
         //서버에서 데이터 가져오기
         RetrofitHelper
             .getInstance()
@@ -62,6 +61,7 @@ class MainViewModel {
             .enqueue(object : Callback<List<BriefRequest>> {
                 override fun onFailure(call: Call<List<BriefRequest>>, t: Throwable) {
                     t.printStackTrace()
+                    isDataLoaded.set(true)
                 }
 
                 override fun onResponse(
@@ -69,9 +69,14 @@ class MainViewModel {
                     response: Response<List<BriefRequest>>
                 ) {
                     val data = response.body()
-                    if (data != null) {
+                    if (!data.isNullOrEmpty()) {
                         briefRequestList.set(data)
+                        tvBottomStatus.set("곤경에 빠진 시민을 도와주세요")
+                    } else {
+                        tvBottomStatus.set("주변에 곤경에 빠진 시민이 없습니다")
                     }
+
+                    isDataLoaded.set(true)
                 }
             })
     }
@@ -84,14 +89,19 @@ class MainViewModel {
                 it.category == categoryId
             }
         }
-
-
     }
 
-    fun loadUserBytoken(token : Int) : List<User>? {
-
-        return userDataList.get()
-
+    fun loadBriefRequestByQuery(query: String?): List<BriefRequest>? {
+        return if (query.isNullOrEmpty()) {
+            briefRequestList.get()
+        } else {
+            val data = briefRequestList.get()
+            data?.let { list ->
+                list.filter {
+                    it.title.contains(query) || it.content.contains(query)
+                }
+            }
+        }
     }
 
     companion object {

@@ -50,9 +50,9 @@ class LogInActivity : AppCompatActivity() {
         if (resultCode != Activity.RESULT_OK)
             return
 
-        if (requestCode== RC_SIGN_UP_OK) {
+        if (requestCode == RC_SIGN_UP_OK) {
 
-            Toast.makeText(this,"회원가입에 성공했습니다.",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
 
         }
 

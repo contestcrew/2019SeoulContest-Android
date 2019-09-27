@@ -8,10 +8,10 @@ import com.seoulcontest.firstcitizen.databinding.ActivityRequestDetailBinding
 
 class RequestDetailActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityRequestDetailBinding
+    lateinit var binding: ActivityRequestDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_request_detail)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_request_detail)
     }
 }
