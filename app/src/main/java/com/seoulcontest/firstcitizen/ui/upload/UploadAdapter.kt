@@ -8,13 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.seoulcontest.firstcitizen.R
-import com.seoulcontest.firstcitizen.databinding.ItemUploadPicBinding
+import com.seoulcontest.firstcitizen.databinding.ItemUploadBinding
 import com.seoulcontest.firstcitizen.util.ItemResizer
 
 class UploadAdapter(val mContext: Context, var uploadImageArray: List<Uri>) :
     RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
 
-    lateinit var binding: ItemUploadPicBinding
+    lateinit var binding: ItemUploadBinding
 
     override fun onBindViewHolder(holder: UploadViewHolder, position: Int) {
         holder.bind(uploadImageArray[position])
@@ -27,29 +27,25 @@ class UploadAdapter(val mContext: Context, var uploadImageArray: List<Uri>) :
 
         val inflater = LayoutInflater.from(mContext)
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.item_upload_pic, parent, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.item_upload, parent, false)
 
         return UploadViewHolder(binding)
     }
 
     override fun getItemCount(): Int = uploadImageArray.size
 
-    inner class UploadViewHolder(var binding: ItemUploadPicBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class UploadViewHolder(var binding: ItemUploadBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(uploadImage: Uri) {
 
-            val resizer = ItemResizer(mContext)
+            with(ItemResizer(mContext)) {
 
-            binding.imgUpload.maxWidth = resizer.getDisplayWidth()
-            binding.imgUpload.maxHeight = resizer.getDisplayHeight()
+                binding.imgUpload.maxWidth = getDisplayWidth()
+                binding.imgUpload.maxHeight = getDisplayHeight()
 
-            Glide.with(mContext).load(uploadImage)
-                .override(resizer.getDisplayWidth(), resizer.getDisplayHeight())
-                .into(binding.imgUpload)
-
+                Glide.with(mContext).load(uploadImage).override(getDisplayWidth(), getDisplayHeight())
+                    .into(binding.imgUpload)
+            }
         }
-
     }
-
 }

@@ -44,8 +44,10 @@
 
             <EditText
                 android:id="@+id/edt_sign_up_email"
+                android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="0sp"
+                android:layout_marginTop="@dimen/activity_margin_top"
                 android:layout_weight="1" />
 
             <TextView
@@ -61,6 +63,7 @@
             <EditText
                 android:id="@+id/edt_input_pass"
                 android:layout_width="match_parent"
+                android:inputType="textPassword"
                 android:layout_height="0sp"
                 android:layout_weight="1" />
 
@@ -77,10 +80,12 @@
             <EditText
                 android:id="@+id/edt_check_pass"
                 android:layout_width="match_parent"
+                android:inputType="textPassword"
                 android:layout_height="0sp"
                 android:layout_weight="1" />
 
             <LinearLayout
+                android:id="@+id/btn_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/button_sign_up_margin_top"

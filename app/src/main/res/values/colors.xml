@@ -21,5 +21,6 @@
     <color name="textRequiredColor">#2e7d32</color>
     <color name="plusButtonBackground">#64dd17</color>
     <color name="plusButtonColor">#ffffff</color>
-    <color name="siginUpButtonColor">#1a237e</color>
+    <color name="sigInUpButtonColor">#1a237e</color>
+    <color name="buttonInputLocationColor">#2979ff</color>
 </resources>

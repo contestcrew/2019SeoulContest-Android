@@ -5,35 +5,70 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_side_margin"
         android:gravity="center"
         android:orientation="vertical"
         tools:context=".ui.infomenu.logIn.LogInActivity">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="로그인 페이지입니다" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_top"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_log_in"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/activity_side_margin"
-                android:text="로그인" />
+                android:layout_height="0sp"
+                android:layout_weight="1"
+                android:text="이메일"
+                android:textColor="@color/boldTextColor"
+                android:textSize="@dimen/activity_help_subtitle_size"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btn_sign_up"
+            <EditText
+                android:id="@+id/edt_sign_up_email"
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_weight="1" />
+
+            <TextView
                 android:layout_width="wrap_content"
+                android:layout_height="0sp"
+                android:layout_margin="@dimen/activity_margin_top"
+                android:layout_weight="1"
+                android:text="비밀번호"
+                android:textColor="@color/boldTextColor"
+                android:textSize="@dimen/activity_help_subtitle_size"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_input_pass"
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_weight="1"
+                android:inputType="textPassword" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="회원가입" />
+                android:layout_marginTop="@dimen/activity_margin_top"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_log_in"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/activity_side_margin"
+                    android:text="로그인" />
+
+                <Button
+                    android:id="@+id/btn_to_sign_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="회원가입" />
+            </LinearLayout>
         </LinearLayout>
+
+
     </LinearLayout>
 </layout>
