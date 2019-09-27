@@ -8,10 +8,10 @@ import com.seoulcontest.firstcitizen.databinding.ActivityHelpHistoryBinding
 
 class HelpHistoryActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityHelpHistoryBinding
+    lateinit var binding: ActivityHelpHistoryBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_help_history)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_help_history)
     }
 }

@@ -7,9 +7,10 @@
     <data>
 
         <variable
-            name="request"
-            type="com.seoulcontest.firstcitizen.data.vo.Request" />
+            name="viewModel"
+            type="com.seoulcontest.firstcitizen.viewmodel.DetailViewModel" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,16 +22,6 @@
             android:background="#fff"
             tools:context=".ui.detail.DetailActivity">
 
-            <TextView
-                android:id="@+id/tv_timeline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@{request.occurredAt}"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_message"
-                app:layout_constraintTop_toBottomOf="@+id/tv_message_val" />
-
             <View
                 android:id="@+id/divider"
                 android:layout_width="0dp"
@@ -41,26 +32,13 @@
                 app:layout_constraintEnd_toEndOf="@+id/iv_category"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/divider02"
-                app:layout_constraintTop_toBottomOf="@+id/tv_message" />
-
-            <View
-                android:id="@+id/divider3"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:background="#000"
-                app:layout_constraintEnd_toEndOf="@+id/iv_category"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/divider02"
-                app:layout_constraintTop_toBottomOf="@+id/tv_timeline" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_content" />
 
             <FrameLayout
                 android:id="@+id/frame_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toTopOf="@+id/cardview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,10 +46,10 @@
                 app:layout_constraintVertical_bias="1.0">
 
                 <fragment
-                    android:id="@+id/map_view"
+                    android:id="@+id/map_view_detail"
                     android:name="com.naver.maps.map.MapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="300dp" />
 
                 <ImageView
                     android:id="@+id/iv_transparent"
@@ -90,23 +68,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="똥휴지가 없다구요..."
+                android:maxLines="1"
                 android:textColor="@color/boldTextColor"
-                android:textSize="32sp"
+                android:textSize="@dimen/detail_title_size"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/iv_category"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frame_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/frame_layout"
+                app:setTitle="@{viewModel.request.title}" />
 
             <ImageView
                 android:id="@+id/iv_category"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="@dimen/request_iv_icon_size"
+                android:layout_height="@dimen/request_iv_icon_size"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_title"
-                app:srcCompat="@drawable/ic_restroom" />
+                app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
             <View
                 android:id="@+id/divider01"
@@ -124,50 +102,137 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="서울시 가나구 다라동 마바사라길 23"
-                app:layout_constraintEnd_toEndOf="@+id/iv_category"
+                android:layout_marginEnd="16dp"
+                android:text="@{viewModel.request.mainAddress}"
+                android:textSize="@dimen/detail_sub_content_size"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider01" />
 
             <TextView
                 android:id="@+id/tv_point"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
                 android:text="Point"
-                android:textColor="#00f"
+                android:textColor="@color/requestPointColor"
+                android:textSize="@dimen/detail_sub_content_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_point_val"
                 app:layout_constraintEnd_toStartOf="@+id/tv_point_val"
-                app:layout_constraintTop_toBottomOf="@+id/tv_address" />
+                app:layout_constraintTop_toTopOf="@+id/tv_point_val" />
 
             <TextView
                 android:id="@+id/tv_point_val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="150"
+                android:layout_marginEnd="4dp"
+                android:text="@{String.valueOf(viewModel.request.categoryScore)}"
                 android:textColor="#000"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_point"
-                app:layout_constraintEnd_toEndOf="@+id/iv_category"
-                app:layout_constraintTop_toTopOf="@+id/tv_point"
-                app:layout_constraintVertical_bias="1.0" />
+                android:textSize="@dimen/detail_sub_content_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_plus"
+                app:layout_constraintEnd_toStartOf="@+id/tv_plus"
+                app:layout_constraintTop_toTopOf="@+id/tv_plus" />
 
             <TextView
-                android:id="@+id/tv_date"
+                android:id="@+id/tv_bonus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="2019.09.19 목요일"
-                app:layout_constraintEnd_toEndOf="@+id/iv_category"
-                app:layout_constraintTop_toBottomOf="@+id/tv_point_val" />
+                android:layout_marginEnd="4dp"
+                android:text="Bonus"
+                android:textColor="@color/requestBonusColor"
+                android:textSize="@dimen/detail_sub_content_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_bonus_val"
+                app:layout_constraintEnd_toStartOf="@+id/tv_bonus_val"
+                app:layout_constraintTop_toTopOf="@+id/tv_bonus_val" />
+
+            <TextView
+                android:id="@+id/tv_bonus_val"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{String.valueOf(viewModel.request.score)}"
+                android:textColor="#000"
+                android:textSize="@dimen/detail_sub_content_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tv_address"
+                app:layout_constraintTop_toBottomOf="@+id/tv_address" />
+
+            <TextView
+                android:id="@+id/tv_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="+"
+                android:textSize="@dimen/detail_sub_content_size"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_bonus"
+                app:layout_constraintEnd_toStartOf="@+id/tv_bonus"
+                app:layout_constraintTop_toTopOf="@+id/tv_bonus" />
+
+            <TextView
+                android:id="@+id/tv_created_at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="@dimen/detail_sub_content_size"
+                app:layout_constraintEnd_toEndOf="@+id/tv_bonus_val"
+                app:layout_constraintTop_toBottomOf="@+id/tv_bonus_val"
+                app:setDateText="@{viewModel.request.createdAt}" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_created_at">
+
+                <TextView
+                    android:id="@+id/tv_occured_at"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="발생 시간"
+                    android:textSize="@dimen/detail_sub_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/divider00"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_occured_at" />
+
+                <TextView
+                    android:id="@+id/tv_occured_at_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="@dimen/detail_sub_content_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider00"
+                    app:setDateText="@{viewModel.request.occurredAt}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
                 android:text="사진"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_title"
-                app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+                android:textSize="@dimen/detail_sub_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <View
                 android:id="@+id/divider02"
@@ -182,63 +247,58 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_image" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/rv_detail"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/divider02"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/divider02"
                 app:layout_constraintTop_toBottomOf="@+id/divider02" />
 
             <TextView
-                android:id="@+id/tv_message"
+                android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="메세지"
-                android:textSize="20sp"
+                android:text="내용"
+                android:textSize="@dimen/detail_sub_name"
                 app:layout_constraintStart_toStartOf="@+id/tv_image"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_detail" />
 
             <TextView
-                android:id="@+id/tv_message_val"
+                android:id="@+id/tv_content_val"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n20\n30\n40\n50\n60\n70\n80\n90\n"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/tv_shape_selector"
+                android:paddingLeft="12dp"
+                android:paddingTop="6dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="6dp"
+                android:text="@{viewModel.request.content}"
+                android:textSize="@dimen/detail_content_size"
+                app:layout_constraintBottom_toTopOf="@+id/bt_help"
                 app:layout_constraintEnd_toEndOf="@+id/divider"
                 app:layout_constraintStart_toStartOf="@+id/divider"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_timeline"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/divider3"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/divider3"
-                app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
             <Button
                 android:id="@+id/bt_help"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="64dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/bt_shape_selector"
                 android:text="도와주기"
                 android:textColor="#fff"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/rv_timeline"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="@+id/rv_timeline"
-                app:layout_constraintTop_toBottomOf="@+id/rv_timeline" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

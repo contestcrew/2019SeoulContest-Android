@@ -13,6 +13,9 @@ interface FirstCitizenApiService {
     @GET("request/category/")
     fun getCategoryList(): Call<List<Category>>
 
+    @GET("request/{id}/")
+    fun getDetailRequestById(@Path("id") id: Int): Call<Request>
+
     @PUT("request/")
     fun putRequest()
 

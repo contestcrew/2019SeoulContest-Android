@@ -48,7 +48,7 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
     private var status: String? = null
     var categoryScore = 0
     var score = 0
-    var body =  mutableListOf<MultipartBody.Part>()
+    var body = mutableListOf<MultipartBody.Part>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -227,7 +227,7 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         uriList.map {
 
             files.add(File(it.path))
-            Log.d("files",it.path.toString())
+            Log.d("files", it.path.toString())
         }
 
         files.map {

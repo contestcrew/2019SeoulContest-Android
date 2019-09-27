@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_history_list_margin_top"
-            tools:listitem="@layout/item_history_request"
-            tools:itemCount="3" />
+            tools:itemCount="3"
+            tools:listitem="@layout/item_history_request" />
     </LinearLayout>
 </layout>

@@ -4,21 +4,21 @@ import com.google.gson.annotations.SerializedName
 
 data class HelpUpload(
     @SerializedName("request")
-    val request : Int,
+    val request: Int,
     @SerializedName("author")
-    val author : Int,
+    val author: Int,
     @SerializedName("title")
-    val title : Int,
+    val title: Int,
     @SerializedName("content")
-    val content : Int,
+    val content: Int,
     @SerializedName("is_agreed_inform")
-    val isAgreedInform : Int,
+    val isAgreedInform: Int,
     @SerializedName("helped_at")
-    val helpedAt : Int,
+    val helpedAt: Int,
     @SerializedName("created_at")
-    val createdAt : Int,
+    val createdAt: Int,
     @SerializedName("updated_At")
-    val updatedAt : Int,
+    val updatedAt: Int,
     @SerializedName("images")
-    val images : String
+    val images: String
 )

@@ -3,11 +3,14 @@
     <!-- info activity 관련 -->
     <dimen name="info_layout_margin_top">24dp</dimen>
     <dimen name="info_layout_margin_bottom">24dp</dimen>
-    <dimen name="info_content_size">16dp</dimen>
     <dimen name="info_content_margin_top">6dp</dimen>
     <dimen name="info_count_radius">12dp</dimen>
     <dimen name="info_count_width">24dp</dimen>
     <dimen name="info_count_height">24dp</dimen>
+    <dimen name="info_content_size">16dp</dimen>
+    <dimen name="info_menu_size">20dp</dimen>
+    <dimen name="info_number_size">14dp</dimen>
+    <dimen name="info_button_size">24dp</dimen>
 
     <dimen name="item_margin">6dp</dimen>
     <dimen name="activity_upload_title_size">16dp</dimen>
@@ -50,4 +53,17 @@
     <dimen name="dialog_margin_top">18dp</dimen>
     <dimen name="dialog_margin_bottom">18dp</dimen>
     <dimen name="dialog_card_view_radius">8dp</dimen>
+    <!--    request font size 관련  -->
+    <dimen name="request_title_size">21dp</dimen>
+    <dimen name="request_content_size">14dp</dimen>
+    <dimen name="request_sub_content_size">12dp</dimen>
+    <dimen name="request_status_size">18dp</dimen>
+    <dimen name="request_iv_icon_size">30dp</dimen>
+    <!--    detail request font size 관련  -->
+    <dimen name="detail_title_size">24dp</dimen>
+    <dimen name="detail_sub_name">20dp</dimen>
+    <dimen name="detail_content_size">16dp</dimen>
+    <dimen name="detail_sub_content_size">14dp</dimen>
+    <dimen name="detail_status_size">18dp</dimen>
+    <dimen name="detail_iv_icon_size">30dp</dimen>
 </resources>

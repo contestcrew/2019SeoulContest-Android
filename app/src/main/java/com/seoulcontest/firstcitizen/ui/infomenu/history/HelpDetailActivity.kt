@@ -9,10 +9,10 @@ import com.seoulcontest.firstcitizen.databinding.ActivityHelpDetailBinding
 
 class HelpDetailActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityHelpDetailBinding
+    lateinit var binding: ActivityHelpDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_help_detail)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_help_detail)
     }
 }

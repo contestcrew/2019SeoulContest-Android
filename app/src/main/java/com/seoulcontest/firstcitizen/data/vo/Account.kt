@@ -8,4 +8,5 @@ data class Account(
     @SerializedName("password")
     val password: String,
     @SerializedName("device_token")
-    val deviceToken: String)
+    val deviceToken: String
+)
