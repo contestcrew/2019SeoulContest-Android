@@ -15,6 +15,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isDataLoaded ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/cardview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.40" />
+
         <FrameLayout
             android:id="@+id/frame_layout"
             android:layout_width="0dp"
@@ -25,6 +37,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{viewModel.isDataLoaded ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintVertical_bias="1.0">
 
             <fragment
@@ -44,13 +57,13 @@
         </FrameLayout>
 
         <TextView
-            android:id="@+id/tv_no_data"
+            android:id="@+id/tv_bottom_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="주변에 도움을 찾는 시민이 없습니다"
-            android:textSize="16dp"
+            android:text="@{viewModel.tvBottomStatus}"
+            android:textSize="18dp"
             android:textStyle="bold"
-            android:visibility="@{viewModel.isDataLoaded ? View.GONE : View.VISIBLE}"
+            android:visibility="@{viewModel.isMarkerClicked ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +117,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:elevation="4dp"
-            android:visibility="@{viewModel.isDataLoaded ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{viewModel.isMarkerClicked ? View.VISIBLE : View.INVISIBLE}"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -37,5 +37,4 @@ class ListItemAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_R
     override fun getPageTitle(position: Int): CharSequence? =
         fragmentCategoryList[position].name
 
-
 }

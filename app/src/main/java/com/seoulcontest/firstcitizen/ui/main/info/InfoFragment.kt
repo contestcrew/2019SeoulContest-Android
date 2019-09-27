@@ -9,6 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentInfoBinding
+import com.seoulcontest.firstcitizen.ui.infomenu.MyInfoActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.NoticeActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.ServiceTermsActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.logIn.LogInActivity
 import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
@@ -43,6 +46,26 @@ class InfoFragment : Fragment() {
             } else {
                 startActivity(Intent(requireContext(), LogInActivity::class.java))
             }
+        }
+
+        binding.ivRequest.setOnClickListener {
+            //            startActivity(Intent(requireContext(), ::class.java))
+        }
+
+        binding.ivHelp.setOnClickListener {
+            //            startActivity(Intent(requireContext(), ::class.java))
+        }
+
+        binding.ivNotice.setOnClickListener {
+            startActivity(Intent(requireContext(), NoticeActivity::class.java))
+        }
+
+        binding.ivPolicy.setOnClickListener {
+            startActivity(Intent(requireContext(), ServiceTermsActivity::class.java))
+        }
+
+        binding.ivMyInfo.setOnClickListener {
+            startActivity(Intent(requireContext(), MyInfoActivity::class.java))
         }
     }
 }

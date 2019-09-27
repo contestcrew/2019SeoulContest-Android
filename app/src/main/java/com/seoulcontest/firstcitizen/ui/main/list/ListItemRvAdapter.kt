@@ -1,9 +1,9 @@
 package com.seoulcontest.firstcitizen.ui.main.list
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.data.vo.BriefRequest
@@ -13,7 +13,6 @@ import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
 class ListItemRvAdapter : RecyclerView.Adapter<ListItemRvAdapter.ListItemViewHolder>() {
     private val data = mutableListOf<BriefRequest>()
-    private lateinit var binding: ItemListCategoryBinding
 
     fun loadData(category: Int?) {
         data.clear()
@@ -22,18 +21,17 @@ class ListItemRvAdapter : RecyclerView.Adapter<ListItemRvAdapter.ListItemViewHol
             MainViewModel.getInstance().loadBriefRequestsByCategory(category)
                 ?.let { data.addAll(it) }
         }
+        notifyDataSetChanged()
+    }
 
+    fun searchData(query: String?) {
+        data.clear()
+        MainViewModel.getInstance().loadBriefRequestByQuery(query)?.let { data.addAll(it) }
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
-        binding = DataBindingUtil.bind(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_list_category,
-                parent,
-                false
-            )
-        )!!
+        val binding = ItemListCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ListItemViewHolder(binding)
     }
@@ -44,7 +42,7 @@ class ListItemRvAdapter : RecyclerView.Adapter<ListItemRvAdapter.ListItemViewHol
         holder.bind(data[position])
     }
 
-    inner class ListItemViewHolder(binding: ItemListCategoryBinding) :
+    inner class ListItemViewHolder(val binding: ItemListCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: BriefRequest) {

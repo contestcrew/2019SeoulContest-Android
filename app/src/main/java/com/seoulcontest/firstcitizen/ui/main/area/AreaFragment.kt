@@ -148,7 +148,7 @@ class AreaFragment : Fragment() {
                         dataCalledPosition.target.longitude
                     )
 
-                    //일정 거리 이상일 때 데이터 불러오기
+                    //데이터를 호출하고 100m 이상 이동했을 때 다시 데이터 불러오기
                     if (distance > 100) {
                         viewModel.loadBriefRequestList(
                             currPosition.target.latitude.toFloat(),
@@ -188,34 +188,6 @@ class AreaFragment : Fragment() {
                 markerList.clear()
 
                 (sender as ObservableField<List<BriefRequest>>).get()?.let { requestList ->
-                    //초기 마커 설정 (리팩토링 필요)
-                    if (viewModel.currRequest.get() == null) {
-                        val briefRequest = requestList[0]
-                        viewModel.currRequest.set(briefRequest) //현재 request 설정
-
-                        //카테고리별로 이미지뷰 세팅
-                        when (briefRequest.category) {
-                            1 -> binding.ivCategory.setImageResource(R.drawable.ic_restroom)
-                            2 -> binding.ivCategory.setImageResource(R.drawable.ic_loss)
-                            3 -> binding.ivCategory.setImageResource(R.drawable.ic_crash)
-                            4 -> binding.ivCategory.setImageResource(R.drawable.ic_missing)
-                        }
-
-                        //카메라 제어
-                        val cameraUpdate = CameraUpdate
-                            .toCameraPosition(
-                                CameraPosition(
-                                    LatLng(
-                                        briefRequest.latitude.toDouble(),
-                                        briefRequest.longitude.toDouble()
-                                    ), currZoom
-                                )
-                            )
-                            .animate(CameraAnimation.Easing)
-
-                        naverMap?.let { it.moveCamera(cameraUpdate) }
-                    }
-
                     for (briefRequest in requestList) {
                         val marker = Marker().apply {
                             position =
@@ -261,6 +233,7 @@ class AreaFragment : Fragment() {
                                     .animate(CameraAnimation.Easing)
 
                                 naverMap?.let { it.moveCamera(cameraUpdate) }
+                                viewModel.isMarkerClicked.set(true)
 
                                 true //true 일 경우 위 이벤트 실행
                             }

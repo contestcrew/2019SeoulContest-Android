@@ -41,6 +41,10 @@ class ListItemFragment : Fragment() {
         adapter.loadData(category)
     }
 
+    fun searchRequest(query: String?) {
+        adapter.searchData(query)
+    }
+
     companion object {
         const val KEY_CATEGORY = "KEY_CATEGORY"
 

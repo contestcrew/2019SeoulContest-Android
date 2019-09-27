@@ -205,11 +205,11 @@
             android:textSize="@dimen/info_number_size"
             android:visibility="@{viewModel.isLogIn ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_request"
-            app:layout_constraintEnd_toStartOf="@+id/ib_request"
+            app:layout_constraintEnd_toStartOf="@+id/iv_request"
             app:layout_constraintTop_toTopOf="@+id/tv_request" />
 
         <ImageView
-            android:id="@+id/ib_request"
+            android:id="@+id/iv_request"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="16dp"
@@ -220,41 +220,41 @@
             app:srcCompat="@drawable/ic_arrow" />
 
         <ImageView
-            android:id="@+id/ib_help"
+            android:id="@+id/iv_help"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:visibility="@{viewModel.isLogIn ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_help"
-            app:layout_constraintEnd_toEndOf="@+id/ib_request"
+            app:layout_constraintEnd_toEndOf="@+id/iv_request"
             app:layout_constraintTop_toTopOf="@+id/tv_help"
             app:srcCompat="@drawable/ic_arrow" />
 
         <ImageView
-            android:id="@+id/ib_notice"
+            android:id="@+id/iv_notice"
             android:layout_width="25dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_notice"
-            app:layout_constraintEnd_toEndOf="@+id/ib_help"
+            app:layout_constraintEnd_toEndOf="@+id/iv_help"
             app:layout_constraintTop_toTopOf="@+id/tv_notice"
             app:layout_goneMarginRight="16dp"
             app:srcCompat="@drawable/ic_arrow" />
 
         <ImageView
-            android:id="@+id/ib_policy"
+            android:id="@+id/iv_policy"
             android:layout_width="25dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_policy"
-            app:layout_constraintEnd_toEndOf="@+id/ib_notice"
+            app:layout_constraintEnd_toEndOf="@+id/iv_notice"
             app:layout_constraintTop_toTopOf="@+id/tv_policy"
             app:srcCompat="@drawable/ic_arrow" />
 
         <ImageView
-            android:id="@+id/ib_myinfo"
+            android:id="@+id/iv_my_info"
             android:layout_width="25dp"
             android:layout_height="30dp"
             android:visibility="@{viewModel.isLogIn ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_myinfo"
-            app:layout_constraintEnd_toEndOf="@+id/ib_policy"
+            app:layout_constraintEnd_toEndOf="@+id/iv_policy"
             app:layout_constraintTop_toTopOf="@+id/tv_myinfo"
             app:srcCompat="@drawable/ic_arrow" />
 
