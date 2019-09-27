@@ -29,6 +29,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt 'com.android.databinding:compiler:3.5.0'
 
     testImplementation 'junit:junit:4.12'

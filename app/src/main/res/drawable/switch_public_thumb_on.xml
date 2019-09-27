@@ -7,6 +7,6 @@
     <solid android:color="@color/switchPublicOnColor" />
 
     <size
-        android:width="30sp"
-        android:height="30sp" />
+        android:width="24dp"
+        android:height="24dp" />
 </shape>

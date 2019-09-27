@@ -1,21 +1,22 @@
 package com.seoulcontest.firstcitizen.ui.main.info
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.seoulcontest.firstcitizen.databinding.ItemInfoMenuBinding
-import com.seoulcontest.firstcitizen.ui.infomenu.history.InfoListActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.history.RequestDetailActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.MyInfoActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.NoticeActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.ServiceTermsActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.history.HelpHistoryActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.history.RequestHistoryActivity
 
 class InfoMenuAdapter(
     private val mInfoMenuArray: Array<String>,
     private var totalCount: Int,
-    private var isLog : Boolean
+    private var isLog: Boolean
 ) : RecyclerView.Adapter<InfoMenuAdapter.InfoMenuViewHolder>() {
 
     override fun onBindViewHolder(viewHolder: InfoMenuViewHolder, position: Int) {
@@ -52,7 +53,6 @@ class InfoMenuAdapter(
             if (totalCount > -1) {
                 binding.layoutCount.visibility = View.VISIBLE
                 binding.tvActiveCount.text = totalCount.toString()
-
                 // 그 외의 경우 뷰 INVISIBLE 처리
             } else {
                 binding.layoutCount.visibility = View.INVISIBLE
@@ -67,21 +67,17 @@ class InfoMenuAdapter(
                     "공지사항" -> {
                         intent = Intent(it.context, NoticeActivity::class.java)
                     }
-
                     "이용약관" -> {
                         intent = Intent(it.context, ServiceTermsActivity::class.java)
                     }
-
                     "내정보" -> {
                         intent = Intent(it.context, MyInfoActivity::class.java)
                     }
-
                     "제보" -> {
-                        intent = Intent(it.context, InfoListActivity::class.java)
+                        intent = Intent(it.context, HelpHistoryActivity::class.java)
                     }
-
                     "의뢰" -> {
-                        intent = Intent(it.context, InfoListActivity::class.java)
+                        intent = Intent(it.context, RequestHistoryActivity::class.java)
                     }
                 }
                 it.context.startActivity(intent)

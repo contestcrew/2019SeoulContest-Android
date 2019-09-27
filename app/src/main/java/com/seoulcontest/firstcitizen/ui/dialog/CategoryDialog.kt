@@ -12,12 +12,11 @@ import androidx.fragment.app.DialogFragment
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.DialogCategoryBinding
 import com.seoulcontest.firstcitizen.ui.upload.UploadActivity
-import kotlin.String
 
 class CategoryDialog(private val mContext: Context) : DialogFragment() {
 
     lateinit var binding: DialogCategoryBinding
-    private val stringArray: Array<String> = arrayOf("긴급 똥 휴지", "실종","분실","접촉 사고")
+    private val stringArray: Array<String> = arrayOf("긴급 똥 휴지", "분실", "접촉 사고", "실종")
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -29,12 +28,11 @@ class CategoryDialog(private val mContext: Context) : DialogFragment() {
         // 2019.09.15 adapter 세팅 by Hudson
         binding.lvCategory.adapter = CategoryAdapter(mContext, stringArray)
         binding.lvCategory.onItemClickListener =
-            AdapterView.OnItemClickListener { adapterView, view, postion, id ->
+            AdapterView.OnItemClickListener { _, _, position, _ ->
 
-                // 2019.09.16 String 선택 후 UploadActivity로 이동 by Hudosn
-                val uploadIntent = Intent(mContext,UploadActivity::class.java)
-
-                uploadIntent.putExtra("binding", stringArray.get(postion))
+                // 2019.09.16 Category 선택 후 UploadActivity로 이동 by Hudson
+                val uploadIntent = Intent(mContext, UploadActivity::class.java)
+                uploadIntent.putExtra("selectedCategory", position + 1)
                 startActivity(uploadIntent)
                 dismiss()
             }
@@ -56,5 +54,4 @@ class CategoryDialog(private val mContext: Context) : DialogFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_category, container, false)
         return binding.root
     }
-
 }

@@ -1,8 +1,10 @@
 package com.seoulcontest.firstcitizen.viewmodel
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.seoulcontest.firstcitizen.data.vo.BriefRequest
 import com.seoulcontest.firstcitizen.data.vo.Category
+import com.seoulcontest.firstcitizen.data.vo.User
 import com.seoulcontest.firstcitizen.network.RetrofitHelper
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,7 +14,8 @@ class MainViewModel {
 
     val categoryList = ObservableField<List<Category>>()
     val briefRequestList = ObservableField<List<BriefRequest>>()
-
+    val userDataList = ObservableField<List<User>>()
+    val logInStatus = ObservableBoolean(false)
     val currRequest = ObservableField<BriefRequest>()
 
     fun loadData(x: Float, y: Float) {
@@ -81,6 +84,14 @@ class MainViewModel {
                 it.category == categoryId
             }
         }
+
+
+    }
+
+    fun loadUserBytoken(token : Int) : List<User>? {
+
+        return userDataList.get()
+
     }
 
     companion object {

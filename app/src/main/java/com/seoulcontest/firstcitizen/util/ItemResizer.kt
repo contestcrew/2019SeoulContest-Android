@@ -4,7 +4,7 @@ import android.content.Context
 
 class ItemResizer(val context: Context) {
 
-    val display = context.resources.displayMetrics
+    private val display = context.resources.displayMetrics
 
     // 디스플레이 전체 크기의 8할에 해당하는 값을 리턴
     fun getDisplayWidth(): Int = (display.widthPixels * 0.8).toInt()
