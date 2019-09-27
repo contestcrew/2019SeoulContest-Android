@@ -62,9 +62,4 @@ class PostFilesDialog(private val mContext: Context) : DialogFragment(), View.On
             }
         }
     }
-
-
-    private fun setFileSelectListener() {
-
-    }
 }

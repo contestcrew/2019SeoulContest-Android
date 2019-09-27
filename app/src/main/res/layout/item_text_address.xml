@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_text_margin_top"
+        android:orientation="vertical">
+
+        <Button
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_card_view"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/default_padding"
+            android:textColor="@color/boldTextColor"
+            android:textSize="@dimen/activity_address_text_size"
+            android:textStyle="bold"
+            tools:text="상세 주소" />
+    </LinearLayout>
+</layout>
