@@ -30,9 +30,11 @@ interface FirstCitizenApiService {
     @POST("request/")
     fun createRequest(
         @Header("Authorization") token: String,
-        @Part("category") type: RequestBody, @Part("title") title: RequestBody,
-        @Part("content") content: RequestBody, @Part("latitude") latitude: RequestBody,
-        @Part("longitude") longitude: RequestBody, @Part image: List<MultipartBody.Part>
+        @PartMap partMap: HashMap<String, RequestBody>,
+//        @Part("category") type: RequestBody, @Part("title") title: RequestBody,
+//        @Part("content") content: RequestBody, @Part("latitude") latitude: RequestBody,
+//        @Part("longitude") longitude: RequestBody,
+        @Part images: List<MultipartBody.Part>
     ): Call<Request>
 
 

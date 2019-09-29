@@ -6,15 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ActivityHelpUploadBinding
-import com.seoulcontest.firstcitizen.ui.dialog.PostFilesDialog
 import com.seoulcontest.firstcitizen.ui.infomenu.NoticeActivity
-import com.seoulcontest.firstcitizen.ui.upload.UploadAdapter
+import com.seoulcontest.firstcitizen.ui.upload.ImageUploadAdapter
 import com.seoulcontest.firstcitizen.util.HorizontalSpacingItemDecoration
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
@@ -22,7 +20,7 @@ import gun0912.tedimagepicker.builder.type.MediaType
 class HelpUploadActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityHelpUploadBinding
-    private lateinit var helpUploadAdapter: UploadAdapter
+    private lateinit var helpImageUploadAdapter: ImageUploadAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,12 +83,12 @@ class HelpUploadActivity : AppCompatActivity() {
             rvFileList.layoutManager =
                 LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
 
-            helpUploadAdapter = UploadAdapter(applicationContext)
-            rvFileList.adapter = helpUploadAdapter
+            helpImageUploadAdapter = ImageUploadAdapter(this@HelpUploadActivity)
+            rvFileList.adapter = helpImageUploadAdapter
             // recyclerView 아이템에 각각 스페이싱
             rvFileList.addItemDecoration(HorizontalSpacingItemDecoration(64))
         }
 
-        helpUploadAdapter.setData(uriList)
+        helpImageUploadAdapter.setUriImages(uriList)
     }
 }
