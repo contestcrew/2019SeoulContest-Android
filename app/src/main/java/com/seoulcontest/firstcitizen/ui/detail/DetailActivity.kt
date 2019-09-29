@@ -10,6 +10,7 @@ import com.naver.maps.map.overlay.OverlayImage
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ActivityDetailBinding
 import com.seoulcontest.firstcitizen.ui.dialog.HelpDialog
+import com.seoulcontest.firstcitizen.ui.upload.ImageUploadAdapter
 import com.seoulcontest.firstcitizen.viewmodel.DetailViewModel
 
 class DetailActivity : AppCompatActivity() {
@@ -18,6 +19,7 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
     private lateinit var naverMap: NaverMap
+    private lateinit var imageUploadAdapter: ImageUploadAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        //미구현
+        imageUploadAdapter = ImageUploadAdapter(this)
+        binding.rvDetail.adapter = imageUploadAdapter
     }
 
     private fun initEvent() {

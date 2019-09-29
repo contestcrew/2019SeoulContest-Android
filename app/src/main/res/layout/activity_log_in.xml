@@ -28,7 +28,9 @@
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="0sp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:inputType="textEmailAddress"
+                android:nextFocusDown="@+id/et_password" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,7 +47,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0sp"
                 android:layout_weight="1"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:nextFocusDown="@+id/btn_log_in" />
 
             <LinearLayout
                 android:layout_width="match_parent"

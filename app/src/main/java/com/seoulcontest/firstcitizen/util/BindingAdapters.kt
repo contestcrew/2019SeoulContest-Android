@@ -1,12 +1,13 @@
 package com.seoulcontest.firstcitizen.util
 
 import android.graphics.Color
-import android.util.Log
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.seoulcontest.firstcitizen.data.vo.Category
 import com.seoulcontest.firstcitizen.ui.main.list.ListItemAdapter
+import com.seoulcontest.firstcitizen.ui.upload.ImageUploadAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -65,4 +66,9 @@ fun TextView.setDateText(data: String?) {
         val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(data)
         text = SimpleDateFormat("yyyy-MM-dd E요일 HH:mm").format(date)
     }
+}
+
+@BindingAdapter("setImages")
+fun RecyclerView.setImages(images: List<String>?) {
+    (adapter as? ImageUploadAdapter)?.setStringImages(images)
 }
