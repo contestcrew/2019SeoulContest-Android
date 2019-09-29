@@ -191,8 +191,8 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         val categoryBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), category.toString())
         val titleBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), title)
         val contentBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), content)
-        val latitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (37.5029967F).toString())
-        val longitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (126.9845133F).toString())
+        val latitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (37.5402653F).toString())
+        val longitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (127.0705165F).toString())
 
         Log.d("test", "3")
         Log.d("test", "body size : ${body.size}")

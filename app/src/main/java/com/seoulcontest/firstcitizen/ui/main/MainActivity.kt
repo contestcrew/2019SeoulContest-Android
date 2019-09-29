@@ -1,6 +1,7 @@
 package com.seoulcontest.firstcitizen.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -27,21 +28,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var infoFragment: Fragment
 
     private lateinit var currFragment: Fragment
-
-    private var mainModel: MainViewModel? = null
+    private val mainModel by lazy { MainViewModel.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // 2019.09.12 Main View 및 DataBinding by Hudson
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+        binding.main = mainModel
         initNaverMapSetting()
         initView()
         initEvent()
-
-        mainModel = MainViewModel()
-        binding.main = mainModel
     }
 
     private fun initView() {
@@ -77,13 +74,8 @@ class MainActivity : AppCompatActivity() {
     private fun initEvent() {
         with(binding) {
             civPoint.setOnClickListener {
-
-                val isLogIn = mainModel!!.isLogIn.get() ?: false
-
-                if (isLogIn) {
-                    mainModel!!.user.set(null)
-                    // todo : 이 로직이 필요한가????
-                    mainModel!!.isLogIn.set(false)
+                val isLogIn = mainModel.isLogIn.get() ?: false
+                if (isLogIn!!) {
                     replaceFragment(POINT_FRAGMENT_TAG)
                     isMapOrListVisible = false
                 } else {

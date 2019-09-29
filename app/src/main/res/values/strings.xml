@@ -35,7 +35,7 @@
         <item>서울 중부 경찰서</item>
         <item>서울 혜화 경찰서</item>
     </string-array>
-    <string name="nick_logout">별명 : -</string>
+    <string name="email_logout">이메일 : -</string>
     <string name="reliability_logout">신뢰도 : -</string>
     <string name="point_logout">Point : -</string>
     <string name="login">로그인</string>

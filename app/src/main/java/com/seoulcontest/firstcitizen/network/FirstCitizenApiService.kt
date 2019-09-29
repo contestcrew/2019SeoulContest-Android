@@ -12,7 +12,7 @@ interface FirstCitizenApiService {
     fun getToken(@Body userInfo: GetTokenRequest): Call<GetTokenResponse>
 
     @POST("account/")
-    fun createAccount(@Body pararm: Account): Call<User>
+    fun createAccount(@Body param: Account): Call<User>
 
     @GET("account/{id}")
     fun getUser(@Path("id") id: String): Call<User>
@@ -34,4 +34,11 @@ interface FirstCitizenApiService {
         @Part("content") content: RequestBody, @Part("latitude") latitude: RequestBody,
         @Part("longitude") longitude: RequestBody, @Part image: List<MultipartBody.Part>
     ): Call<Request>
+
+
+    @GET("report/")
+    fun getReportHistory(
+        @Header("Authorization") token : String,
+        @Body getReportHistory: GetReportHistory
+    ): Call<GetReportHistory>
 }

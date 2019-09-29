@@ -1,16 +1,15 @@
 package com.seoulcontest.firstcitizen.ui.infomenu.history
 
 import android.os.Bundle
-import android.os.SystemClock
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ActivityHistoryHelpBinding
-import com.seoulcontest.firstcitizen.network.RetrofitHelper
 
-class HelpHistoryActivity : AppCompatActivity() {
+class HistoryHelpActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityHistoryHelpBinding
+    private var userToken : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +20,13 @@ class HelpHistoryActivity : AppCompatActivity() {
 
     private fun initView() {
 
-        // todo : 회원의 도움 리스트 정보 가져와서 초기화하기
-        val helpHistoryArr = RetrofitHelper().apiService.putRequest()
-        binding.rvHelpHistory.adapter = HelpHistoryAdapter(this,)
+        if (intent!= null){
+            // 로그인한 유저의 토큰값 얻기
+            userToken = intent.getStringExtra("userToken")
+        }
+
+        //RetrofitHelper.getInstance().apiService.getReportHistory("Token $userToken", GetReportHistory())
+
 
     }
 

@@ -46,7 +46,7 @@ class UploadAdapter(val mContext: Context) :
 
         fun bind(uploadImage: Uri) {
 
-            with(ItemResizer(mContext)) {
+            with(ItemResizer(binding.root.context)) {
 
                 binding.imgUpload.maxWidth = getDisplayWidth()
                 binding.imgUpload.maxHeight = getDisplayHeight()

@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="mainViewModel"
+            type="com.seoulcontest.firstcitizen.viewmodel.MainViewModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -37,6 +43,7 @@
                     android:layout_marginTop="@dimen/activity_margin_top"
                     android:layout_marginBottom="@dimen/activity_margin_bottom"
                     android:gravity="center"
+                    android:text="@{String.valueOf(mainViewModel.user.citizenScore)}"
                     android:textColor="@color/pointTotalColor"
                     android:textSize="@dimen/button_text_size"
                     android:textStyle="bold"
@@ -46,6 +53,7 @@
                     android:id="@+id/tv_point_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{mainViewModel.user.username}"
                     android:textColor="@color/pointTextColor"
                     tools:text="kira1021@gmail.com" />
             </LinearLayout>
@@ -62,7 +70,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginRight="@dimen/activity_side_margin"
-                    android:src="@drawable/stamp" />
+                    android:src="@drawable/ic_stamp" />
 
                 <TextView
                     android:layout_width="wrap_content"

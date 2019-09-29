@@ -2,6 +2,7 @@ package com.seoulcontest.firstcitizen.ui.main.point
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,16 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.FragmentPointBinding
+import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
 class PointFragment : Fragment(), View.OnClickListener {
 
     lateinit var binding: FragmentPointBinding
+    private val mainViewModel by lazy { MainViewModel.getInstance() }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_point, container, false)
+        binding.mainViewModel = mainViewModel
         return binding.root
     }
 

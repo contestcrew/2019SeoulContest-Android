@@ -24,7 +24,7 @@
             android:name=".ui.infomenu.history.HelpDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.infomenu.history.HelpHistoryActivity"
+            android:name=".ui.infomenu.history.HistoryHelpActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.infomenu.history.RequestHistoryActivity"
