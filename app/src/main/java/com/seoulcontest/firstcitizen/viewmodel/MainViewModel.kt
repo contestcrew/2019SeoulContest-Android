@@ -111,5 +111,4 @@ class MainViewModel {
             INSTANCE = this
         }
     }
-
 }

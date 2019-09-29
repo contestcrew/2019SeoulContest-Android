@@ -24,11 +24,8 @@ class UploadAdapter(val mContext: Context, var uploadImageArray: List<Uri>) :
         parent: ViewGroup,
         viewType: Int
     ): UploadViewHolder {
-
         val inflater = LayoutInflater.from(mContext)
-
         binding = DataBindingUtil.inflate(inflater, R.layout.item_upload, parent, false)
-
         return UploadViewHolder(binding)
     }
 

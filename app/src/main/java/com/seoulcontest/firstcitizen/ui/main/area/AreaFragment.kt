@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
@@ -77,6 +78,7 @@ class AreaFragment : Fragment() {
                 putExtra("lat", viewModel.currRequest.get()?.latitude)
                 putExtra("lng", viewModel.currRequest.get()?.longitude)
                 putExtra("category", viewModel.currRequest.get()?.category)
+                putExtra("isLogin",viewModel.isLogIn.get())
             })
         }
 
@@ -92,9 +94,13 @@ class AreaFragment : Fragment() {
         }
 
         binding.btRequest.setOnClickListener {
-            CategoryDialog(requireContext()).show(
-                requireActivity().supportFragmentManager.beginTransaction(), ""
-            )
+            // 2019.09.29 로그인을 했을 경우에만 다이얼로그 띄우는 로직 by Hudson
+            val isLogIn = viewModel.isLogIn.get() ?: false
+            if (isLogIn) {
+                CategoryDialog(requireContext()).show(requireActivity().supportFragmentManager.beginTransaction(), "")
+            } else {
+                Toast.makeText(requireContext(), "로그인 후 이용해주십시오.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.btRefresh.setOnClickListener {

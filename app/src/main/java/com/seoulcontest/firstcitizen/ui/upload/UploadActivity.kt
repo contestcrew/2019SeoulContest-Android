@@ -129,11 +129,22 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
     // 새로운 요청 생성하는 로직
     private fun createNewRequest() {
 
+        Log.d("files", "body : $body")
+        Log.d("files", "category : $category")
+        Log.d("files", "body : $title")
+        Log.d("files", "body : $content")
+
         val categoryBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), category.toString())
         val contentBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), content)
         val titleBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), title)
         val latitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (37.537F).toString())
         val longitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (127.064F).toString())
+
+        Log.d("files", "categoryBody : $categoryBody")
+        Log.d("files", "contentBody : $contentBody")
+        Log.d("files", "titleBody : $titleBody")
+        Log.d("files", "latitudeBody : $latitudeBody")
+        Log.d("files", "longitudeBody : $longitudeBody")
 
         RetrofitHelper
             .getInstance()
@@ -141,19 +152,18 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
             .createRequest(
                 "Token b5b31df2f888844ae367ccae23ae154575e5dae9",
                 categoryBody,
-                contentBody,
                 titleBody,
+                contentBody,
                 latitudeBody,
                 longitudeBody,
                 body
-            )
-            .enqueue(object : Callback<Request> {
+            ).enqueue(object : Callback<Request> {
                 override fun onFailure(call: Call<Request>, t: Throwable) {
-                    t.printStackTrace()
+                    Log.d("files", t.printStackTrace().toString())
+
                 }
 
                 override fun onResponse(call: Call<Request>, response: Response<Request>) {
-
 
                     if (response.isSuccessful) {
                         Log.d("files", Gson().toJson(response.body()))
@@ -161,7 +171,6 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
                     } else {
                         Log.d("files", "???  ${response.errorBody()}")
                         Log.d("files", "???  ${Gson().toJson(response.body())}")
-
                     }
                 }
             })
@@ -180,7 +189,7 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         TimePickerDialog(
             this, TimePickerDialog.OnTimeSetListener(
                 function = { _, hour, minute ->
-                    binding.btnOccurredTime.text = String.format("$year 년 $month 월 $day 일 $hour 시 $minute 분")
+                    binding.btnOccurredTime.text = String.format("$year 년 $month 월 $day 일 $hour : $minute")
                 }), hour, minute, false
         ).show()
     }
@@ -226,7 +235,7 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
 
         uriList.map {
 
-            files.add(File(it.path))
+            files.add(File(it?.path))
             Log.d("files", it.path.toString())
         }
 

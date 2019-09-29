@@ -1,6 +1,8 @@
 package com.seoulcontest.firstcitizen.ui.detail
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
@@ -10,6 +12,7 @@ import com.naver.maps.map.overlay.OverlayImage
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ActivityDetailBinding
 import com.seoulcontest.firstcitizen.ui.dialog.HelpDialog
+import com.seoulcontest.firstcitizen.ui.help.HelpUploadActivity
 import com.seoulcontest.firstcitizen.viewmodel.DetailViewModel
 
 class DetailActivity : AppCompatActivity() {
@@ -18,6 +21,7 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
     private lateinit var naverMap: NaverMap
+    private var category: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +49,31 @@ class DetailActivity : AppCompatActivity() {
 
     private fun initEvent() {
         binding.btHelp.setOnClickListener {
-            HelpDialog().show(supportFragmentManager.beginTransaction(), "")
+
+            val isLogin = intent.getBooleanExtra("isLogin", false)
+
+            // 로그인 되어 있는 상태이다면
+            if (isLogin) {
+                // 2019.09.29 카테고리에 따라 분기(다이얼로그, HelpUploadActivity) by Hudson
+                when (category) {
+
+                    0 -> {
+                        return@setOnClickListener
+                    }
+                    // 똥휴지의 경우 다이얼로그 띄어주기
+                    1 -> {
+                        HelpDialog().show(supportFragmentManager.beginTransaction(), "")
+                    }
+                    // 그 외 경우 HelpUploadActivity 로 이동
+                    else -> {
+                        startActivity(Intent(this, HelpUploadActivity::class.java))
+                    }
+                }
+                // 로그인 되어 있지 않다면
+            } else {
+                Toast.makeText(this,"로그인 후 이용해주십시오.",Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 
@@ -77,7 +105,7 @@ class DetailActivity : AppCompatActivity() {
                 //카메라 제어
                 val lat = intent.getFloatExtra("lat", 0.0f).toDouble()
                 val lng = intent.getFloatExtra("lng", 0.0f).toDouble()
-                val category = intent.getIntExtra("category", 0)
+                category = intent.getIntExtra("category", 0)
 
                 val cameraUpdate = CameraUpdate
                     .toCameraPosition(

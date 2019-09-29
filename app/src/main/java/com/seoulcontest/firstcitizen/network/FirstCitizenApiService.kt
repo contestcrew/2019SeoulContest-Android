@@ -28,8 +28,9 @@ interface FirstCitizenApiService {
     @Multipart
     @POST("request/")
     fun createRequest(
-        @Header("Authorization") token: String, @Part("category") type: RequestBody, @Part("content") c1: RequestBody, @Part(
-            "title"
-        ) t1: RequestBody, @Part("latitude") lati: RequestBody, @Part("longitude") longi: RequestBody, @Part pic: List<MultipartBody.Part>
+        @Header("Authorization") token: String, @Part("category") type: RequestBody,
+        @Part("title") t1: RequestBody, @Part("content") c1: RequestBody,
+        @Part("latitude") lati: RequestBody, @Part("longitude") longi: RequestBody,
+        @Part pic: List<MultipartBody.Part>
     ): Call<Request>
 }

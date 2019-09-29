@@ -23,8 +23,13 @@
     <color name="plusButtonColor">#ffffff</color>
     <color name="statusOnRequestColor">#64dd17</color>
     <color name="statusOnProgressColor">#ff9800</color>
-    <color name="requestPointColor">#1a237e</color>
-    <color name="requestBonusColor">#ffc107</color>
+    <color name="requestPointColor">#ffc107</color>
+    <color name="requestBonusColor">#1a237e</color>
     <color name="sigInUpButtonColor">#1a237e</color>
     <color name="buttonInputLocationColor">#2979ff</color>
+    <color name="pointBoxColor">#1a237e</color>
+    <color name="pointTextColor">#ffffff</color>
+    <color name="pointTotalColor">#ffe0b2</color>
+    <color name="buttonCouponColor">#424242</color>
+    <color name="alertMessageColor">#b71c1c</color>
 </resources>
