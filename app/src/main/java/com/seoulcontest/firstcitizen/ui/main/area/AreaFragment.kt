@@ -2,6 +2,8 @@ package com.seoulcontest.firstcitizen.ui.main.area
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -136,6 +138,17 @@ class AreaFragment : Fragment() {
             naverMap = it
 
             with(it) {
+                with(uiSettings) {
+                    isCompassEnabled = false
+                    isLocationButtonEnabled = false
+                    isZoomControlEnabled = false
+                    isScaleBarEnabled = false
+                    isLocationButtonEnabled = false
+                    isLogoClickEnabled = false
+                    logoGravity = Gravity.TOP
+                    setLogoMargin(48, 48, 0, 0)
+                }
+
                 mapType = NaverMap.MapType.Basic
                 isIndoorEnabled = true
                 locationSource = fusedLocationSource
@@ -146,6 +159,8 @@ class AreaFragment : Fragment() {
                 addOnLocationChangeListener { location ->
                     currPosition =
                         CameraPosition(LatLng(location.latitude, location.longitude), currZoom)
+
+                    Log.d("test", "${location.latitude} -  ${location.longitude}")
 
                     val distance = getDistanceOfTwoLatLng(
                         currPosition.target.latitude,
@@ -169,17 +184,6 @@ class AreaFragment : Fragment() {
                 addOnCameraIdleListener {
                     currZoom = it.cameraPosition.zoom
                 }
-
-                with(uiSettings) {
-                    isCompassEnabled = false
-                    isLocationButtonEnabled = false
-                    isZoomControlEnabled = false
-                    isScaleBarEnabled = false
-                    isLocationButtonEnabled = false
-                    isLogoClickEnabled = false
-                }
-
-                binding.viewLogo.setMap(it)
             }
         }
     }

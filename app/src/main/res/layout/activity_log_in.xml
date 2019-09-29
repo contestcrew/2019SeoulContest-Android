@@ -25,7 +25,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/edt_sign_up_email"
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="0sp"
                 android:layout_weight="1" />
@@ -41,7 +41,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/edt_input_pass"
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="0sp"
                 android:layout_weight="1"

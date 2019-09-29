@@ -7,6 +7,16 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface FirstCitizenApiService {
+
+    @POST("account/get_token/")
+    fun getToken(@Body userInfo: GetTokenRequest): Call<GetTokenResponse>
+
+    @POST("account/")
+    fun createAccount(@Body pararm: Account): Call<User>
+
+    @GET("account/{id}")
+    fun getUser(@Path("id") id: String): Call<User>
+
     @GET("request/boundary/")
     fun getRequestsByPosition(@Query("latitude") latitude: Float, @Query("longitude") longitude: Float): Call<List<BriefRequest>>
 
@@ -16,21 +26,12 @@ interface FirstCitizenApiService {
     @GET("request/{id}/")
     fun getDetailRequestById(@Path("id") id: Int): Call<Request>
 
-    @PUT("request/")
-    fun putRequest()
-
-    @POST("account/")
-    fun createAccount(@Body pararm: Account): Call<User>
-
-    @POST("account/get_token")
-    fun getAccountToken()
-
     @Multipart
     @POST("request/")
     fun createRequest(
-        @Header("Authorization") token: String, @Part("category") type: RequestBody,
-        @Part("title") t1: RequestBody, @Part("content") c1: RequestBody,
-        @Part("latitude") lati: RequestBody, @Part("longitude") longi: RequestBody,
-        @Part pic: List<MultipartBody.Part>
+        @Header("Authorization") token: String,
+        @Part("category") type: RequestBody, @Part("title") title: RequestBody,
+        @Part("content") content: RequestBody, @Part("latitude") latitude: RequestBody,
+        @Part("longitude") longitude: RequestBody, @Part image: List<MultipartBody.Part>
     ): Call<Request>
 }

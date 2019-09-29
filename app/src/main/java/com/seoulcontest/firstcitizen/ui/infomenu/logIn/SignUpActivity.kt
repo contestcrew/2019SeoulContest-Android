@@ -30,22 +30,21 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun initEvent() {
-
         with(binding) {
 
             btnSignUp.setOnClickListener {
 
                 // 이메일이 입력되어 있고 비밀번호가 일치하지 않으면
-                if (edtInputPass.text.toString() != edtCheckPass.text.toString()) {
-                    edtInputPass.text.clear()
+                if (etPassword.text.toString() != edtCheckPass.text.toString()) {
+                    etPassword.text.clear()
                     edtCheckPass.text.clear()
                     Toast.makeText(this@SignUpActivity, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
 
-                } else if (edtInputPass.text.toString().trim() == "") {
+                } else if (etPassword.text.toString().trim() == "") {
                     Toast.makeText(this@SignUpActivity, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
 
                 } // 이메일이 입력되어 있지 않는 경우
-                else if (edtSignUpEmail.text.toString().trim() == "") {
+                else if (etEmail.text.toString().trim() == "") {
                     Toast.makeText(this@SignUpActivity, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 } else {
                     createAccount()
@@ -56,7 +55,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun createAccount() {
 
-        val newUser = Account("${binding.edtSignUpEmail.text}", "${binding.edtInputPass.text}", "null")
+        val newUser = Account("${binding.etEmail.text}", "${binding.etPassword.text}", "null")
 
         RetrofitHelper
             .getInstance()
