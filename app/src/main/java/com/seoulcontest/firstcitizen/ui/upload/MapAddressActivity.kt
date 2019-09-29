@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMapSdk
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ActivityMapAddressBinding
@@ -14,22 +15,29 @@ import com.seoulcontest.firstcitizen.util.DetailAddressInterface
 
 class MapAddressActivity : AppCompatActivity(), MapAddressFragment.OnFragmentInteractionListener {
 
-    lateinit var binding: ActivityMapAddressBinding
+    private lateinit var binding: ActivityMapAddressBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map_address)
+
         initNaverMapSetting()
         initView()
         initEvent()
     }
 
+    private fun initView() {
+        val fm = supportFragmentManager
+        val mapFragment = fm.findFragmentById(R.id.map_view_upload) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm.beginTransaction().add(R.id.map_view_upload, it).commit()
+            }
+    }
+
     private fun initEvent() {
         // 2019.09.27 상세 주소 받는 다이얼로그 띄우고   by Hudson
         binding.btnInputDetail.setOnClickListener {
-
             InputDetailAddressDialog(this).apply {
-
                 setOnDialogButtonClickListener(object : DetailAddressInterface {
                     override fun onConfirmSelected(result: String) {
                         // todo : 현재 상세 주소값이 넘어옴, mainAddress 값 얻어야 함
@@ -54,9 +62,6 @@ class MapAddressActivity : AppCompatActivity(), MapAddressFragment.OnFragmentInt
             NaverMapSdk.NaverCloudPlatformClient("9usgnvn86f")
     }
 
-    private fun initView() {
-
-    }
 
     override fun onFragmentInteraction(address: String) {
 

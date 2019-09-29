@@ -10,14 +10,13 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.Gson
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.data.vo.Request
 import com.seoulcontest.firstcitizen.databinding.ActivityUploadBinding
 import com.seoulcontest.firstcitizen.network.RetrofitHelper
 import com.seoulcontest.firstcitizen.ui.dialog.PolicePickerDialog
 import com.seoulcontest.firstcitizen.util.HorizontalSpacingItemDecoration
+import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
 import okhttp3.MultipartBody
@@ -30,20 +29,18 @@ import java.util.*
 
 class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
 
-    lateinit var binding: ActivityUploadBinding
+    private lateinit var binding: ActivityUploadBinding
     private lateinit var policeArr: Array<String> // 경찰서 이름을 가지고 있는 Array
-    private val RC_MAP_RESULT = 0     // 지도로 찾기 요청코드
-    private val RC_TEXT_ADDRESS_RESULT = 1     // 주소로 찾기 요청코드
-    var category = 0     // Request 필수값(카테고리, 제목, 내용)
 
-    lateinit var title: String
-    lateinit var content: String
-    private var policeOffice = 0
-    private var status: String? = null
-    var categoryScore = 0
-    var score = 0
     private val body = ArrayList<MultipartBody.Part>()
-    private lateinit var uploadAdapter: UploadAdapter
+    private lateinit var imageUploadAdapter: ImageUploadAdapter
+
+    private var category = 0 // 업로드 할 카테고리
+    private var policeOffice = 0
+    private var eventDate = "" // 사건 발생 시간
+    private var eventAddress = "asdfasf" // 사건 발생 위치
+    private var eventLatitude = 0 // 사건 발생 위도
+    private var eventLongitude = 0 // 사건 발생 위도
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,12 +71,9 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
 
     private fun initRecyclerView() {
         // 리사이클러 뷰
-        val layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
-
         with(binding) {
-            rvRequestFileList.layoutManager = layoutManager
-            uploadAdapter = UploadAdapter(applicationContext)
-            rvRequestFileList.adapter = uploadAdapter
+            imageUploadAdapter = ImageUploadAdapter(this@UploadActivity)
+            rvRequestFileList.adapter = imageUploadAdapter
             // recyclerView 아이템에 각각 스페이싱
             rvRequestFileList.addItemDecoration(HorizontalSpacingItemDecoration(64))
         }
@@ -134,7 +128,8 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         TimePickerDialog(
             this, TimePickerDialog.OnTimeSetListener(
                 function = { _, hour, minute ->
-                    binding.btnOccurredTime.text = String.format("$year 년 $month 월 $day 일 $hour 시 $minute 분")
+                    eventDate = "$year-$month-${day}T$hour:$minute"
+                    binding.btnOccurredTime.text = eventDate
                 }), hour, minute, false
         ).show()
     }
@@ -157,18 +152,16 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
     private fun setImages(uriList: List<Uri>) {
         body.clear()
 
-        uploadAdapter.setData(uriList)
+        imageUploadAdapter.setUriImages(uriList)
 
         val files = arrayListOf<File>()
-
         uriList.map {
             files.add(File(it.path))
-            Log.d("test", "file path : ${it.path}")
         }
 
         files.map {
             val requestBody = RequestBody.create(okhttp3.MediaType.parse("images/*"), it)
-            val part = MultipartBody.Part.createFormData("upload", it.name, requestBody)
+            val part = MultipartBody.Part.createFormData("images", it.name, requestBody)
 
             body.add(part)
         }
@@ -176,37 +169,45 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
 
     // 새로운 요청 생성하는 로직
     private fun createNewRequest() {
-        title = binding.edtTitle.text.toString().trim()
-        content = binding.edtMessage.text.toString().trim()
+        val title = binding.etTitle.text.toString().trim()
+        val content = binding.etMessage.text.toString().trim()
 
         // Request 필수값 체크
-        if (title == "" || content == "" || category == 0) {
-            Log.d("test", "1")
-            return
-            // 예외 발생 안내 처리
+        when {
+            title.isNullOrEmpty() || content.isNullOrEmpty() || category == 0 -> {
+                Toast.makeText(this, "제목과 내용을 입력해주세요", Toast.LENGTH_SHORT).show()
+                return
+            }
+            eventDate.isNullOrEmpty() -> {
+                Toast.makeText(this, "발생 시간을 입력해주세요", Toast.LENGTH_SHORT).show()
+                return
+            }
+            eventAddress.isNullOrEmpty() -> {
+                Toast.makeText(this, "위치를 입력해주세요", Toast.LENGTH_SHORT).show()
+                return
+            }
         }
 
-        val categoryBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), category.toString())
-        val titleBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), title)
-        val contentBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), content)
-        val latitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (37.5029967F).toString())
-        val longitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (126.9845133F).toString())
+        Log.d("test", policeOffice.toString())
+        Log.d("test", eventDate)
+        Log.d("test", eventAddress)
 
-        Log.d("test", "3")
-        Log.d("test", "body size : ${body.size}")
+        val partMap = HashMap<String, RequestBody>()
+        partMap["category"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), category.toString())
+        partMap["police_office"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), policeOffice.toString())
+        partMap["occurred_at"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), eventDate)
+        partMap["main_address"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), eventAddress)
+        partMap["title"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), title)
+        partMap["content"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), content)
+        partMap["latitude"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (37.5402293F).toString())
+        partMap["longitude"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (127.0706307).toString())
+
+        val userToken = "Token ${MainViewModel.getInstance().userToken}"
 
         RetrofitHelper
             .getInstance()
             .apiService
-            .createRequest(
-                "Token b5b31df2f888844ae367ccae23ae154575e5dae9",
-                categoryBody,
-                titleBody,
-                contentBody,
-                latitudeBody,
-                longitudeBody,
-                body
-            )
+            .createRequest(userToken, partMap, body)
             .enqueue(object : Callback<Request> {
                 override fun onFailure(call: Call<Request>, t: Throwable) {
                     t.printStackTrace()
@@ -215,6 +216,9 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
                 override fun onResponse(call: Call<Request>, response: Response<Request>) {
                     if (response.isSuccessful) {
                         Log.d("test", response.body().toString())
+                        Toast.makeText(this@UploadActivity, "요청이 등록되었습니다", Toast.LENGTH_SHORT).show()
+                        finish()
+
                     } else {
                         val body2 = response.errorBody()
 
@@ -249,4 +253,9 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         }
     }
 
+
+    companion object {
+        const val RC_MAP_RESULT = 0     // 지도로 찾기 요청코드
+        const val RC_TEXT_ADDRESS_RESULT = 1     // 주소로 찾기 요청코드
+    }
 }

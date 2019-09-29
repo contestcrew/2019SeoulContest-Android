@@ -13,9 +13,8 @@ import com.seoulcontest.firstcitizen.databinding.DialogInputDetailAddressBinding
 import com.seoulcontest.firstcitizen.util.DetailAddressInterface
 
 class InputDetailAddressDialog(private val mContext: Context) : DialogFragment() {
-
-    lateinit var binding: DialogInputDetailAddressBinding
-    lateinit var mListener: DetailAddressInterface
+    private lateinit var binding: DialogInputDetailAddressBinding
+    private lateinit var mListener: DetailAddressInterface
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -27,12 +26,13 @@ class InputDetailAddressDialog(private val mContext: Context) : DialogFragment()
             // 2019.09.27 상세 주소 입력 후 입력 버튼 클릭 시 UploadActivity로 이동 by Hudson
 
             btnConfirmAddress.setOnClickListener {
-                if (edtDetailAddress.text.toString().trim() != "") {
-                    mListener.onConfirmSelected(edtDetailAddress.text.toString())
+                val detailAddress = edtDetailAddress.text.toString().trim()
+
+                if (!detailAddress.isNullOrEmpty()) {
+                    mListener.onConfirmSelected(detailAddress)
                     dismiss()
                 } else {
                     Toast.makeText(mContext, "상세 주소를 입력해주세요.", Toast.LENGTH_SHORT).show()
-
                 }
             }
             // 2019.09.27 취소 버튼 클릭 시 InputDetailAddressDialog 종료 by Hudson
@@ -44,7 +44,6 @@ class InputDetailAddressDialog(private val mContext: Context) : DialogFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         // 2019.09.27 카테고리 다이얼로그 관련 로직 추가 by Hudson
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_input_detail_address, container, false)
         return binding.root

@@ -2,26 +2,35 @@ package com.seoulcontest.firstcitizen.ui.upload
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ItemUploadBinding
 import com.seoulcontest.firstcitizen.util.ItemResizer
 
-class UploadAdapter(val mContext: Context) :
-    RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
 
-    private lateinit var binding: ItemUploadBinding
+class ImageUploadAdapter(val context: Context) :
+    RecyclerView.Adapter<ImageUploadAdapter.UploadViewHolder>() {
     private val uploadImageArray = mutableListOf<Uri>()
 
-    fun setData(data: List<Uri>) {
+    fun setUriImages(data: List<Uri>) {
+        uploadImageArray.clear()
+        uploadImageArray.addAll(data)
+        notifyDataSetChanged()
+    }
+
+    fun setStringImages(data: List<String>?) {
         uploadImageArray.clear()
 
-        if (data != null) {
-            uploadImageArray.addAll(data)
+        if (data.isNullOrEmpty()) {
+            val uri = Uri.parse("android.resource://${context.packageName}/drawable/no_image")
+            uploadImageArray.add(uri)
+        } else {
+            uploadImageArray.addAll(data.map { Uri.parse(it) })
+            Log.d("test", "data size : ${data.size}")
         }
 
         notifyDataSetChanged()
@@ -35,8 +44,7 @@ class UploadAdapter(val mContext: Context) :
         parent: ViewGroup,
         viewType: Int
     ): UploadViewHolder {
-        val inflater = LayoutInflater.from(mContext)
-        binding = DataBindingUtil.inflate(inflater, R.layout.item_upload, parent, false)
+        val binding = ItemUploadBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return UploadViewHolder(binding)
     }
@@ -46,13 +54,14 @@ class UploadAdapter(val mContext: Context) :
     inner class UploadViewHolder(var binding: ItemUploadBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(uploadImage: Uri) {
+            with(ItemResizer(binding.root.context)) {
+                //                binding.imgUpload.maxWidth = getDisplayWidth()
+//                binding.imgUpload.maxHeight = getDisplayHeight()
 
-            with(ItemResizer(mContext)) {
-
-                binding.imgUpload.maxWidth = getDisplayWidth()
-                binding.imgUpload.maxHeight = getDisplayHeight()
-
-                Glide.with(mContext).load(uploadImage).override(getDisplayWidth(), getDisplayHeight())
+                Glide
+                    .with(binding.root.context)
+                    .load(uploadImage)
+//                    .override(getDisplayWidth(), getDisplayHeight())
                     .into(binding.imgUpload)
             }
         }

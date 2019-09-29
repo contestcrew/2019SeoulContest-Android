@@ -18,7 +18,6 @@ import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
 class InfoFragment : Fragment() {
     private val viewModel = MainViewModel.getInstance()
-
     private lateinit var binding: FragmentInfoBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
