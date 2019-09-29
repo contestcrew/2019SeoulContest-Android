@@ -27,6 +27,6 @@ data class User(
     val mannerScore: Int,
     @SerializedName("citizen_score")
     val citizenScore: Int,
-    @SerializedName("device_token")
-    val deviceToken: String
+    @SerializedName("request_count")
+    val requestCount: String
 )

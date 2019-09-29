@@ -22,6 +22,7 @@ import gun0912.tedimagepicker.builder.type.MediaType
 class HelpUploadActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityHelpUploadBinding
+    private lateinit var helpUploadAdapter: UploadAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,21 +74,23 @@ class HelpUploadActivity : AppCompatActivity() {
     }
 
     private fun goToAlbum() {
-
         TedImagePicker.with(this).mediaType(MediaType.IMAGE).startMultiImage { uriList ->
             setFiles(uriList)
         }
     }
 
     private fun setFiles(uriList: List<Uri>) {
-
         // 리사이클러 뷰
         with(binding) {
             rvFileList.layoutManager =
                 LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
-            rvFileList.adapter = UploadAdapter(applicationContext, uriList)
+
+            helpUploadAdapter = UploadAdapter(applicationContext)
+            rvFileList.adapter = helpUploadAdapter
             // recyclerView 아이템에 각각 스페이싱
             rvFileList.addItemDecoration(HorizontalSpacingItemDecoration(64))
         }
+
+        helpUploadAdapter.setData(uriList)
     }
 }

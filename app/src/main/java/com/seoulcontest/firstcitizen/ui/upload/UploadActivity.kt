@@ -31,24 +31,19 @@ import java.util.*
 class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
 
     lateinit var binding: ActivityUploadBinding
-    // 경찰서 이름을 가지고 있는 Array
-    private lateinit var policeArr: Array<String>
-    // 지도로 찾기 요청코드
-    private val RC_MAP_RESULT = 0
-    // 주소로 찾기 요청코드
-    private val RC_TEXT_ADDRESS_RESULT = 1
-    // Request 객체
-    lateinit var newRequest: Request
-    // Request 필수값(카테고리, 제목, 내용)
-    var category = 0
+    private lateinit var policeArr: Array<String> // 경찰서 이름을 가지고 있는 Array
+    private val RC_MAP_RESULT = 0     // 지도로 찾기 요청코드
+    private val RC_TEXT_ADDRESS_RESULT = 1     // 주소로 찾기 요청코드
+    var category = 0     // Request 필수값(카테고리, 제목, 내용)
+
     lateinit var title: String
     lateinit var content: String
-    // Request 선택값
     private var policeOffice = 0
     private var status: String? = null
     var categoryScore = 0
     var score = 0
-    var body = mutableListOf<MultipartBody.Part>()
+    private val body = ArrayList<MultipartBody.Part>()
+    private lateinit var uploadAdapter: UploadAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,11 +54,11 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         initEvent()
     }
 
-
     private fun initView() {
         // 2019.09.16 넘어온 카테고리 포지션에 해당하는 텍스트 적용 by Hudson
         // 2019.09.27 String값에서 Int값으로 변경(position + 1) 값이 넘어옴 by Hudson
         category = intent.getIntExtra("selectedCategory", category)
+
         with(binding.tvCategory) {
             when (category) {
                 1 -> text = "똥휴지"
@@ -74,11 +69,23 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
             }
         }
 
+        initRecyclerView()
     }
 
+    private fun initRecyclerView() {
+        // 리사이클러 뷰
+        val layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
+
+        with(binding) {
+            rvRequestFileList.layoutManager = layoutManager
+            uploadAdapter = UploadAdapter(applicationContext)
+            rvRequestFileList.adapter = uploadAdapter
+            // recyclerView 아이템에 각각 스페이싱
+            rvRequestFileList.addItemDecoration(HorizontalSpacingItemDecoration(64))
+        }
+    }
 
     private fun initEvent() {
-
         with(binding) {
             // 2019.09.24 관할 경찰서 입력 버튼 클릭 시 넘버 피커 보여주기 by Hudson
             btnAddPolice.setOnClickListener {
@@ -110,65 +117,12 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
 
             //2019.09.27 필수값 입력이 되었으면 Request 통신을 요청하는 로직 by Hudson
             btnRequest.setOnClickListener {
-
-                title = edtTitle.text.toString().trim()
-                content = edtMessage.text.toString().trim()
-
-                // Request 필수값 체크
-                if (title != "" && content != "" && category != 0) {
-                    createNewRequest()
-
-                    // 예외 발생 안내 처리
-                } else if (title == "" || content == "") {
-                    Toast.makeText(this@UploadActivity, "제목이나 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
-                }
+                createNewRequest()
             }
         }
     }
 
-    // 새로운 요청 생성하는 로직
-    private fun createNewRequest() {
-
-        val categoryBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), category.toString())
-        val contentBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), content)
-        val titleBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), title)
-        val latitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (37.537F).toString())
-        val longitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (127.064F).toString())
-
-        RetrofitHelper
-            .getInstance()
-            .apiService
-            .createRequest(
-                "Token b5b31df2f888844ae367ccae23ae154575e5dae9",
-                categoryBody,
-                contentBody,
-                titleBody,
-                latitudeBody,
-                longitudeBody,
-                body
-            )
-            .enqueue(object : Callback<Request> {
-                override fun onFailure(call: Call<Request>, t: Throwable) {
-                    t.printStackTrace()
-                }
-
-                override fun onResponse(call: Call<Request>, response: Response<Request>) {
-
-
-                    if (response.isSuccessful) {
-                        Log.d("files", Gson().toJson(response.body()))
-
-                    } else {
-                        Log.d("files", "???  ${response.errorBody()}")
-                        Log.d("files", "???  ${Gson().toJson(response.body())}")
-
-                    }
-                }
-            })
-    }
-
     private fun showTimePicker() {
-
         // todo : 시간을 string 타입으로 넘길 것
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -185,15 +139,7 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         ).show()
     }
 
-    // 사용자가 선택한 경찰서 표시
-    override fun onValueChange(numberPicker: NumberPicker?, default: Int, changed: Int) {
-        binding.btnAddPolice.text = policeArr[changed]
-        policeOffice = changed
-    }
-
-
     private fun showNumberPicker() {
-
         policeArr = resources.getStringArray(R.array.police_name)
 
         PolicePickerDialog(policeArr).apply {
@@ -203,38 +149,87 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
     }
 
     private fun goToAlbum() {
-
         TedImagePicker.with(this).mediaType(MediaType.IMAGE).startMultiImage { uriList ->
-            setImagess(uriList)
+            setImages(uriList)
         }
     }
 
-    private fun setImagess(uriList: List<Uri>) {
+    private fun setImages(uriList: List<Uri>) {
+        body.clear()
 
-        // 리사이클러 뷰
-        val layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
-
-        with(binding) {
-            rvRequestFileList.layoutManager = layoutManager
-
-            rvRequestFileList.adapter = UploadAdapter(applicationContext, uriList)
-            // recyclerView 아이템에 각각 스페이싱
-            rvRequestFileList.addItemDecoration(HorizontalSpacingItemDecoration(64))
-        }
+        uploadAdapter.setData(uriList)
 
         val files = arrayListOf<File>()
 
         uriList.map {
-
             files.add(File(it.path))
-            Log.d("files", it.path.toString())
+            Log.d("test", "file path : ${it.path}")
         }
 
         files.map {
-            val requestBody = RequestBody.create(okhttp3.MediaType.parse("multipart/form-data"), it)
-            val part = MultipartBody.Part.createFormData("images", it.name, requestBody)
+            val requestBody = RequestBody.create(okhttp3.MediaType.parse("images/*"), it)
+            val part = MultipartBody.Part.createFormData("upload", it.name, requestBody)
+
             body.add(part)
         }
+    }
+
+    // 새로운 요청 생성하는 로직
+    private fun createNewRequest() {
+        title = binding.edtTitle.text.toString().trim()
+        content = binding.edtMessage.text.toString().trim()
+
+        // Request 필수값 체크
+        if (title == "" || content == "" || category == 0) {
+            Log.d("test", "1")
+            return
+            // 예외 발생 안내 처리
+        }
+
+        val categoryBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), category.toString())
+        val titleBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), title)
+        val contentBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), content)
+        val latitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (37.5029967F).toString())
+        val longitudeBody = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (126.9845133F).toString())
+
+        Log.d("test", "3")
+        Log.d("test", "body size : ${body.size}")
+
+        RetrofitHelper
+            .getInstance()
+            .apiService
+            .createRequest(
+                "Token b5b31df2f888844ae367ccae23ae154575e5dae9",
+                categoryBody,
+                titleBody,
+                contentBody,
+                latitudeBody,
+                longitudeBody,
+                body
+            )
+            .enqueue(object : Callback<Request> {
+                override fun onFailure(call: Call<Request>, t: Throwable) {
+                    t.printStackTrace()
+                }
+
+                override fun onResponse(call: Call<Request>, response: Response<Request>) {
+                    if (response.isSuccessful) {
+                        Log.d("test", response.body().toString())
+                    } else {
+                        val body2 = response.errorBody()
+
+                        Log.d("test", "error ${body2?.string()}")
+                    }
+                }
+            })
+
+        Log.d("test", "6")
+    }
+
+    // 사용자가 선택한 경찰서 표시
+    override fun onValueChange(numberPicker: NumberPicker?, default: Int, changed: Int) {
+        binding.btnAddPolice.text = policeArr[changed]
+        policeOffice = changed
     }
 
     // 2019.09.27 지도와 주소 위치 정보 받아오는 로직 by Hudson

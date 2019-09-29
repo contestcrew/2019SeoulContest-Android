@@ -11,10 +11,21 @@ import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ItemUploadBinding
 import com.seoulcontest.firstcitizen.util.ItemResizer
 
-class UploadAdapter(val mContext: Context, var uploadImageArray: List<Uri>) :
+class UploadAdapter(val mContext: Context) :
     RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
 
-    lateinit var binding: ItemUploadBinding
+    private lateinit var binding: ItemUploadBinding
+    private val uploadImageArray = mutableListOf<Uri>()
+
+    fun setData(data: List<Uri>) {
+        uploadImageArray.clear()
+
+        if (data != null) {
+            uploadImageArray.addAll(data)
+        }
+
+        notifyDataSetChanged()
+    }
 
     override fun onBindViewHolder(holder: UploadViewHolder, position: Int) {
         holder.bind(uploadImageArray[position])
@@ -24,9 +35,7 @@ class UploadAdapter(val mContext: Context, var uploadImageArray: List<Uri>) :
         parent: ViewGroup,
         viewType: Int
     ): UploadViewHolder {
-
         val inflater = LayoutInflater.from(mContext)
-
         binding = DataBindingUtil.inflate(inflater, R.layout.item_upload, parent, false)
 
         return UploadViewHolder(binding)
