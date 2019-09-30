@@ -212,6 +212,7 @@
                     android:text="@{String.valueOf(viewModel.currRequest.categoryScore)}"
                     android:textColor="#000"
                     android:textSize="@dimen/request_sub_content_size"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_point"
                     app:layout_constraintEnd_toStartOf="@+id/tv_plus"
                     app:layout_constraintTop_toTopOf="@+id/tv_point"
@@ -225,6 +226,7 @@
                     android:text="+"
                     android:textColor="#000"
                     android:textSize="@dimen/request_sub_content_size"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_point_val"
                     app:layout_constraintEnd_toStartOf="@+id/tv_bonus"
                     app:layout_constraintTop_toTopOf="@+id/tv_point_val"
@@ -251,6 +253,7 @@
                     android:text="@{String.valueOf(viewModel.currRequest.score)}"
                     android:textColor="#000"
                     android:textSize="@dimen/request_sub_content_size"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_bonus"
                     app:layout_constraintEnd_toEndOf="@+id/iv_category"
                     app:layout_constraintTop_toTopOf="@+id/tv_bonus" />

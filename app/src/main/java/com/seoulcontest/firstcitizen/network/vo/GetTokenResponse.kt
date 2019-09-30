@@ -1,4 +1,4 @@
-package com.seoulcontest.firstcitizen.data.vo
+package com.seoulcontest.firstcitizen.network.vo
 
 import com.google.gson.annotations.SerializedName
 

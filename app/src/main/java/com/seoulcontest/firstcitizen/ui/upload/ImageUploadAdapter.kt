@@ -52,14 +52,14 @@ class ImageUploadAdapter(val context: Context) :
     inner class UploadViewHolder(var binding: ItemUploadBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(uploadImage: Uri) {
-                Log.d("images",uploadImage.toString())
-                with(ItemResizer(binding.root.context)) {
+            Log.d("images", uploadImage.toString())
+            with(ItemResizer(binding.root.context)) {
 
-                    //binding.imgUpload.maxWidth = getDisplayWidth()
-                    //binding.imgUpload.maxHeight = getDisplayHeight()
+                //binding.imgUpload.maxWidth = getDisplayWidth()
+                //binding.imgUpload.maxHeight = getDisplayHeight()
 
-                    Glide.with(binding.root.context).load(uploadImage).into(binding.imgUpload)
-                }
+                Glide.with(binding.root.context).load(uploadImage).into(binding.imgUpload)
             }
         }
     }
+}

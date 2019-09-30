@@ -6,7 +6,7 @@ data class Report(
     @SerializedName("request")
     val request: Int,
     @SerializedName("author")
-    val author : Author,
+    val author: Author,
     @SerializedName("title")
     val title: String,
     @SerializedName("content")
@@ -20,12 +20,12 @@ data class Report(
     @SerializedName("updated_at")
     val updateTime: String,
     @SerializedName("images")
-    val images : List<String>
-){
+    val images: List<String>
+) {
     data class Author(
         @SerializedName("id")
-        val id : Int,
+        val id: Int,
         @SerializedName("nickname")
-        val nickname : String
+        val nickname: String
     )
 }

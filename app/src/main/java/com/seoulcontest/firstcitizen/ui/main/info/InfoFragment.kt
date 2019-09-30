@@ -58,8 +58,8 @@ class InfoFragment : Fragment() {
         binding.ivHelp.setOnClickListener {
             startActivity(Intent(requireContext(), HistoryHelpActivity::class.java).apply {
                 // 로그인한 이용자의 토큰값 전달
-                Log.d("token","token : ${viewModel.userToken}")
-                putExtra("userToken",viewModel.userToken)
+                Log.d("token", "token : ${viewModel.userToken}")
+                putExtra("userToken", viewModel.userToken)
             })
         }
 

@@ -151,14 +151,15 @@ class HelpUploadActivity : AppCompatActivity() {
         RetrofitHelper.getInstance().apiService.createReport(
             "Token ${MainViewModel.getInstance().userToken}",
             partMap,
-            parts).enqueue(object : retrofit2.Callback<Report> {
+            parts
+        ).enqueue(object : retrofit2.Callback<Report> {
             override fun onFailure(call: Call<Report>, t: Throwable) {
                 t.printStackTrace()
             }
 
             override fun onResponse(call: Call<Report>, response: Response<Report>) {
-                if (response.isSuccessful){
-                   Log.d("response","response ${response.body()}")
+                if (response.isSuccessful) {
+                    Log.d("response", "response ${response.body()}")
                 }
             }
         })
