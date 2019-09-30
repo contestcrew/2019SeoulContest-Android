@@ -12,7 +12,7 @@ import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.DialogInputDetailAddressBinding
 import com.seoulcontest.firstcitizen.util.DetailAddressInterface
 
-class InputDetailAddressDialog(private val mContext: Context) : DialogFragment() {
+class InputDetailAddressDialog : DialogFragment() {
     private lateinit var binding: DialogInputDetailAddressBinding
     private lateinit var mListener: DetailAddressInterface
 
@@ -32,7 +32,7 @@ class InputDetailAddressDialog(private val mContext: Context) : DialogFragment()
                     mListener.onConfirmSelected(detailAddress)
                     dismiss()
                 } else {
-                    Toast.makeText(mContext, "상세 주소를 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "상세 주소를 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
             }
             // 2019.09.27 취소 버튼 클릭 시 InputDetailAddressDialog 종료 by Hudson

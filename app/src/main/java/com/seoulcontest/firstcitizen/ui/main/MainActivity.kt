@@ -1,6 +1,8 @@
 package com.seoulcontest.firstcitizen.ui.main
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -26,19 +28,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var infoFragment: Fragment
 
     private lateinit var currFragment: Fragment
+    private val mainModel by lazy { MainViewModel.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // 2019.09.12 Main View 및 DataBinding by Hudson
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+        binding.main = mainModel
         initNaverMapSetting()
         initView()
         initEvent()
-
-        val mainModel = MainViewModel()
-        binding.main = mainModel
     }
 
     private fun initView() {
@@ -74,8 +74,13 @@ class MainActivity : AppCompatActivity() {
     private fun initEvent() {
         with(binding) {
             civPoint.setOnClickListener {
-                replaceFragment(POINT_FRAGMENT_TAG)
-                isMapOrListVisible = false
+                val isLogIn = mainModel.isLogIn.get() ?: false
+                if (isLogIn!!) {
+                    replaceFragment(POINT_FRAGMENT_TAG)
+                    isMapOrListVisible = false
+                } else {
+                    Toast.makeText(this@MainActivity, "로그인 후 이용해주십시오.", Toast.LENGTH_SHORT).show()
+                }
             }
 
             civMain.setOnClickListener {

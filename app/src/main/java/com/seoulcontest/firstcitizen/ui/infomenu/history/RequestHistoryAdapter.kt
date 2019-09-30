@@ -1,9 +1,7 @@
 package com.seoulcontest.firstcitizen.ui.infomenu.history
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.seoulcontest.firstcitizen.R

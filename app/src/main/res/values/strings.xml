@@ -35,9 +35,10 @@
         <item>서울 중부 경찰서</item>
         <item>서울 혜화 경찰서</item>
     </string-array>
-    <string name="nick_logout">별명 : -</string>
+    <string name="email_logout">이메일 : -</string>
     <string name="reliability_logout">신뢰도 : -</string>
     <string name="point_logout">Point : -</string>
     <string name="login">로그인</string>
     <string name="logout">로그아웃</string>
+    <string name="alert_message">경고 : 10분 내 도착하지 않을 경우, 취소당할 수 있으며\n 신뢰도가 떨어질 수 있습니다.</string>
 </resources>

@@ -116,6 +116,7 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         }
     }
 
+
     private fun showTimePicker() {
         // todo : 시간을 string 타입으로 넘길 것
         val calendar = Calendar.getInstance()
@@ -128,6 +129,7 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         TimePickerDialog(
             this, TimePickerDialog.OnTimeSetListener(
                 function = { _, hour, minute ->
+                    binding.btnOccurredTime.text = String.format("$year 년 $month 월 $day 일 $hour : $minute")
                     eventDate = "$year-$month-${day}T$hour:$minute"
                     binding.btnOccurredTime.text = eventDate
                 }), hour, minute, false
@@ -156,6 +158,9 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
 
         val files = arrayListOf<File>()
         uriList.map {
+
+            files.add(File(it?.path))
+            Log.d("files", it.path.toString())
             files.add(File(it.path))
         }
 
