@@ -20,12 +20,16 @@ data class Report(
     @SerializedName("updated_at")
     val updateTime: String,
     @SerializedName("images")
-    val images: List<String>
+    val images: List<String>,
+    @SerializedName("is_select")
+    val isSelect: Boolean
 ) {
     data class Author(
         @SerializedName("id")
         val id: Int,
         @SerializedName("nickname")
-        val nickname: String
+        val nickname: String,
+        @SerializedName("manner_score")
+        val mannerScore: Int
     )
 }

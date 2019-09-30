@@ -4,126 +4,187 @@
 
     <data>
 
-
+        <variable
+            name="briefRequest"
+            type="com.seoulcontest.firstcitizen.data.vo.BriefRequest" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/item_margin"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_item_request_history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:id="@+id/cardview"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:elevation="4dp"
-            app:cardBackgroundColor="@color/cardview_light_background"
-            app:cardCornerRadius="16dp">
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:id="@+id/layout_root"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:id="@+id/layout_card_top"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/boldTextColor"
+                    android:textSize="@dimen/request_title_size"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_category"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:setTitle="@{briefRequest.title}" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:text="title"
-                        android:textColor="@color/boldTextColor"
-                        android:textSize="22dp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/iv_category_request"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="2"
-                        android:src="@drawable/ic_restroom" />
-
-                </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_category"
+                    android:layout_width="@dimen/request_iv_icon_size"
+                    android:layout_height="@dimen/request_iv_icon_size"
+                    android:layout_marginEnd="16dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
                 <View
-                    android:id="@+id/view_dash"
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:layout_marginTop="50dp"
-                    android:background="@drawable/dashline" />
+                    android:id="@+id/divider01"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:background="#000"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_category"
+                    app:layout_constraintStart_toStartOf="@+id/tv_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
-                <LinearLayout
-                    android:id="@+id/layout_card_middle"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_created_at"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/view_dash"
-                    android:layout_marginTop="@dimen/card_view_margin"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="#000"
+                    android:textSize="@dimen/request_sub_content_size"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_point"
+                    app:layout_constraintStart_toStartOf="@+id/tv_title"
+                    app:layout_constraintTop_toBottomOf="@+id/divider01"
+                    app:setDiffDateText="@{briefRequest.createdAt}" />
 
-                    <TextView
-                        android:id="@+id/tv_date"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="발생시간"
-                        android:textColor="#000" />
-
-                    <TextView
-                        android:id="@+id/tv_point"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="Point "
-                        android:textColor="#000" />
-
-                    <TextView
-                        android:id="@+id/tv_bonus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:text="+ Bonus"
-                        android:textColor="#00f" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/layout_card_middle"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="18dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{briefRequest.content}"
+                    android:textColor="#000"
+                    android:textSize="@dimen/request_content_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_status"
+                    app:layout_constraintStart_toStartOf="@+id/tv_created_at"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_created_at"
+                    app:layout_constraintVertical_bias="0.0" />
 
-                    <TextView
-                        android:id="@+id/tv_content"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="Content" />
+                <TextView
+                    android:id="@+id/tv_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:text="Point"
+                    android:textColor="@color/requestPointColor"
+                    android:textSize="@dimen/request_sub_content_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_created_at"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_point_val"
+                    app:layout_constraintTop_toTopOf="@+id/tv_created_at"
+                    app:layout_constraintVertical_bias="0.0" />
 
-                    <TextView
-                        android:id="@+id/tv_status"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Status"
-                        android:textColor="#0f0"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
 
-                </LinearLayout>
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_point_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:text="@{String.valueOf(briefRequest.categoryScore)}"
+                    android:textColor="#000"
+                    android:textSize="@dimen/request_sub_content_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_point"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_plus"
+                    app:layout_constraintTop_toTopOf="@+id/tv_point"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:text="+"
+                    android:textColor="#000"
+                    android:textSize="@dimen/request_sub_content_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_point_val"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_bonus"
+                    app:layout_constraintTop_toTopOf="@+id/tv_point_val"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_bonus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:text="Bonus"
+                    android:textColor="@color/requestBonusColor"
+                    android:textSize="@dimen/request_sub_content_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_point_val"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_bonus_val"
+                    app:layout_constraintTop_toTopOf="@+id/tv_point_val"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_bonus_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(briefRequest.score)}"
+                    android:textColor="#000"
+                    android:textSize="@dimen/request_sub_content_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_bonus"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_category"
+                    app:layout_constraintTop_toTopOf="@+id/tv_bonus" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{briefRequest.status}"
+                    android:textSize="@dimen/request_status_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_content"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_category"
+                    app:layout_constraintTop_toTopOf="@+id/tv_content"
+                    app:setStatusTextColor="@{briefRequest.status}" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

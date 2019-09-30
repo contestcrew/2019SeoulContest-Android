@@ -19,11 +19,9 @@ interface FirstCitizenApiService {
     @GET("account/{id}")
     fun getUser(@Path("id") id: String): Call<User>
 
-    @GET("request/boundary/")
-    fun getRequestsByPositionWithToken(
-        @Header("Authorization") token: String,
-        @Query("latitude") latitude: Float,
-        @Query("longitude") longitude: Float
+    @GET("request/")
+    fun getRequestsByToken(
+        @Header("Authorization") token: String
     ): Call<List<BriefRequest>>
 
     @GET("request/boundary/")
@@ -32,11 +30,21 @@ interface FirstCitizenApiService {
         @Query("longitude") longitude: Float
     ): Call<List<BriefRequest>>
 
+    @GET("request/boundary/")
+    fun getRequestsByPositionWithToken(
+        @Header("Authorization") token: String,
+        @Query("latitude") latitude: Float,
+        @Query("longitude") longitude: Float
+    ): Call<List<BriefRequest>>
+
     @GET("request/category/")
     fun getCategoryList(): Call<List<Category>>
 
     @GET("request/{id}/")
-    fun getDetailRequestById(@Path("id") id: Int): Call<Request>
+    fun getDetailRequestById(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): Call<Request>
 
     @Multipart
     @POST("request/")
@@ -45,6 +53,18 @@ interface FirstCitizenApiService {
         @PartMap partMap: HashMap<String, RequestBody>,
         @Part images: List<MultipartBody.Part>
     ): Call<Request>
+
+    @GET("report/")
+    fun getReportById(
+        @Header("Authorization") token: String,
+        @Query("id") id: Int
+    ): Call<Report>
+
+    @GET("report/")
+    fun getReportsByRequestId(
+        @Header("Authorization") token: String,
+        @Query("id") id: Int
+    ): Call<List<Report>>
 
     @GET("report/")
     fun getReportHistory(

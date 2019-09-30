@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "516900284675",
+    "firebase_url": "https://firstcitizenios.firebaseio.com",
+    "project_id": "firstcitizenios",
+    "storage_bucket": "firstcitizenios.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516900284675:android:79722162a0a99a357b6136",
+        "android_client_info": {
+          "package_name": "com.seoulcontest.firstcitizen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516900284675-h86271kitgsredui9olt4obh44k6og3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.seoulcontest.firstcitizen",
+            "certificate_hash": "055fc5131f094df7ce50522b6f4ee9331ab3602f"
+          }
+        },
+        {
+          "client_id": "516900284675-t37h4qjuevpovi5bu9ou5os55uosjdtk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa84jB-4LXAzSeuryHwdi1Tp4Nbwv2JgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516900284675-t37h4qjuevpovi5bu9ou5os55uosjdtk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "516900284675-6i0hm5os6705s5h12t6pmssc6elj2afk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "github.com-kira1021.FirstCitizen"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

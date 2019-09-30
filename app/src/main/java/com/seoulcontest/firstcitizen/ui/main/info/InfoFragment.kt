@@ -15,6 +15,8 @@ import com.seoulcontest.firstcitizen.ui.infomenu.MyInfoActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.NoticeActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.ServiceTermsActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.history.HistoryHelpActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.history.RequestDetailActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.history.RequestHistoryActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.logIn.LogInActivity
 import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
 
@@ -52,7 +54,7 @@ class InfoFragment : Fragment() {
         }
 
         binding.ivRequest.setOnClickListener {
-            //            startActivity(Intent(requireContext(), ::class.java))
+            startActivity(Intent(requireContext(), RequestHistoryActivity::class.java))
         }
 
         binding.ivHelp.setOnClickListener {
@@ -72,6 +74,33 @@ class InfoFragment : Fragment() {
         }
 
         binding.ivMyInfo.setOnClickListener {
+            startActivity(Intent(requireContext(), MyInfoActivity::class.java))
+        }
+
+
+
+
+        binding.tvRequest.setOnClickListener {
+            startActivity(Intent(requireContext(), RequestHistoryActivity::class.java))
+        }
+
+        binding.tvHelp.setOnClickListener {
+            startActivity(Intent(requireContext(), HistoryHelpActivity::class.java).apply {
+                // 로그인한 이용자의 토큰값 전달
+                Log.d("token", "token : ${viewModel.userToken}")
+                putExtra("userToken", viewModel.userToken)
+            })
+        }
+
+        binding.tvNotice.setOnClickListener {
+            startActivity(Intent(requireContext(), NoticeActivity::class.java))
+        }
+
+        binding.tvPolicy.setOnClickListener {
+            startActivity(Intent(requireContext(), ServiceTermsActivity::class.java))
+        }
+
+        binding.tvMyinfo.setOnClickListener {
             startActivity(Intent(requireContext(), MyInfoActivity::class.java))
         }
     }

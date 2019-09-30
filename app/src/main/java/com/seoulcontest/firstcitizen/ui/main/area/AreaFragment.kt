@@ -77,9 +77,9 @@ class AreaFragment : Fragment() {
         binding.cardview.setOnClickListener {
             startActivity(Intent(context, DetailActivity::class.java).apply {
                 putExtra("id", viewModel.currRequest.get()?.id)
+                putExtra("category", viewModel.currRequest.get()?.category)
                 putExtra("lat", viewModel.currRequest.get()?.latitude)
                 putExtra("lng", viewModel.currRequest.get()?.longitude)
-                putExtra("category", viewModel.currRequest.get()?.category)
                 putExtra("isLogin", viewModel.isLogIn.get())
             })
         }
@@ -95,7 +95,7 @@ class AreaFragment : Fragment() {
             }
         }
 
-        binding.btRequest.setOnClickListener {
+        binding.btAdd.setOnClickListener {
             // 2019.09.29 로그인을 했을 경우에만 다이얼로그 띄우는 로직 by Hudson
             val isLogIn = viewModel.isLogIn.get() ?: false
             if (isLogIn) {

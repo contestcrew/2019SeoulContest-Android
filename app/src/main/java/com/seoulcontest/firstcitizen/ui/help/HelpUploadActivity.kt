@@ -137,7 +137,7 @@ class HelpUploadActivity : AppCompatActivity() {
 
     private fun createNewReport() {
         val userInfo = MainViewModel.getInstance().user.get()
-        val author = Report.Author(userInfo!!.id, userInfo!!.email)
+        val author = Report.Author(userInfo!!.id, userInfo!!.email, userInfo.mannerScore)
 
         val helpTime = SimpleDateFormat("y-M-d k:m:s").format(System.currentTimeMillis())
         val partMap = HashMap<String, RequestBody>()

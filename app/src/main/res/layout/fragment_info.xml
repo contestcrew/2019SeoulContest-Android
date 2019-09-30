@@ -20,26 +20,34 @@
 
         <TextView
             android:id="@+id/tv_help"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
             android:text="도움"
             android:textColor="@color/boldTextColor"
             android:textSize="@dimen/info_menu_size"
             android:textStyle="bold"
+            android:gravity="left"
             android:visibility="@{viewModel.isLogIn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toStartOf="@+id/iv_help"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_request"
             app:layout_constraintTop_toBottomOf="@+id/tv_request" />
 
         <TextView
             android:id="@+id/tv_notice"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
             android:text="공지사항"
             android:textColor="@color/boldTextColor"
             android:textSize="@dimen/info_menu_size"
             android:textStyle="bold"
+            android:gravity="left"
+            app:layout_constraintEnd_toStartOf="@+id/iv_notice"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_help"
             app:layout_constraintTop_toBottomOf="@+id/tv_help"
             app:layout_goneMarginStart="32dp"
@@ -47,26 +55,34 @@
 
         <TextView
             android:id="@+id/tv_policy"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
             android:text="이용약관"
+            android:gravity="left"
             android:textColor="@color/boldTextColor"
             android:textSize="@dimen/info_menu_size"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/iv_policy"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_notice"
             app:layout_constraintTop_toBottomOf="@+id/tv_notice" />
 
         <TextView
             android:id="@+id/tv_myinfo"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
             android:text="내 정보"
+            android:gravity="left"
             android:textColor="@color/boldTextColor"
             android:textSize="@dimen/info_menu_size"
             android:textStyle="bold"
             android:visibility="@{viewModel.isLogIn? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toStartOf="@+id/iv_my_info"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_policy"
             app:layout_constraintTop_toBottomOf="@+id/tv_policy" />
 
@@ -179,7 +195,7 @@
 
         <TextView
             android:id="@+id/tv_request"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
@@ -187,8 +203,11 @@
             android:textColor="@color/boldTextColor"
             android:textSize="@dimen/info_menu_size"
             android:textStyle="bold"
+            android:gravity="left"
             android:visibility="@{viewModel.isLogIn ? View.VISIBLE : View.GONE}"
             app:autoSizeMaxTextSize="25dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_curr_progress_val"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_point" />
 

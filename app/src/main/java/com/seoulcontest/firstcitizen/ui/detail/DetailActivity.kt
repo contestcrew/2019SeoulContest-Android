@@ -38,7 +38,6 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var naverMap: NaverMap
     private var category: Int? = 0
     private val part = ArrayList<MultipartBody.Part>()
-    private lateinit var imageUploadAdapter: ImageUploadAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +64,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-
         binding.rvDetail.adapter = ImageUploadAdapter(this)
     }
 

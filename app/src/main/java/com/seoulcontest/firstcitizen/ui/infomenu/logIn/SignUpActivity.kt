@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.google.firebase.iid.FirebaseInstanceId
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.data.vo.Account
 import com.seoulcontest.firstcitizen.data.vo.User
@@ -26,7 +27,6 @@ class SignUpActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
 
         initEvent()
-
     }
 
     private fun initEvent() {
@@ -55,7 +55,11 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun createAccount() {
 
-        val newUser = Account("${binding.etEmail.text}", "${binding.etPassword.text}", "null")
+        val newUser = Account(
+            "${binding.etEmail.text}",
+            "${binding.etPassword.text}",
+            "${FirebaseInstanceId.getInstance().token}"
+        )
 
         RetrofitHelper
             .getInstance()

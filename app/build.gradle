@@ -30,6 +30,7 @@ android {
 
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
     kapt 'com.android.databinding:compiler:3.5.0'
 
     testImplementation 'junit:junit:4.12'
@@ -70,3 +71,5 @@ dependencies {
     // multiple ImagePicker
     implementation 'gun0912.ted:tedimagepicker:1.0.5'
 }
+
+apply plugin: 'com.google.gms.google-services'
