@@ -22,13 +22,16 @@ class HistoryHelpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_history_help)
-
+        loadData()
         initView()
         initEvent()
     }
 
     private fun initView() {
+        //binding.rvHelpHistory.adapter = HistoryHelpAdapter()
+    }
 
+    private fun loadData() {
         Log.d("history", "Token : ${MainViewModel.getInstance().userToken}")
         RetrofitHelper.getInstance().apiService.getReportHistory("Token ${MainViewModel.getInstance().userToken}")
             .enqueue(object : Callback<GetReportHistory> {
@@ -50,9 +53,7 @@ class HistoryHelpActivity : AppCompatActivity() {
             })
     }
 
-
     private fun initEvent() {
 
-        //binding.rvHelpHistory.adapter = HistoryHelpAdapter()
     }
 }
