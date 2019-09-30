@@ -5,15 +5,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.seoulcontest.firstcitizen.R
-import com.seoulcontest.firstcitizen.data.vo.GetReportHistory
+import com.seoulcontest.firstcitizen.data.vo.Report
 import com.seoulcontest.firstcitizen.databinding.ItemHistoryHelpBinding
 
-class HistoryHelpAdapter(var helpHistoryArrGet: Array<GetReportHistory>) :
+class HistoryHelpAdapter(var helpHistoryArrGet: List<Report>) :
     RecyclerView.Adapter<HistoryHelpAdapter.HelpHistoryViewHolder>() {
 
     override fun onBindViewHolder(holder: HelpHistoryViewHolder, position: Int) {
-        // 역순 출력
-        holder.bind(helpHistoryArrGet.size - position)
+        holder.bind(helpHistoryArrGet[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelpHistoryViewHolder {
@@ -27,14 +26,13 @@ class HistoryHelpAdapter(var helpHistoryArrGet: Array<GetReportHistory>) :
 
     inner class HelpHistoryViewHolder(var binding: ItemHistoryHelpBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(position: Int) {
+        fun bind(item: Report) {
 
             with(binding) {
 
-                when (helpHistoryArrGet[position]) {
+               // tvHistoryStatus.text =
 
 
-                }
             }
         }
     }

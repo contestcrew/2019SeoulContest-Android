@@ -46,10 +46,15 @@ interface FirstCitizenApiService {
         @Part images: List<MultipartBody.Part>
     ): Call<Request>
 
-    @GET("report/")
-    fun getReportHistory(
+    @GET("report/mine/")
+    fun getReportListByToken(
         @Header("Authorization") token: String
-    ): Call<GetReportHistory>
+    ): Call<List<Report>>
+
+    @GET("report/{id}")
+    fun getReportHistoryList(
+        @Path("id") id : Int
+    ) : Call<Report>
 
     @Multipart
     @POST("report/")
