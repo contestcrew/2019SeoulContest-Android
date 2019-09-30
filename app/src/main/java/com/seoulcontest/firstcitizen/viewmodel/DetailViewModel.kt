@@ -2,6 +2,7 @@ package com.seoulcontest.firstcitizen.viewmodel
 
 import androidx.databinding.ObservableField
 import com.seoulcontest.firstcitizen.data.vo.Request
+import com.seoulcontest.firstcitizen.data.vo.User
 import com.seoulcontest.firstcitizen.network.RetrofitHelper
 import retrofit2.Call
 import retrofit2.Callback

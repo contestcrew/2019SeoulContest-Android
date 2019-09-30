@@ -31,16 +31,19 @@ interface FirstCitizenApiService {
     fun createRequest(
         @Header("Authorization") token: String,
         @PartMap partMap: HashMap<String, RequestBody>,
-//        @Part("category") type: RequestBody, @Part("title") title: RequestBody,
-//        @Part("content") content: RequestBody, @Part("latitude") latitude: RequestBody,
-//        @Part("longitude") longitude: RequestBody,
         @Part images: List<MultipartBody.Part>
     ): Call<Request>
 
-
     @GET("report/")
     fun getReportHistory(
-        @Header("Authorization") token : String,
-        @Body getReportHistory: GetReportHistory
+        @Header("Authorization") token: String
     ): Call<GetReportHistory>
+
+    @Multipart
+    @POST("report/")
+    fun createReport(
+        @Header("Authorization") token: String,
+        @PartMap partMap: HashMap<String, RequestBody>,
+        @Part images: List<MultipartBody.Part>
+    ): Call<Report>
 }

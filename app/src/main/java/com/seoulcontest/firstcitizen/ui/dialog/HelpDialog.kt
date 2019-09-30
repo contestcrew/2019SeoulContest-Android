@@ -1,6 +1,5 @@
 package com.seoulcontest.firstcitizen.ui.dialog
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.DialogHelpBinding
-import com.seoulcontest.firstcitizen.network.RetrofitHelper
-import com.seoulcontest.firstcitizen.ui.help.HelpUploadActivity
-import com.seoulcontest.firstcitizen.ui.main.MainActivity
+import com.seoulcontest.firstcitizen.util.ToiletRequestInterface
 
 class HelpDialog : DialogFragment(), View.OnClickListener {
 
     lateinit var binding: DialogHelpBinding
+    private lateinit var mListener : ToiletRequestInterface
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +29,6 @@ class HelpDialog : DialogFragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
 
         initView()
-
     }
 
     override fun onClick(view: View?) {
@@ -39,15 +37,12 @@ class HelpDialog : DialogFragment(), View.OnClickListener {
             // 확인 버튼 클릭 시
             binding.btnConfirmHelp.id -> {
 
-                // 2019.09.29 똥휴지 Request 생성 by Hudosn
-                // RetrofitHelper.getInstance().apiService.createRequest()
-
+                mListener.onConfirmSelected()
                 dismiss()
-                // HelpUploacActivity로 이동
-                startActivity(Intent(context, MainActivity::class.java))
             }
 
             binding.btnCancelHelp.id -> {
+                mListener.onCancleSelected()
                 dismiss()
             }
         }
@@ -62,5 +57,9 @@ class HelpDialog : DialogFragment(), View.OnClickListener {
         binding.btnConfirmHelp.setOnClickListener(this)
         binding.btnCancelHelp.setOnClickListener(this)
 
+    }
+
+    fun setOnDialogButtonClickListener(listener: ToiletRequestInterface) {
+        mListener = listener
     }
 }

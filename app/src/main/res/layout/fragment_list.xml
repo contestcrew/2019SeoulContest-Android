@@ -56,23 +56,9 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-<<<<<<< HEAD
-                    android:src="@drawable/ic_search"
                     android:scaleType="fitXY"
                     android:background="@android:color/transparent"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
                     android:src="@drawable/ic_search"
-                    android:scaleType="fitXY"
-                    android:background="@android:color/transparent"
-=======
-                    android:src="@drawable/search"
->>>>>>> 097cdf4225b76927c3a290c6a7a57274a02c3cde
-=======
-                    android:src="@drawable/ic_search"
->>>>>>> df38bf37f0ba3d7d92f76a5252215da16672adf1
->>>>>>> master
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

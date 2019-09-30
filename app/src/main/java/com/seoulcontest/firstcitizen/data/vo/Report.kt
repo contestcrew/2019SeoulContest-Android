@@ -2,9 +2,11 @@ package com.seoulcontest.firstcitizen.data.vo
 
 import com.google.gson.annotations.SerializedName
 
-data class ReportList(
+data class Report(
     @SerializedName("request")
     val request: Int,
+    @SerializedName("author")
+    val author : Author,
     @SerializedName("title")
     val title: String,
     @SerializedName("content")
@@ -18,5 +20,12 @@ data class ReportList(
     @SerializedName("updated_at")
     val updateTime: String,
     @SerializedName("images")
-    val images : Array<String>
-)
+    val images : List<String>
+){
+    data class Author(
+        @SerializedName("id")
+        val id : Int,
+        @SerializedName("nickname")
+        val nickname : String
+    )
+}

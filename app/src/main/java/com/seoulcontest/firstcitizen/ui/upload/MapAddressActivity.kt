@@ -37,7 +37,7 @@ class MapAddressActivity : AppCompatActivity(), MapAddressFragment.OnFragmentInt
     private fun initEvent() {
         // 2019.09.27 상세 주소 받는 다이얼로그 띄우고   by Hudson
         binding.btnInputDetail.setOnClickListener {
-            InputDetailAddressDialog(this).apply {
+            InputDetailAddressDialog().apply {
                 setOnDialogButtonClickListener(object : DetailAddressInterface {
                     override fun onConfirmSelected(result: String) {
                         // todo : 현재 상세 주소값이 넘어옴, mainAddress 값 얻어야 함

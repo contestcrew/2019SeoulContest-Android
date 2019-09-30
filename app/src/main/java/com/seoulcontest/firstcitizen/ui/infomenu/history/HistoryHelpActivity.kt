@@ -1,38 +1,58 @@
 package com.seoulcontest.firstcitizen.ui.infomenu.history
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.seoulcontest.firstcitizen.R
+import com.seoulcontest.firstcitizen.data.vo.GetReportHistory
+import com.seoulcontest.firstcitizen.data.vo.Report
 import com.seoulcontest.firstcitizen.databinding.ActivityHistoryHelpBinding
+import com.seoulcontest.firstcitizen.network.RetrofitHelper
+import com.seoulcontest.firstcitizen.viewmodel.MainViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HistoryHelpActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityHistoryHelpBinding
-    private var userToken : String? = null
+    lateinit var helpHistoryList: ArrayList<Report>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_history_help)
+
         initView()
         initEvent()
     }
 
     private fun initView() {
 
-        if (intent!= null){
-            // 로그인한 유저의 토큰값 얻기
-            userToken = intent.getStringExtra("userToken")
-        }
+        Log.d("history","Token : ${MainViewModel.getInstance().userToken}")
+        RetrofitHelper.getInstance().apiService.getReportHistory("Token ${MainViewModel.getInstance().userToken}")
+            .enqueue(object : Callback<GetReportHistory>{
+                override fun onFailure(call: Call<GetReportHistory>, t: Throwable) {
+                    t.printStackTrace()
+                    Log.d("history", "failed")
+                }
 
-        //RetrofitHelper.getInstance().apiService.getReportHistory("Token $userToken", GetReportHistory())
+                override fun onResponse(call: Call<GetReportHistory>, response: Response<GetReportHistory>) {
 
+                    if (response.isSuccessful){
+                        Log.d("history",response.body().toString())
 
+                    } else {
+                        Log.d("history",response.errorBody().toString())
+                    }
+                }
+
+            })
     }
 
 
     private fun initEvent() {
 
-
+        //binding.rvHelpHistory.adapter = HistoryHelpAdapter()
     }
 }

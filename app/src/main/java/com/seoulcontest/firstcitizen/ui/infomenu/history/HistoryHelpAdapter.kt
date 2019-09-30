@@ -8,8 +8,8 @@ import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.data.vo.GetReportHistory
 import com.seoulcontest.firstcitizen.databinding.ItemHistoryHelpBinding
 
-class HelpHistoryAdapter(var helpHistoryArrGet: Array<GetReportHistory>) :
-    RecyclerView.Adapter<HelpHistoryAdapter.HelpHistoryViewHolder>() {
+class HistoryHelpAdapter(var helpHistoryArrGet: Array<GetReportHistory>) :
+    RecyclerView.Adapter<HistoryHelpAdapter.HelpHistoryViewHolder>() {
 
     override fun onBindViewHolder(holder: HelpHistoryViewHolder, position: Int) {
         // 역순 출력
