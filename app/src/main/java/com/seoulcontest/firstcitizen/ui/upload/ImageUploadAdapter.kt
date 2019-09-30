@@ -7,10 +7,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.seoulcontest.firstcitizen.R
 import com.seoulcontest.firstcitizen.databinding.ItemUploadBinding
 import com.seoulcontest.firstcitizen.util.ItemResizer
-
 
 class ImageUploadAdapter(val context: Context) :
     RecyclerView.Adapter<ImageUploadAdapter.UploadViewHolder>() {
@@ -54,15 +52,13 @@ class ImageUploadAdapter(val context: Context) :
     inner class UploadViewHolder(var binding: ItemUploadBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(uploadImage: Uri) {
+            Log.d("images", uploadImage.toString())
             with(ItemResizer(binding.root.context)) {
-                //                binding.imgUpload.maxWidth = getDisplayWidth()
-//                binding.imgUpload.maxHeight = getDisplayHeight()
 
-                Glide
-                    .with(binding.root.context)
-                    .load(uploadImage)
-//                    .override(getDisplayWidth(), getDisplayHeight())
-                    .into(binding.imgUpload)
+                //binding.imgUpload.maxWidth = getDisplayWidth()
+                //binding.imgUpload.maxHeight = getDisplayHeight()
+
+                Glide.with(binding.root.context).load(uploadImage).into(binding.imgUpload)
             }
         }
     }

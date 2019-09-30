@@ -14,5 +14,18 @@ class HelpDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_help_detail)
+
+        initView()
+        initEvent()
+    }
+
+    private fun initView() {
+
+
+    }
+
+    private fun initEvent() {
+
+
     }
 }

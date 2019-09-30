@@ -84,7 +84,7 @@ class DetailAddressActivity : AppCompatActivity() {
                 val item = detailAddressAdapter.getData(pos)
                 val mainAddress = "${item.roadAddress} ${item.name}"
 
-                InputDetailAddressDialog(this@DetailAddressActivity).apply {
+                InputDetailAddressDialog().apply {
                     arguments = Bundle().apply { putString("address", mainAddress) }
 
                     setOnDialogButtonClickListener(object : DetailAddressInterface {

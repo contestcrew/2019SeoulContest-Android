@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -13,13 +12,12 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.util.FusedLocationSource
 import com.seoulcontest.firstcitizen.R
-import com.seoulcontest.firstcitizen.network.vo.NaverReverseGCResponse
 import com.seoulcontest.firstcitizen.databinding.ActivityMapAddressBinding
 import com.seoulcontest.firstcitizen.network.NaverReverseGCHelper
+import com.seoulcontest.firstcitizen.network.vo.NaverReverseGCResponse
 import com.seoulcontest.firstcitizen.ui.dialog.InputDetailAddressDialog
 import com.seoulcontest.firstcitizen.ui.main.area.AreaFragment
 import com.seoulcontest.firstcitizen.util.DetailAddressInterface
-import kotlinx.android.synthetic.main.fragment_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -122,7 +120,7 @@ class MapAddressActivity : AppCompatActivity() {
                                     mainAddress = "${area1.name} ${area2.name} ${area3.name} ${area4.name}"
                                 }
 
-                                InputDetailAddressDialog(this@MapAddressActivity).apply {
+                                InputDetailAddressDialog().apply {
                                     arguments = Bundle().apply { putString("address", mainAddress) }
 
                                     setOnDialogButtonClickListener(object : DetailAddressInterface {

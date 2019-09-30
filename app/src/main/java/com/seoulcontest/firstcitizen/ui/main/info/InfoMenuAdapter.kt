@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.seoulcontest.firstcitizen.databinding.ItemInfoMenuBinding
-import com.seoulcontest.firstcitizen.ui.infomenu.history.RequestDetailActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.MyInfoActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.NoticeActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.ServiceTermsActivity
-import com.seoulcontest.firstcitizen.ui.infomenu.history.HelpHistoryActivity
+import com.seoulcontest.firstcitizen.ui.infomenu.history.HistoryHelpActivity
 import com.seoulcontest.firstcitizen.ui.infomenu.history.RequestHistoryActivity
 
 class InfoMenuAdapter(
@@ -74,7 +73,7 @@ class InfoMenuAdapter(
                         intent = Intent(it.context, MyInfoActivity::class.java)
                     }
                     "제보" -> {
-                        intent = Intent(it.context, HelpHistoryActivity::class.java)
+                        intent = Intent(it.context, HistoryHelpActivity::class.java)
                     }
                     "의뢰" -> {
                         intent = Intent(it.context, RequestHistoryActivity::class.java)
