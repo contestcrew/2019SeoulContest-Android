@@ -34,7 +34,6 @@ class HistoryHelpAdapter(var helpHistoryArrGet: Array<GetReportHistory>) :
                 when (helpHistoryArrGet[position]) {
 
 
-
                 }
             }
         }

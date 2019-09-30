@@ -117,7 +117,8 @@ class DetailActivity : AppCompatActivity() {
         val helpTime = SimpleDateFormat("y-M-d k:m:s").format(System.currentTimeMillis())
 
         var partMap = HashMap<String, RequestBody>()
-        partMap["request"] = RequestBody.create(MediaType.parse("text/plain"), detailViewModel.request.get()?.id.toString())
+        partMap["request"] =
+            RequestBody.create(MediaType.parse("text/plain"), detailViewModel.request.get()?.id.toString())
         partMap["helped_at"] = RequestBody.create(MediaType.parse("text/plain"), helpTime)
 
         RetrofitHelper.getInstance()

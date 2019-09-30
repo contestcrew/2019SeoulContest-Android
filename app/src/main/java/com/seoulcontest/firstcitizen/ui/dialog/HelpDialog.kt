@@ -13,7 +13,7 @@ import com.seoulcontest.firstcitizen.util.ToiletRequestInterface
 class HelpDialog : DialogFragment(), View.OnClickListener {
 
     lateinit var binding: DialogHelpBinding
-    private lateinit var mListener : ToiletRequestInterface
+    private lateinit var mListener: ToiletRequestInterface
 
 
     override fun onCreateView(

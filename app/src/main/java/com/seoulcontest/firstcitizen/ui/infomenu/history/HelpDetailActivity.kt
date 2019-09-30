@@ -19,12 +19,12 @@ class HelpDetailActivity : AppCompatActivity() {
         initEvent()
     }
 
-    private fun initView(){
+    private fun initView() {
 
 
     }
 
-    private fun initEvent(){
+    private fun initEvent() {
 
 
     }

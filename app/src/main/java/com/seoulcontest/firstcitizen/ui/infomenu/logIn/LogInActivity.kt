@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.seoulcontest.firstcitizen.R
-import com.seoulcontest.firstcitizen.data.vo.GetTokenRequest
-import com.seoulcontest.firstcitizen.data.vo.GetTokenResponse
+import com.seoulcontest.firstcitizen.network.vo.GetTokenRequest
+import com.seoulcontest.firstcitizen.network.vo.GetTokenResponse
 import com.seoulcontest.firstcitizen.data.vo.User
 import com.seoulcontest.firstcitizen.databinding.ActivityLogInBinding
 import com.seoulcontest.firstcitizen.network.RetrofitHelper

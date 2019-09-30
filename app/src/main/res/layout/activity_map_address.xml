@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <fragment
             android:id="@+id/map_view_upload"
-            android:name="com.seoulcontest.firstcitizen.ui.upload.MapAddressFragment"
+            android:name="com.naver.maps.map.MapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/btn_input_detail"
@@ -17,12 +25,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:layout_marginBottom="@dimen/button_margin_bottom"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/btn_input_location"
             android:paddingLeft="@dimen/button_side_padding"
             android:paddingRight="@dimen/button_side_padding"
             android:text="상세 위치 입력"
             android:textColor="@color/buttonTextColor"
-            android:textSize="@dimen/button_text_size" />
-    </FrameLayout>
+            android:textSize="@dimen/button_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/map_view_upload"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_pin"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/map_view_upload"
+            app:layout_constraintEnd_toEndOf="@+id/map_view_upload"
+            app:layout_constraintStart_toStartOf="@+id/map_view_upload"
+            app:layout_constraintTop_toTopOf="@+id/map_view_upload"
+            app:srcCompat="@drawable/ic_pin" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

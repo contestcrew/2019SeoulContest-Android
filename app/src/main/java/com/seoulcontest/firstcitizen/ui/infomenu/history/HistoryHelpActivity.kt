@@ -29,9 +29,9 @@ class HistoryHelpActivity : AppCompatActivity() {
 
     private fun initView() {
 
-        Log.d("history","Token : ${MainViewModel.getInstance().userToken}")
+        Log.d("history", "Token : ${MainViewModel.getInstance().userToken}")
         RetrofitHelper.getInstance().apiService.getReportHistory("Token ${MainViewModel.getInstance().userToken}")
-            .enqueue(object : Callback<GetReportHistory>{
+            .enqueue(object : Callback<GetReportHistory> {
                 override fun onFailure(call: Call<GetReportHistory>, t: Throwable) {
                     t.printStackTrace()
                     Log.d("history", "failed")
@@ -39,11 +39,11 @@ class HistoryHelpActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<GetReportHistory>, response: Response<GetReportHistory>) {
 
-                    if (response.isSuccessful){
-                        Log.d("history",response.body().toString())
+                    if (response.isSuccessful) {
+                        Log.d("history", response.body().toString())
 
                     } else {
-                        Log.d("history",response.errorBody().toString())
+                        Log.d("history", response.errorBody().toString())
                     }
                 }
 
