@@ -66,11 +66,6 @@ interface FirstCitizenApiService {
         @Query("id") id: Int
     ): Call<List<Report>>
 
-    @GET("report/")
-    fun getReportHistory(
-        @Header("Authorization") token: String
-    ): Call<GetReportHistory>
-
     @Multipart
     @POST("report/")
     fun createReport(
@@ -78,4 +73,10 @@ interface FirstCitizenApiService {
         @PartMap partMap: HashMap<String, RequestBody>,
         @Part images: List<MultipartBody.Part>
     ): Call<Report>
+
+    @GET("report/mine/")
+    fun getReportListByToken(
+        @Header("Authorization") token: String
+    ): Call<List<Report>>
+
 }
