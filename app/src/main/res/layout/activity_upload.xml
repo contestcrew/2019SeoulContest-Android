@@ -163,7 +163,6 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/activity_margin_top"
                     android:gravity="center"
-                    android:text="address"
                     android:textColor="@color/boldTextColor"
                     android:textSize="@dimen/activity_content_size"
                     android:textStyle="bold" />

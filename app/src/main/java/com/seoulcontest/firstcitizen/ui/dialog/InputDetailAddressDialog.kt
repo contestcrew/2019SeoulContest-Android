@@ -19,11 +19,14 @@ class InputDetailAddressDialog(private val mContext: Context) : DialogFragment()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val mainAddress = arguments?.getString("address")
+
         // 2019.09.27 다이얼로그 바깥쪽 클릭 무시 by Hudson
         dialog!!.setCanceledOnTouchOutside(false)
 
         with(binding) {
             // 2019.09.27 상세 주소 입력 후 입력 버튼 클릭 시 UploadActivity로 이동 by Hudson
+            tvSelectedAddress.text = mainAddress
 
             btnConfirmAddress.setOnClickListener {
                 val detailAddress = edtDetailAddress.text.toString().trim()

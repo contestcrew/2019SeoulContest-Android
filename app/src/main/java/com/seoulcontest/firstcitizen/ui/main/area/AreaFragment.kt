@@ -154,7 +154,8 @@ class AreaFragment : Fragment() {
                     currPosition =
                         CameraPosition(LatLng(location.latitude, location.longitude), currZoom)
 
-                    Log.d("test", "${location.latitude} -  ${location.longitude}")
+                    viewModel.currLatitude = location.latitude
+                    viewModel.currLongitude = location.longitude
 
                     val distance = getDistanceOfTwoLatLng(
                         currPosition.target.latitude,
@@ -175,6 +176,7 @@ class AreaFragment : Fragment() {
                     }
                 }
 
+                //카메라 이동이 완료되었을 때 불리는 콜백
                 addOnCameraIdleListener {
                     currZoom = it.cameraPosition.zoom
                 }
@@ -300,7 +302,7 @@ class AreaFragment : Fragment() {
     }
 
     companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+        const val LOCATION_PERMISSION_REQUEST_CODE = 1000
     }
 
 }

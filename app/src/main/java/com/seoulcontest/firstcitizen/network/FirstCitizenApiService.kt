@@ -1,6 +1,8 @@
 package com.seoulcontest.firstcitizen.network
 
 import com.seoulcontest.firstcitizen.data.vo.*
+import com.seoulcontest.firstcitizen.network.vo.GetTokenRequest
+import com.seoulcontest.firstcitizen.network.vo.GetTokenResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -18,7 +20,17 @@ interface FirstCitizenApiService {
     fun getUser(@Path("id") id: String): Call<User>
 
     @GET("request/boundary/")
-    fun getRequestsByPosition(@Query("latitude") latitude: Float, @Query("longitude") longitude: Float): Call<List<BriefRequest>>
+    fun getRequestsByPositionWithToken(
+        @Header("Authorization") token: String,
+        @Query("latitude") latitude: Float,
+        @Query("longitude") longitude: Float
+    ): Call<List<BriefRequest>>
+
+    @GET("request/boundary/")
+    fun getRequestsByPositionWithNoToken(
+        @Query("latitude") latitude: Float,
+        @Query("longitude") longitude: Float
+    ): Call<List<BriefRequest>>
 
     @GET("request/category/")
     fun getCategoryList(): Call<List<Category>>

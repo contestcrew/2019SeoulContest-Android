@@ -38,9 +38,9 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
     private var category = 0 // 업로드 할 카테고리
     private var policeOffice = 0
     private var eventDate = "" // 사건 발생 시간
-    private var eventAddress = "asdfasf" // 사건 발생 위치
-    private var eventLatitude = 0 // 사건 발생 위도
-    private var eventLongitude = 0 // 사건 발생 위도
+    private var eventAddress = "" // 사건 발생 위치
+    private var eventLatitude = 0.0 // 사건 발생 위도
+    private var eventLongitude = 0.0 // 사건 발생 위도
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,8 +128,8 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         TimePickerDialog(
             this, TimePickerDialog.OnTimeSetListener(
                 function = { _, hour, minute ->
+                    binding.btnOccurredTime.text = "${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분"
                     eventDate = "$year-$month-${day}T$hour:$minute"
-                    binding.btnOccurredTime.text = eventDate
                 }), hour, minute, false
         ).show()
     }
@@ -188,10 +188,6 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
             }
         }
 
-        Log.d("test", policeOffice.toString())
-        Log.d("test", eventDate)
-        Log.d("test", eventAddress)
-
         val partMap = HashMap<String, RequestBody>()
         partMap["category"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), category.toString())
         partMap["police_office"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), policeOffice.toString())
@@ -199,8 +195,8 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         partMap["main_address"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), eventAddress)
         partMap["title"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), title)
         partMap["content"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), content)
-        partMap["latitude"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (37.5402293F).toString())
-        partMap["longitude"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), (127.0706307).toString())
+        partMap["latitude"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), eventLatitude.toString())
+        partMap["longitude"] = RequestBody.create(okhttp3.MediaType.parse("text/plain"), eventLongitude.toString())
 
         val userToken = "Token ${MainViewModel.getInstance().userToken}"
 
@@ -227,7 +223,6 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
                 }
             })
 
-        Log.d("test", "6")
     }
 
     // 사용자가 선택한 경찰서 표시
@@ -243,16 +238,14 @@ class UploadActivity : AppCompatActivity(), NumberPicker.OnValueChangeListener {
         if (resultCode != Activity.RESULT_OK)
             return
 
-        with(binding) {
-            if (requestCode == RC_MAP_RESULT || requestCode == RC_TEXT_ADDRESS_RESULT) {
-                //mainAddress = data!!.getStringExtra("mainAddress")
-                //detailAddress = data!!.getStringExtra("detailAddress")
-                tvAddress.text = ""
-                //    tvAddress.text = "$mainAddress $detailAddress"
-            }
+        if (requestCode == RC_MAP_RESULT || requestCode == RC_TEXT_ADDRESS_RESULT) {
+            eventAddress = data?.getStringExtra("mainAddress") + data?.getStringExtra("detailAddress")
+            eventLatitude = data?.getDoubleExtra("latitude", 0.0) ?: 0.0
+            eventLongitude = data?.getDoubleExtra("longitude", 0.0) ?: 0.0
+
+            binding.tvAddress.text = eventAddress
         }
     }
-
 
     companion object {
         const val RC_MAP_RESULT = 0     // 지도로 찾기 요청코드
