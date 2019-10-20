@@ -2,7 +2,6 @@ package com.seoulcontest.firstcitizen.ui.main.area
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +31,7 @@ import kotlin.math.sqrt
 
 class AreaFragment : Fragment() {
     private val viewModel = MainViewModel.getInstance()
+    private var isLoaded = false
 
     private lateinit var binding: FragmentAreaBinding
     private lateinit var fusedLocationSource: FusedLocationSource
@@ -157,11 +157,20 @@ class AreaFragment : Fragment() {
 
                 //현재 사용자 위치 이벤트 콜백
                 addOnLocationChangeListener { location ->
-                    currPosition =
-                        CameraPosition(LatLng(location.latitude, location.longitude), currZoom)
+                    currPosition = CameraPosition(LatLng(location.latitude, location.longitude), currZoom)
 
-                    viewModel.currLatitude = location.latitude
-                    viewModel.currLongitude = location.longitude
+                    if (!isLoaded) {
+                        it.moveCamera(
+                            CameraUpdate
+                                .toCameraPosition(currPosition)
+                                .animate(CameraAnimation.Easing)
+                        )
+
+                        isLoaded = true
+                    }
+
+                    viewModel.currLatitude = currPosition.target.latitude
+                    viewModel.currLongitude = currPosition.target.longitude
 
                     val distance = getDistanceOfTwoLatLng(
                         currPosition.target.latitude,
@@ -178,7 +187,9 @@ class AreaFragment : Fragment() {
                         )
 
                         dataCalledPosition =
-                            CameraPosition(LatLng(location.latitude, location.longitude), currZoom)
+                            CameraPosition(
+                                LatLng(currPosition.target.latitude, currPosition.target.longitude), currZoom
+                            )
                     }
                 }
 

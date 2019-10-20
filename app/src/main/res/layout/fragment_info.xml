@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -91,7 +90,8 @@
             android:layout_width="100sp"
             android:layout_height="100sp"
             android:layout_marginTop="32dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_level0"
+            android:visibility="@{viewModel.isLogIn()? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -115,7 +115,7 @@
             android:id="@+id/tv_nick_val"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.user.email}"
+            android:text="@{viewModel.user.username}"
             android:textSize="@dimen/info_content_size"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="신뢰도 : "
+            android:text="매너점수 : "
             android:textColor="@color/mannerScoreColor"
             android:textSize="@dimen/info_content_size"
             android:textStyle="bold"
